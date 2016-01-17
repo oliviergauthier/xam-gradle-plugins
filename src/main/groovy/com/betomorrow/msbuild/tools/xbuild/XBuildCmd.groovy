@@ -1,11 +1,11 @@
 package com.betomorrow.msbuild.tools.xbuild
 
-import com.betomorrow.msbuild.tools.commands.CommandExecutor
+import com.betomorrow.msbuild.tools.commands.CommandRunner
 
 /**
  * Created by Olivier on 15/01/2016.
  */
-class XBuildCmd implements CommandExecutor.Cmd {
+class XBuildCmd implements CommandRunner.Cmd {
 
     // https://developer.xamarin.com/guides/android/under_the_hood/build_process/#Build_Actions
 

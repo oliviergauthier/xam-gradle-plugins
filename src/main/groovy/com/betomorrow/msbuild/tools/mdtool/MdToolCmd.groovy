@@ -1,11 +1,11 @@
 package com.betomorrow.msbuild.tools.mdtool
 
-import com.betomorrow.msbuild.tools.commands.CommandExecutor
+import com.betomorrow.msbuild.tools.commands.CommandRunner
 
 /**
  * Created by Olivier on 15/01/2016.
  */
-class MDToolCmd implements CommandExecutor.Cmd {
+class MdToolCmd implements CommandRunner.Cmd {
 
     String mdToolPath = 'mdtool'
     String configuration;
