@@ -35,60 +35,60 @@ class NuSpecTest {
 
     @Test
     public void testUpdateId() {
-        nuspec.packageId = "toto"
+        nuspec.packageId = "new packageId"
         nuspec.process()
 
-        assert field("id") == "toto"
+        assert field("id") == "new packageId"
     }
 
     @Test
     public void testUpdateVersion() {
-        nuspec.version = "toto"
+        nuspec.version = "new version"
         nuspec.process()
 
-        assert field("version") == "toto"
+        assert field("version") == "new version"
     }
 
 
     @Test
     public void testUpdateAuthor() {
-        nuspec.authors = "toto"
+        nuspec.authors = "new authors"
         nuspec.process()
 
-        assert field("authors") == "toto"
+        assert field("authors") == "new authors"
     }
 
     @Test
     public void testUpdateOwner() {
-        nuspec.owners = "toto"
+        nuspec.owners = "new owners"
         nuspec.process()
 
-        assert field("owners") == "toto"
+        assert field("owners") == "new owners"
     }
 
 
     @Test
     public void testUpdateLicenceUrl() {
-        nuspec.licenseUrl = "toto"
+        nuspec.licenseUrl = "new licence url"
         nuspec.process()
 
-        assert field("licenseUrl") == "toto"
+        assert field("licenseUrl") == "new licence url"
     }
 
     @Test
     public void testUpdateProjectUrl() {
-        nuspec.projectUrl = "toto"
+        nuspec.projectUrl = "new project url"
         nuspec.process()
 
-        assert field("projectUrl") == "toto"
+        assert field("projectUrl") == "new project url"
     }
 
     @Test
     public void testUpdateIconUrl() {
-        nuspec.iconUrl = "toto"
+        nuspec.iconUrl = "new icon url"
         nuspec.process()
 
-        assert field("iconUrl") == "toto"
+        assert field("iconUrl") == "new icon url"
     }
 
     @Test
@@ -97,6 +97,38 @@ class NuSpecTest {
         nuspec.process()
 
         assert field("requireLicenseAcceptance") == "true"
+    }
+
+    @Test
+    public void testUpdateDescription() {
+        nuspec.description = "new description"
+        nuspec.process()
+
+        assert field("description") == "new description"
+    }
+
+    @Test
+    public void testUpdateReleaseNote() {
+        nuspec.releaseNotes = "new release note"
+        nuspec.process()
+
+        assert field("releaseNotes") == "new release note"
+    }
+
+    @Test
+    public void testUpdateCopyright() {
+        nuspec.copyright = "new copyright"
+        nuspec.process()
+
+        assert field("copyright") == "new copyright"
+    }
+
+    @Test
+    public void testUpdateTags() {
+        nuspec.tags = "new tags"
+        nuspec.process()
+
+        assert field("tags") == "new tags"
     }
 
     private String field(String name) {
