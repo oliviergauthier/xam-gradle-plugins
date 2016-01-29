@@ -14,7 +14,20 @@
     <copyright>Copyright 2016</copyright>
     <tags>Tag1 Tag2</tags>
     <dependencies>
-      <dependency id="SampleDependency" version="1.0" />
+      <group>
+        <dependency id="SampleDependency" version="1.0" />
+      </group>
+      <group targetFramework="net40">
+          <dependency id="jQuery" />
+          <dependency id="WebActivator" />
+      </group>
     </dependencies>
   </metadata>
+
+  <files>
+    <file src="bin\Debug\*.dll" target="lib" />
+    <file src="bin\Debug\*.pdb" target="lib" />
+    <file src="tools\**\*.*" exclude="**\*.log" />
+  </files>
+
 </package>

@@ -1,5 +1,8 @@
 package com.betomorrow.msbuild.tools.nuget
 
+import com.betomorrow.msbuild.tools.nuget.assemblies.AssemblySet
+import com.betomorrow.msbuild.tools.nuget.dependencies.Dependency
+import com.betomorrow.msbuild.tools.nuget.dependencies.DependencySet
 import groovy.util.slurpersupport.NodeChild
 import groovy.xml.XmlUtil
 
@@ -27,27 +30,14 @@ class NuSpec {
     String copyright
     String tags
 
-    List<Dependency> dependencies = []
+    DependencySet dependencySet = new DependencySet()
+    AssemblySet assemblySet = new AssemblySet()
 
     NuSpec() {
     }
 
     NuSpec(String source) {
         this.source = source
-    }
-
-    void addDependency(String packageId, String version) {
-        dependencies.add(new Dependency(id : packageId, version : version))
-    }
-
-    class Dependency {
-        String id
-        String version
-    }
-
-    class Assembly {
-        String assemblyPath
-        String targetDirectory
     }
 
     /**
@@ -64,19 +54,20 @@ class NuSpec {
             output = source
         }
 
-        updateField(content, "id", packageId)
-        updateField(content, "version", version)
-        updateField(content, "authors", authors)
-        updateField(content, "owners", owners)
-        updateField(content, "licenseUrl", licenseUrl)
-        updateField(content, "projectUrl", projectUrl)
-        updateField(content, "iconUrl", iconUrl)
-        updateField(content, "requireLicenseAcceptance", requireLicenseAcceptance)
-        updateField(content, "description", description)
-        updateField(content, "releaseNotes", releaseNotes)
-        updateField(content, "copyright", copyright)
-        updateField(content, "tags", tags)
+        updateMetadata(content, "id", packageId)
+        updateMetadata(content, "version", version)
+        updateMetadata(content, "authors", authors)
+        updateMetadata(content, "owners", owners)
+        updateMetadata(content, "licenseUrl", licenseUrl)
+        updateMetadata(content, "projectUrl", projectUrl)
+        updateMetadata(content, "iconUrl", iconUrl)
+        updateMetadata(content, "requireLicenseAcceptance", requireLicenseAcceptance)
+        updateMetadata(content, "description", description)
+        updateMetadata(content, "releaseNotes", releaseNotes)
+        updateMetadata(content, "copyright", copyright)
+        updateMetadata(content, "tags", tags)
 
+        dependencySet.forEach { updateDependency(content, it) }
 
         println(XmlUtil.serialize(content));
 
@@ -85,9 +76,18 @@ class NuSpec {
         }
     }
 
-    private void updateField(NodeChild content, String field, Object value) {
+    private void updateMetadata(NodeChild content, String field, Object value) {
         if (value != null) {
             content.metadata."${field}" = value
+        }
+    }
+
+    private void updateDependency(NodeChild content, Dependency dependency) {
+        if (dependency.group == null) {
+            def nodes = content.metadata.dependencies.group.dependency.findAll { it.@id == dependency.id }
+            nodes.forEach { it.@version = dependency.version }
+        } else {
+
         }
     }
 }

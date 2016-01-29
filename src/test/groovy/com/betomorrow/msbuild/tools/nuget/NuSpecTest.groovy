@@ -1,5 +1,6 @@
 package com.betomorrow.msbuild.tools.nuget
 
+import com.betomorrow.msbuild.tools.nuget.dependencies.Dependency
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -131,8 +132,23 @@ class NuSpecTest {
         assert field("tags") == "new tags"
     }
 
+    @Test
+    public void testUpdateDepencency() {
+        nuspec.dependencySet.add("SampleDependency:version")
+        nuspec.process()
+
+        assertContainsDependency(new Dependency("SampleDependency:version"))
+    }
+
     private String field(String name) {
         return new XmlSlurper().parse(output).metadata."${name}"
+    }
+
+    private String assertContainsDependency(Dependency dependency) {
+        if (dependency.group == null) {
+            def node = new XmlSlurper().parse(output).metadata.dependencies.group.dependency.findAll { it.@id == dependency.id }
+            assert dependency.version.toString() == node.@version.toString()
+        }
     }
 
 }
