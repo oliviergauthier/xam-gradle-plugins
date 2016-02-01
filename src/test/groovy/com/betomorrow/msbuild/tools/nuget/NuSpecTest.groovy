@@ -140,6 +140,14 @@ class NuSpecTest {
         assertContainsDependency(new Dependency("SampleDependency:version"))
     }
 
+    @Test
+    public void testUpdateDepencencyWithGroup() {
+        nuspec.dependencySet.add("net40:jQuery:version")
+        nuspec.process()
+
+        assertContainsDependency(new Dependency("net40:jQuery:version"))
+    }
+
     private String field(String name) {
         return new XmlSlurper().parse(output).metadata."${name}"
     }
@@ -147,6 +155,9 @@ class NuSpecTest {
     private String assertContainsDependency(Dependency dependency) {
         if (dependency.group == null) {
             def node = new XmlSlurper().parse(output).metadata.dependencies.group.dependency.findAll { it.@id == dependency.id }
+            assert dependency.version.toString() == node.@version.toString()
+        } else {
+            def node = new XmlSlurper().parse(output).metadata.dependencies.group.findAll { it.@targetFramework == dependency.group }.dependency.findAll { it.@id == dependency.id }
             assert dependency.version.toString() == node.@version.toString()
         }
     }

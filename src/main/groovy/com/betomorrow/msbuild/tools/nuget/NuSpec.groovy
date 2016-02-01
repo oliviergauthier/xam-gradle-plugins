@@ -87,7 +87,9 @@ class NuSpec {
             def nodes = content.metadata.dependencies.group.dependency.findAll { it.@id == dependency.id }
             nodes.forEach { it.@version = dependency.version }
         } else {
-
+            def groupNodes = content.metadata.dependencies.group.findAll { it.@targetFramework == dependency.group }
+            def nodes = groupNodes.dependency.findAll { it.@id == dependency.id }
+            nodes.forEach { it.@version = dependency.version }
         }
     }
 }
