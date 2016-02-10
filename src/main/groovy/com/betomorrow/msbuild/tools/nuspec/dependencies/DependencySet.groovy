@@ -1,4 +1,4 @@
-package com.betomorrow.msbuild.tools.nuget.dependencies
+package com.betomorrow.msbuild.tools.nuspec.dependencies
 /**
  * Created by olivier on 29/01/16.
  */

@@ -1,4 +1,4 @@
-package com.betomorrow.msbuild.tools.nuget.nodes
+package com.betomorrow.msbuild.tools.nuspec.nodes
 /**
  * Created by olivier on 10/02/16.
  */

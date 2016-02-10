@@ -1,7 +1,7 @@
-package com.betomorrow.msbuild.tools.nuget
+package com.betomorrow.msbuild.tools.nuspec
 
-import com.betomorrow.msbuild.tools.nuget.dependencies.Dependency
-import groovy.xml.XmlUtil
+import com.betomorrow.msbuild.tools.nuspec.NuSpec
+import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

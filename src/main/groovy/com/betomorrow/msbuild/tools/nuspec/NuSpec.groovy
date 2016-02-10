@@ -1,10 +1,9 @@
-package com.betomorrow.msbuild.tools.nuget
+package com.betomorrow.msbuild.tools.nuspec
 
-import com.betomorrow.msbuild.tools.nuget.assemblies.AssemblySet
-import com.betomorrow.msbuild.tools.nuget.dependencies.Dependency
-import com.betomorrow.msbuild.tools.nuget.dependencies.DependencySet
-import com.betomorrow.msbuild.tools.nuget.nodes.PackageNode
-import groovy.xml.QName
+import com.betomorrow.msbuild.tools.nuspec.assemblies.AssemblySet
+import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
+import com.betomorrow.msbuild.tools.nuspec.dependencies.DependencySet
+import com.betomorrow.msbuild.tools.nuspec.nodes.PackageNode
 import groovy.xml.XmlUtil
 
 /**

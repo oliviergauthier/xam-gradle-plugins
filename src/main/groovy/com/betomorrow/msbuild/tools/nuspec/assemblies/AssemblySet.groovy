@@ -1,7 +1,4 @@
-package com.betomorrow.msbuild.tools.nuget.assemblies
-
-import com.betomorrow.msbuild.tools.nuget.dependencies.Dependency
-
+package com.betomorrow.msbuild.tools.nuspec.assemblies
 /**
  * Created by olivier on 29/01/16.
  */
