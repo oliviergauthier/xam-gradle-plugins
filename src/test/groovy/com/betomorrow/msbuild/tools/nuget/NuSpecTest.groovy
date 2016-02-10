@@ -1,6 +1,7 @@
 package com.betomorrow.msbuild.tools.nuget
 
 import com.betomorrow.msbuild.tools.nuget.dependencies.Dependency
+import groovy.xml.XmlUtil
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -23,6 +24,7 @@ class NuSpecTest {
     public void setUp() {
         output = testFolder.newFile("out.nuspec")
 
+//        nuspec = new NuSpec()
         nuspec = new NuSpec(SAMPLE_NUSPEC)
         nuspec.output = output.getAbsolutePath()
     }
@@ -133,7 +135,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testUpdateDepencency() {
+    public void testUpdateDependency() {
         nuspec.dependencySet.add("SampleDependency:version")
         nuspec.process()
 
@@ -141,11 +143,27 @@ class NuSpecTest {
     }
 
     @Test
-    public void testUpdateDepencencyWithGroup() {
+    public void testAddDependency() {
+        nuspec.dependencySet.add("CustomDependency:version")
+        nuspec.process()
+
+        assertContainsDependency(new Dependency("CustomDependency:version"))
+    }
+
+    @Test
+    public void testUpdateDependencyWithGroup() {
         nuspec.dependencySet.add("net40:jQuery:version")
         nuspec.process()
 
         assertContainsDependency(new Dependency("net40:jQuery:version"))
+    }
+
+    @Test
+    public void testAddDependencyWithGroup() {
+        nuspec.dependencySet.add("net40:CustomDependency:version")
+        nuspec.process()
+
+        assertContainsDependency(new Dependency("net40:CustomDependency:version"))
     }
 
     private String field(String name) {
@@ -153,11 +171,13 @@ class NuSpecTest {
     }
 
     private String assertContainsDependency(Dependency dependency) {
+        def result = new XmlSlurper().parse(output);
+
         if (dependency.group == null) {
-            def node = new XmlSlurper().parse(output).metadata.dependencies.group.dependency.findAll { it.@id == dependency.id }
+            def node = new XmlSlurper().parse(output).metadata.dependencies.group.dependency.find { it.@id == dependency.id }
             assert dependency.version.toString() == node.@version.toString()
         } else {
-            def node = new XmlSlurper().parse(output).metadata.dependencies.group.findAll { it.@targetFramework == dependency.group }.dependency.findAll { it.@id == dependency.id }
+            def node = new XmlSlurper().parse(output).metadata.dependencies.group.find { it.@targetFramework == dependency.group }.dependency.find { it.@id == dependency.id }
             assert dependency.version.toString() == node.@version.toString()
         }
     }

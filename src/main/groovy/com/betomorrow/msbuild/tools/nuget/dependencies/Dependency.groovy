@@ -30,4 +30,10 @@ public class Dependency {
             }
         }
     }
+
+
+    @Override
+    public String toString() {
+        return group + ":" + id + ":" + version;
+    }
 }
