@@ -1,7 +1,8 @@
 package com.betomorrow.msbuild.tools.nuspec
 
-import com.betomorrow.msbuild.tools.nuspec.NuSpec
+import com.betomorrow.msbuild.tools.nuspec.assemblies.Assembly
 import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
+import groovy.util.slurpersupport.NodeChild
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -166,20 +167,41 @@ class NuSpecTest {
         assertContainsDependency(new Dependency("net40:CustomDependency:version"))
     }
 
+    @Test
+    public void testAddAssembly() {
+        nuspec.assemblySet.add(new Assembly("build/Release/MyAssembly.dll", "libs/"))
+        nuspec.process()
+
+        assert assemblyNode(new Assembly("build/Release/MyAssembly.dll", "libs/")).size() > 0
+    }
+
+    @Test
+    public void testAddAssemblyTwiceDontAddTwoNode() {
+        nuspec.assemblySet.add(new Assembly("build/Release/MyAssembly.dll", "libs/"))
+        nuspec.process()
+
+        assert assemblyNode(new Assembly("build/Release/MyAssembly.dll", "libs/")).size() == 1
+    }
+
     private String field(String name) {
         return new XmlSlurper().parse(output).metadata."${name}"
     }
 
-    private String assertContainsDependency(Dependency dependency) {
+    private void assertContainsDependency(Dependency dependency) {
         def result = new XmlSlurper().parse(output);
 
         if (dependency.group == null) {
-            def node = new XmlSlurper().parse(output).metadata.dependencies.group.dependency.find { it.@id == dependency.id }
+            def node = result.metadata.dependencies.group.dependency.find { it.@id == dependency.id }
             assert dependency.version.toString() == node.@version.toString()
         } else {
-            def node = new XmlSlurper().parse(output).metadata.dependencies.group.find { it.@targetFramework == dependency.group }.dependency.find { it.@id == dependency.id }
+            def node = result.metadata.dependencies.group.find { it.@targetFramework == dependency.group }.dependency.find { it.@id == dependency.id }
             assert dependency.version.toString() == node.@version.toString()
         }
+    }
+
+    private NodeChild assemblyNode(Assembly assembly) {
+        def result = new XmlSlurper().parse(output);
+        def node = result.files.file.find { it.@src == assembly.assemblyPath && it.@target == assembly.targetDirectory}
     }
 
 }

@@ -1,5 +1,6 @@
 package com.betomorrow.msbuild.tools.nuspec
 
+import com.betomorrow.msbuild.tools.nuspec.assemblies.Assembly
 import com.betomorrow.msbuild.tools.nuspec.assemblies.AssemblySet
 import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
 import com.betomorrow.msbuild.tools.nuspec.dependencies.DependencySet
@@ -71,6 +72,7 @@ class NuSpec {
         updateMetadata(packageNode, "tags", tags)
 
         dependencySet.forEach { updateDependency(packageNode, it) }
+        assemblySet.forEach { updateAssembly(packageNode, it) }
 
         println(XmlUtil.serialize(content));
 
@@ -86,7 +88,15 @@ class NuSpec {
     }
 
     private void updateDependency(PackageNode packageNode, Dependency dep) {
-        packageNode.metadata().dependencies().group(dep.group).dependency(dep.id).@version = dep.version
+        if (dep != null) {
+            packageNode.metadata().dependencies().group(dep.group).dependency(dep.id).@version = dep.version
+        }
+    }
+
+    private void updateAssembly(PackageNode packageNode, Assembly assembly) {
+        if (assembly != null) {
+            packageNode.files().add(assembly);
+        }
     }
 
 

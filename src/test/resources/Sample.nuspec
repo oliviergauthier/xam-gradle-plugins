@@ -27,7 +27,6 @@
   <files>
     <file src="bin\Debug\*.dll" target="lib" />
     <file src="bin\Debug\*.pdb" target="lib" />
-    <file src="tools\**\*.*" exclude="**\*.log" />
   </files>
 
 </package>

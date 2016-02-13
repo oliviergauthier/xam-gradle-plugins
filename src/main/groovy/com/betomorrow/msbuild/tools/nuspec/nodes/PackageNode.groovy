@@ -14,4 +14,8 @@ class PackageNode {
     MetadataNode metadata() {
         return new MetadataNode(NodesUtils.getNodeOrCreate(packageNode, "metadata"));
     }
+
+    FilesNode files() {
+        return new FilesNode(NodesUtils.getNodeOrCreate(packageNode, "files"));
+    }
 }
