@@ -1,2 +1,2 @@
-rootProject.name = 'msbuild-tools'
-
+rootProject.name = 'xamarin-gradle-plugins'
+include 'msbuild-tools'
