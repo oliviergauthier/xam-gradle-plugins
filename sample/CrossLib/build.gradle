@@ -11,7 +11,7 @@ xamarin {
     solution 'CrossLib.sln'
 }
 
-nupsec {
+nuspec {
     authors "John Doe"
     owners "ACME"
     description "Sample CrossLib build with gradle"
