@@ -1,0 +1,17 @@
+apply plugin : 'xamarin-nuget-plugin'
+apply plugin : 'xamarin-build-app-plugin'
+apply plugin : 'xamarin-nunit-plugin'
+
+
+version = "1.0.0"
+name = "Xam.ACME.CrossApp"
+
+xamarin {
+    configuration 'Release'
+    solution 'CrossApp.sln'
+}
+
+nunit {
+    version '2.6'
+    assemblies ['Xam.ACME.CrossApp.Test.dll']
+}
