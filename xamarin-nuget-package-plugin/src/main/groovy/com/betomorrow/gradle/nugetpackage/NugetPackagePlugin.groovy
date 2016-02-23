@@ -11,6 +11,7 @@ class NugetPackagePlugin implements Plugin<Project>{
 
     /**
      * http://stackoverflow.com/questions/28999106/define-nested-extension-containers-in-gradle
+     * http://mrhaki.blogspot.fr/2013/05/gradle-goodness-extending-dsl.html
      */
     @Override
     void apply(Project project) {
