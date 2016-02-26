@@ -13,5 +13,5 @@ xamarin {
 
 nunit {
     version '2.6'
-    assemblies ['Xam.ACME.CrossApp.Test.dll']
+    assemblies 'Xam.ACME.CrossApp.Test.dll'
 }

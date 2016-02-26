@@ -53,5 +53,5 @@ nugetPublisher {
 
 nunit {
     version '2.6'
-    assemblies ['Xam.ACME.CrossLib.Test.dll']
+    assemblies 'Xam.ACME.CrossLib.Test.dll'
 }
