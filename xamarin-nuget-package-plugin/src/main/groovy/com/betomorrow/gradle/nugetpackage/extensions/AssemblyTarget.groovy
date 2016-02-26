@@ -5,8 +5,8 @@ package com.betomorrow.gradle.nugetpackage.extensions
  */
 class AssemblyTarget {
 
-    def _dest
-    def _includes = new ArrayList<String>()
+    private String _dest
+    private List<String> _includes
 
     AssemblyTarget() {
     }
@@ -15,32 +15,21 @@ class AssemblyTarget {
         this.dest = dest
         this.includes = includes
     }
-//    def String _dest
-//    def List<String> includes = new ArrayList<>()
-//
+
     def dest(String destination) {
         this._dest = destination
     }
 
-    def includes(String... includes) {
-        this._includes.addAll(includes)
+    def getDest() {
+        return _dest;
     }
-//
-//    def includes(Object includes) {
-////        this.includes.addAll(includes)
-//    }
-//
-//    def includes(String include) {
-//        this.includes.add(include)
-//    }
-//
-//    def Object fakeIncludes;
-//
-//    Object getIncludes() {
-//        return fakeIncludes
-//    }
-//
-//    void setIncludes(Object includes) {
-//        this.fakeIncludes = includes
-//    }
+
+    def includes(String... includes) {
+        this._includes = includes
+    }
+
+    def getIncludes() {
+        return _includes;
+    }
+
 }
