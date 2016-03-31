@@ -1,0 +1,12 @@
+apply plugin: 'groovy'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'commons-io:commons-io:2.4'
+    compile localGroovy()
+    testCompile'junit:junit:4.11'
+    testCompile 'org.assertj:assertj-core:3.2.0'
+}

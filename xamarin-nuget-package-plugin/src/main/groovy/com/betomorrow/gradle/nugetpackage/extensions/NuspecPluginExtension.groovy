@@ -13,8 +13,6 @@ class NuspecPluginExtension {
     def String owners;
     def String description;
 
-    def List<String> assemblies;
-
     NuspecPluginExtension(Project project) {
         this.project = project
     }

@@ -20,6 +20,8 @@ class NugetPackagePlugin implements Plugin<Project>{
         project.extensions.create("nuspec", NuspecPluginExtension, project)
         project.nuspec.extensions.create("dependencies", DependenciesPluginExtension, project)
         project.nuspec.extensions.create("assemblies", AssembliesPluginExtension, project)
+
+
     }
 
 }

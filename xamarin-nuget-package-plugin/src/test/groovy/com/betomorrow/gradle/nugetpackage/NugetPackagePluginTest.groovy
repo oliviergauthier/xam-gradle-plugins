@@ -10,6 +10,7 @@ import org.junit.Test
 
 /**
  * Created by olivier on 22/02/16.
+ * https://docs.gradle.org/current/userguide/test_kit.html
  */
 class NugetPackagePluginTest {
 

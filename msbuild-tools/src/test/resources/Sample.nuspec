@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>Sample</id>
+    <version>1.0.0</version>
+    <authors>olivier</authors>
+    <owners>olivier</owners>
+    <licenseUrl>http://LICENSE_URL_HERE_OR_DELETE_THIS_LINE</licenseUrl>
+    <projectUrl>http://PROJECT_URL_HERE_OR_DELETE_THIS_LINE</projectUrl>
+    <iconUrl>http://ICON_URL_HERE_OR_DELETE_THIS_LINE</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Package description</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2016</copyright>
+    <tags>Tag1 Tag2</tags>
+    <dependencies>
+      <group>
+        <dependency id="SampleDependency" version="1.0" />
+      </group>
+      <group targetFramework="net40">
+          <dependency id="jQuery" />
+          <dependency id="WebActivator" />
+      </group>
+    </dependencies>
+  </metadata>
+
+  <files>
+    <file src="bin\Debug\*.dll" target="lib" />
+    <file src="bin\Debug\*.pdb" target="lib" />
+  </files>
+
+</package>
