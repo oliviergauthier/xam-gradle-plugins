@@ -1,0 +1,24 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+repositories {
+    mavenCentral();
+    mavenLocal();
+}
+
+dependencies {
+    compile localGroovy()
+    compile gradleApi()
+    compile project(':msbuild-tools')
+}
+
+group = 'com.betomorrow.gradle'
+version = '1.0-SNAPSHOT'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: mavenLocal().url)
+        }
+    }
+}

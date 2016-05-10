@@ -21,7 +21,8 @@ class NugetPackagePlugin implements Plugin<Project>{
         project.nuspec.extensions.create("dependencies", DependenciesPluginExtension, project)
         project.nuspec.extensions.create("assemblies", AssembliesPluginExtension, project)
 
-
+        // Set default output
+        // Set default packageId
     }
 
 }
