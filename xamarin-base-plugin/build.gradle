@@ -22,3 +22,14 @@ uploadArchives {
         }
     }
 }
+
+
+afterEvaluate {
+    install {
+        repositories.mavenInstaller {
+            pom.version = project.version
+            pom.groupId = project.group
+            pom.artifactId = project.name
+        }
+    }
+}

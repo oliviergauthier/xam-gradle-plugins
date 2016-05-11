@@ -1,5 +1,6 @@
 package com.betomorrow.gradle.nugetpackage
 
+import com.betomorrow.gradle.base.extensions.XamarinBaseExtension
 import com.betomorrow.gradle.nugetpackage.extensions.AssembliesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.DependenciesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.NuspecPluginExtension
@@ -17,10 +18,15 @@ class NugetPackagePlugin implements Plugin<Project>{
      */
     @Override
     void apply(Project project) {
+        project.extensions.create("xamarin", XamarinBaseExtension);
         project.extensions.create("nuspec", NuspecPluginExtension, project)
         project.nuspec.extensions.create("dependencies", DependenciesPluginExtension, project)
         project.nuspec.extensions.create("assemblies", AssembliesPluginExtension, project)
 
+
+        project.task("info") << {
+            println("info")
+        }
         // Set default output
         // Set default packageId
     }
