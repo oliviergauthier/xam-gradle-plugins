@@ -13,9 +13,9 @@ class XamarinBasePlugin implements Plugin<Project> {
     void apply(Project project) {
         project.extensions.create("xamarin", XamarinBaseExtension);
 
-//        project.afterEvaluate {
-//            def extension = project.extensions.findByType(XamarinBaseExtension)
-//            println extension.solution
-//        }
+        project.afterEvaluate {
+            def extension = project.extensions.findByType(XamarinBaseExtension)
+            println extension.solution
+        }
     }
 }

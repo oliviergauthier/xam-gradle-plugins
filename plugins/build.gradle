@@ -1,0 +1,38 @@
+subprojects {
+
+    apply plugin: 'groovy'
+    apply plugin: 'maven'
+
+    repositories {
+        mavenCentral();
+        mavenLocal();
+    }
+
+
+    dependencies {
+        compile localGroovy()
+        compile gradleApi()
+    }
+
+    group = 'com.betomorrow.gradle'
+    version = '1.0-SNAPSHOT'
+
+    uploadArchives {
+        repositories {
+            mavenDeployer {
+                repository(url: mavenLocal().url)
+            }
+        }
+    }
+
+
+    afterEvaluate {
+        install {
+            repositories.mavenInstaller {
+                pom.version = project.version
+                pom.groupId = project.group
+                pom.artifactId = project.name
+            }
+        }
+    }
+}
