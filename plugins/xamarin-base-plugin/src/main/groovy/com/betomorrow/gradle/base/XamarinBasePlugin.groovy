@@ -11,11 +11,16 @@ class XamarinBasePlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
+        println("xamarin-base-plugin")
         project.extensions.create("xamarin", XamarinBaseExtension);
 
         project.afterEvaluate {
             def extension = project.extensions.findByType(XamarinBaseExtension)
-            println extension.solution
+            println "NugetBasePlugin" + extension.solution
+        }
+
+        project.task("infoNBP") << {
+            println("NugetBasePlugin")
         }
     }
 }
