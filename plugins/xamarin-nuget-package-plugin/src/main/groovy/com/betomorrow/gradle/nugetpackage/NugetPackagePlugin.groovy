@@ -18,7 +18,6 @@ class NugetPackagePlugin implements Plugin<Project>{
      */
     @Override
     void apply(Project project) {
-        println("xamarin-nuget-package-plugin")
 
         project.beforeEvaluate {
             buildscript.configurations.classpath += 'com.betomorrow.gradle:xamarin-base-plugin:1.0-SNAPSHOT'
@@ -28,20 +27,9 @@ class NugetPackagePlugin implements Plugin<Project>{
             apply plugin: 'xamarin-base-plugin'
         }
 
-//        project.extensions.create("xamarin", XamarinBaseExtension);
         project.extensions.create("nuspec", NuspecPluginExtension, project)
         project.nuspec.extensions.create("dependencies", DependenciesPluginExtension, project)
         project.nuspec.extensions.create("assemblies", AssembliesPluginExtension, project)
-
-
-        project.task("infoNPP") << {
-            println("NugetPackagePlugin")
-        }
-
-        project.afterEvaluate {
-            def extension = project.extensions.findByType(XamarinBaseExtension)
-            println "NugetPackagePlugin" + extension.solution
-        }
 
         // Set default output
         // Set default packageId
