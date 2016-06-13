@@ -9,38 +9,32 @@ import java.util.regex.Pattern
 /**
  * Created by olivier on 06/03/16.
  */
-class SolutionFile {
+class SolutionParser {
 
     private static final String START_TAG = 'Project'
     private static final String END_TAG = 'EndProject'
 
     Pattern pattern = ~/(?m)Project[^=]*=\s"([^"]*)",\s"([^"]*)",\s"([^"]*)"\s*\nEndProject/
 
-    String path;
-
-    SolutionFile(String path) {
-        this.path = path
-    }
-
-    public List<ProjectSolution> getProjects() {
-        List<ProjectSolution> solutions = new ArrayList<>()
-        String content = readFully()
+    public List<SolutionProject> parse(String path) {
+        List<SolutionProject> solutions = new ArrayList<>()
+        String content = readFully(path)
         def projectLines = findProjectLines(content);
         projectLines.forEach { it ->
             Matcher matcher = pattern.matcher(it);
             def matches = matcher.matches()
             def groupCount = matcher.groupCount()
             if (groupCount == 3) {
-                def name = matcher.group(1)
-                def path = matcher.group(2).replace('\\', '/')
-                solutions.add(new ProjectSolution(name, path))
+                def projectName = matcher.group(1)
+                def projectPath = matcher.group(2).replace('\\', '/')
+                solutions.add(new SolutionProject(projectName, projectPath))
             }
         }
 
         return solutions
     }
 
-    private String readFully() {
+    private String readFully(String path) {
         Path p = Paths.get(path)
         byte[] allBytes = Files.readAllBytes(p);
         return new String(allBytes, "utf-8");

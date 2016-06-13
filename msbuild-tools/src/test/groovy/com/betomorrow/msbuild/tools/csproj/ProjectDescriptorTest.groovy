@@ -3,13 +3,13 @@ package com.betomorrow.msbuild.tools.csproj
 /**
  * Created by Olivier on 18/12/2015.
  */
-class CSProjTest extends GroovyTestCase {
+class ProjectDescriptorTest extends GroovyTestCase {
 
     def SAMPLE_DROID = ClassLoader.getSystemResource('Sample.Droid.csproj').file;
     def SAMPLE_IOS = ClassLoader.getSystemResource('Sample.iOS.csproj').file;
 
-    def androidProject = new CSProj(SAMPLE_DROID);
-    def iosProject = new CSProj(SAMPLE_IOS);
+    def androidProject = new ProjectDescriptor(SAMPLE_DROID);
+    def iosProject = new ProjectDescriptor(SAMPLE_IOS);
 
     public void testIsAndroidReturnsTrueWithAndroidCSProj() {
         assertTrue(androidProject.isAndroidApplication())

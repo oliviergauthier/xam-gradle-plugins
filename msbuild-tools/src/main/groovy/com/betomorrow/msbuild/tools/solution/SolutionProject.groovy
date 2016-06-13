@@ -3,12 +3,12 @@ package com.betomorrow.msbuild.tools.solution
 /**
  * Created by olivier on 31/03/16.
  */
-class ProjectSolution {
+class SolutionProject {
 
     def String name
     def String path
 
-    ProjectSolution(String name, String path) {
+    SolutionProject(String name, String path) {
         this.name = name
         this.path = path
     }
@@ -17,7 +17,7 @@ class ProjectSolution {
         if (this.is(o)) return true
         if (getClass() != o.class) return false
 
-        ProjectSolution that = (ProjectSolution) o
+        SolutionProject that = (SolutionProject) o
 
         if (name != that.name) return false
         if (path != that.path) return false
@@ -35,7 +35,7 @@ class ProjectSolution {
 
     @Override
     public String toString() {
-        return "ProjectSolution{" +
+        return "SolutionProject{" +
                 "name='" + name + '\'' +
                 ", path='" + path + '\'' +
                 '}';

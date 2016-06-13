@@ -3,11 +3,11 @@ package com.betomorrow.msbuild.tools.csproj
 /**
  * Created by Olivier on 18/12/2015.
  */
-class CSProj {
+class ProjectDescriptor {
 
     def content;
 
-    public CSProj(String file) {
+    public ProjectDescriptor(String file) {
         content = new XmlSlurper().parse(file);
     }
 
