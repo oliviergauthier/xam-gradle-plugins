@@ -8,8 +8,8 @@ class ProjectDescriptorTest extends GroovyTestCase {
     def SAMPLE_DROID = ClassLoader.getSystemResource('Sample.Droid.csproj').file;
     def SAMPLE_IOS = ClassLoader.getSystemResource('Sample.iOS.csproj').file;
 
-    def androidProject = new ProjectDescriptor(SAMPLE_DROID);
-    def iosProject = new ProjectDescriptor(SAMPLE_IOS);
+    def androidProject = new ProjectDescriptor('Sample', SAMPLE_DROID);
+    def iosProject = new ProjectDescriptor('Sample', SAMPLE_IOS);
 
     public void testIsAndroidReturnsTrueWithAndroidCSProj() {
         assertTrue(androidProject.isAndroidApplication())

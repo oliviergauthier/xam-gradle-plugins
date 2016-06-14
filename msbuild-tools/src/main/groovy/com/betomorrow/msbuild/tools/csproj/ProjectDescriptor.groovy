@@ -1,14 +1,21 @@
 package com.betomorrow.msbuild.tools.csproj
 
+import java.nio.file.Path
+
 /**
  * Created by Olivier on 18/12/2015.
  */
 class ProjectDescriptor {
 
-    def content;
+    private def content;
+    private String name;
 
-    public ProjectDescriptor(String file) {
+    public ProjectDescriptor(String name, String file) {
         content = new XmlSlurper().parse(file);
+    }
+
+    public ProjectDescriptor(String name, Path path) {
+        content = new XmlSlurper().parse(path.toFile());
     }
 
     public boolean isAndroidApplication() {
@@ -27,8 +34,8 @@ class ProjectDescriptor {
         return  content.PropertyGroup.AssemblyName;
     }
 
-    public String getOutputPath(String configuration) {
-        def pattern = ~/.*${configuration}.*/
+    public String getOutputPath(String configuration, String platform = null) {
+        def pattern = platform == null ? ~/.*${configuration}.*/ : ~/.*${configuration}|${platform}.*/
         def nodes = content.PropertyGroup.findAll{
             it.@Condition =~ pattern
         }
