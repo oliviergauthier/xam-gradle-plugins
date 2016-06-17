@@ -35,10 +35,12 @@ class ProjectDescriptor {
     }
 
     public String getOutputPath(String configuration, String platform = null) {
-        def pattern = platform == null ? ~/.*${configuration}.*/ : ~/.*${configuration}|${platform}.*/
+        def pattern = platform == null ? ~/.*${configuration}.*/ : ~/.*'\s*${configuration}\s*\|\s*${platform}\s*'.*/
         def nodes = content.PropertyGroup.findAll{
+            println(it.@Condition)
             it.@Condition =~ pattern
         }
+        println(nodes.size())
         return nodes[0].OutputPath
     }
 
