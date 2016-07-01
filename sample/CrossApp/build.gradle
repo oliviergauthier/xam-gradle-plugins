@@ -1,10 +1,9 @@
-apply plugin : 'xamarin-nuget-plugin'
-apply plugin : 'xamarin-build-app-plugin'
-apply plugin : 'xamarin-nunit-plugin'
+apply plugin : 'xamarin-application-plugin'
 
-
-version = "1.0.0"
-name = "Xam.ACME.CrossApp"
+ext {
+    version = "1.0.0"
+    name = "Xam.ACME.CrossApp"
+}
 
 xamarin {
     configuration 'Release'
@@ -13,8 +12,8 @@ xamarin {
 
 application {
 
-    appName 'CrossApp'
-    appVersion '2.6'
+    appName name
+    appVersion version
     storeVersion '1.0'
 
     packageName "com.acme.crossapp.${env}"
@@ -48,7 +47,7 @@ signIpa {
 }
 
 task "updateAndroidManifest" << {
-
+    // ...
 }
 
 task "copyResources" << {
@@ -61,11 +60,11 @@ task "checkAndroidAppSize" << {
 
 afterEvaluate {
     // Preprocess Resources
-    getTasksByName("preprocessAndroidResources").dependsOn "updateAndroidManifest"
-    getTasksByName("preprocessAndroidResources").dependsOn "copyResources"
-    getTasksByName("preprocessIosResources").dependsOn "copyResources"
+    getTasksByName("processAndroidResources").dependsOn "updateAndroidManifest"
+    getTasksByName("processAndroidResources").dependsOn "copyResources"
+    getTasksByName("processIosResources").dependsOn "copyResources"
 
     // Verify
-    getTasksByName("verifyAndroid").dependsOn "checkAndroidAppSize"
+    getTasksByName("checkAndroid").dependsOn "checkAndroidAppSize"
 }
 

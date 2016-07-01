@@ -1,0 +1,43 @@
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.betomorrow.gradle:xamarin-application-plugin:1.0-SNAPSHOT'
+    }
+}
+
+apply plugin: 'xamarin-application-plugin'
+
+
+version = "1.0.0"
+
+
+project.ext {
+    env = "demo"
+}
+
+application {
+
+    appName "Xam.ACME.CrossApp"
+    appVersion version
+    storeVersion '1.0'
+
+    packageName "com.acme.crossapp.${env}"
+
+    android {
+//        manifest "path/to/manifest" // auto resolved
+        output "dist/${appName}-${appVersion}.${env}.apk"  // default value
+    }
+
+    ios {
+        output "dist/${appName}-${appVersion}.ipa"  // default value
+    }
+}
+
+
+task "info" << {
+    println "Manifest : " + application.android.manifest
+    println "Output : " + application.android.output
+    println "PackageName : " + application.packageName
+}
