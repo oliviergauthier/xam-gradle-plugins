@@ -11,7 +11,61 @@ xamarin {
     solution 'CrossApp.sln'
 }
 
-nunit {
-    version '2.6'
-    assemblies 'Xam.ACME.CrossApp.Test.dll'
+application {
+
+    appName 'CrossApp'
+    appVersion '2.6'
+    storeVersion '1.0'
+
+    packageName "com.acme.crossapp.${env}"
+
+    android {
+        manifest "path/to/manifest" // auto resolved
+        output "dist/{appName}-{appVersion}.apk"  // default value
+    }
+
+    ios {
+        output "dist/{appName}-{appVersion}.ipa"  // default value
+    }
 }
+
+signIpa {
+
+    ipa "${application.ios.output}"
+
+    AppStore {
+        cert "iPhone Distribution: CrossApp (ABCDEFGHIJKL)"
+        provisioningProfile "resources/provisioning/Appstore.mobileprovision"
+        output "dist/CrossApp_APPSTORE.ipa"
+    }
+
+    AdHoc {
+        cert "iPhone Distribution: CrossApp (ABCDEFGHIJKL)"
+        provisioningProfile "resources/provisioning/Appstore.mobileprovision"
+        output "dist/CrossApp_ADHOC.ipa"
+    }
+
+}
+
+task "updateAndroidManifest" << {
+
+}
+
+task "copyResources" << {
+    // ...
+}
+
+task "checkAndroidAppSize" << {
+    // ...
+}
+
+afterEvaluate {
+    // Preprocess Resources
+    getTasksByName("preprocessAndroidResources").dependsOn "updateAndroidManifest"
+    getTasksByName("preprocessAndroidResources").dependsOn "copyResources"
+    getTasksByName("preprocessIosResources").dependsOn "copyResources"
+
+    // Verify
+    getTasksByName("verifyAndroid").dependsOn "checkAndroidAppSize"
+}
+
