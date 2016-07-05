@@ -20,7 +20,7 @@ class NugetPackagePlugin implements Plugin<Project>{
     void apply(Project project) {
 
         project.beforeEvaluate {
-            buildscript.configurations.classpath += 'com.betomorrow.gradle:xamarin-base-plugin:1.0-SNAPSHOT'
+            buildscript.configurations.classpath += 'com.betomorrow.gradle:xamarin-base-plugin'
         }
 
         project.configure(project) {

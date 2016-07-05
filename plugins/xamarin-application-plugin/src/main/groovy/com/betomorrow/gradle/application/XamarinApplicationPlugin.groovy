@@ -10,13 +10,13 @@ class XamarinApplicationPlugin implements Plugin<Project> {
 
     @Override
     void apply(Project project) {
-//        project.beforeEvaluate {
-//            buildscript.configurations.classpath += 'com.betomorrow.gradle:xamarin-base-plugin:1.0-SNAPSHOT'
-//        }
-//
-//        project.configure(project) {
-//            apply plugin: 'xamarin-base-plugin'
-//        }
+        project.beforeEvaluate {
+            buildscript.configurations.classpath += 'com.betomorrow.gradle:xamarin-base-plugin'
+        }
+
+        project.configure(project) {
+            apply plugin: 'xamarin-base-plugin'
+        }
 
         project.extensions.create("application", XamarinApplicationExtension)
         project.application.extensions.create("android", XamarinAndroidApplicationExtension)

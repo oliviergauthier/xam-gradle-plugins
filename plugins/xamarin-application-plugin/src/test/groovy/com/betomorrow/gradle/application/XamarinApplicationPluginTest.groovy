@@ -12,10 +12,10 @@ class XamarinApplicationPluginTest {
         Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'xamarin-application-plugin'
 
-//        project.xamarin {
-//            configuration 'Release'
-//            solution 'CrossApp.sln'
-//        }
+        project.xamarin {
+            configuration 'Release'
+            solution 'CrossApp.sln'
+        }
 
         project.application {
             appName 'CrossApp'
