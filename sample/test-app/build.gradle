@@ -41,3 +41,8 @@ task "info" << {
     println "Output : " + application.android.output
     println "PackageName : " + application.packageName
 }
+
+task("testAndroid", type : com.betomorrow.gradle.application.tasks.BuildAndroidAppTask) {
+    appName = "appName"
+    appVersion = "appVersion"
+}

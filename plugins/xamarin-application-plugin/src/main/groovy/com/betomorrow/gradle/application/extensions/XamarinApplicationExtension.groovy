@@ -7,5 +7,4 @@ class XamarinApplicationExtension {
     def String storeVersion;
     def String packageName;
 
-
 }
