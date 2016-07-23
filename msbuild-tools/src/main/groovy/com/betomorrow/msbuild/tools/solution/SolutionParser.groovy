@@ -36,8 +36,13 @@ class SolutionParser {
 
     private String readFully(String path) {
         Path p = Paths.get(path)
-        byte[] allBytes = Files.readAllBytes(p);
-        return new String(allBytes, "utf-8");
+        try {
+            byte[] allBytes = Files.readAllBytes(p);
+            return new String(allBytes, "utf-8");
+        } catch (Exception e) {
+            println("Can't open path " + p.toAbsolutePath().toString())
+            throw  e;
+        }
     }
 
     private List<String> findProjectLines(String content) {

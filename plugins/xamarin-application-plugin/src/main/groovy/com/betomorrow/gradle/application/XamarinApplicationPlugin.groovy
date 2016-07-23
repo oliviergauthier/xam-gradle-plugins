@@ -41,6 +41,7 @@ class XamarinApplicationPlugin implements Plugin<Project> {
                     storeVersion = application.storeVersion
                     packageName = application.packageName
                     projectFile = android.projectFile
+                    manifest = android.manifest
                     output = android.output
                 }
             }

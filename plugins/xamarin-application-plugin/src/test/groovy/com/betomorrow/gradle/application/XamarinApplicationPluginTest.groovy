@@ -15,21 +15,21 @@ class XamarinApplicationPluginTest {
         project.apply plugin: 'xamarin-application-plugin'
 
         project.xamarin {
-            configuration 'Release'
-            solution 'CrossApp.sln'
+            configuration 'Release' // default value
+            solution 'src/test/resources/CrossApp/CrossApp.sln' // first solution file in current folder
         }
 
         project.application {
-            appName 'CrossApp'
-            appVersion '2.6'
-            storeVersion '1.0'
+            appName 'CrossApp' // auto resolved (common part of all projects names in solution)
+            appVersion '2.6' // if empty use the one defined in csproj
+            storeVersion '1.0' // if empty use the one defined in csproj
 
-            packageName "com.acme.crossapp"
+            packageName "com.acme.crossapp" // if empty use the one defined in csproj
 
             android {
-                manifest "path/to/manifest" // auto resolved
-                output "dist/${appName}-${appVersion}.apk"  // default value
-                projectFile "path/to/myapp" // auto resolved
+//                manifest "path/to/manifest" // auto resolved
+//                output "dist/${appName}-${appVersion}.apk"  // default value
+//                projectFile "path/to/myapp" // auto resolved
             }
 
             ios {
@@ -37,10 +37,17 @@ class XamarinApplicationPluginTest {
             }
         }
 
+        project.task("info") << {
+            println project.application.android.projectFile
+        }
+
         project.evaluate();
 
         BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid;
         buildAndroidTask.actions.each { action -> action.execute(buildAndroidTask) }
+
+        def infoTask = project.tasks.info;
+        infoTask.actions.each { action -> action.execute(infoTask) }
 
     }
 }

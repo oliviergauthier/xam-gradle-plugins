@@ -1,21 +1,33 @@
 package com.betomorrow.msbuild.tools.csproj
 
+import groovy.transform.Canonical
+
 import java.nio.file.Path
 
 /**
  * Created by Olivier on 18/12/2015.
  */
+@Canonical
 class ProjectDescriptor {
 
     private def content;
     private String name;
+    private String path;
 
     public ProjectDescriptor(String name, String file) {
+        this.name = name;
+        this.path = file;
         content = new XmlSlurper().parse(file);
     }
 
     public ProjectDescriptor(String name, Path path) {
+        this.name = name;
+        this.path = path.toString();
         content = new XmlSlurper().parse(path.toFile());
+    }
+
+    public String getName() {
+        return name;
     }
 
     public boolean isAndroidApplication() {
@@ -32,6 +44,10 @@ class ProjectDescriptor {
 
     public String getAssemblyName() {
         return  content.PropertyGroup.AssemblyName;
+    }
+
+    public String getPath() {
+        return path;
     }
 
     public String getOutputPath(String configuration, String platform = null) {
