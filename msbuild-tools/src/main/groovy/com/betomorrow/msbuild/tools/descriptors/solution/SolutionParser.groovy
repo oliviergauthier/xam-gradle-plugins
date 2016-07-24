@@ -1,4 +1,4 @@
-package com.betomorrow.msbuild.tools.solution
+package com.betomorrow.msbuild.tools.descriptors.solution
 
 import java.nio.file.Files
 import java.nio.file.Path

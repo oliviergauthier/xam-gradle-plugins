@@ -1,10 +1,7 @@
-package com.betomorrow.msbuild.tools.solution;
+package com.betomorrow.msbuild.tools.descriptors.solution;
 
-import com.betomorrow.msbuild.tools.csproj.ProjectDescriptor
-import groovy.transform.Canonical;
-
-import java.util.Collection;
-import java.util.Map;
+import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
+import groovy.transform.Canonical
 
 /**
  * Created by olivier on 13/06/16.

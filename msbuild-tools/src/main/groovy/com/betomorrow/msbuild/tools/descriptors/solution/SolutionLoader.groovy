@@ -1,6 +1,6 @@
-package com.betomorrow.msbuild.tools.solution
+package com.betomorrow.msbuild.tools.descriptors.solution
 
-import com.betomorrow.msbuild.tools.csproj.ProjectDescriptor
+import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
 
 import java.nio.file.Path
 import java.nio.file.Paths

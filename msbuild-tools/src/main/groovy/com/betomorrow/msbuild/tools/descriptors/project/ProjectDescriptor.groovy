@@ -1,4 +1,4 @@
-package com.betomorrow.msbuild.tools.csproj
+package com.betomorrow.msbuild.tools.descriptors.project
 
 import groovy.transform.Canonical
 
@@ -13,6 +13,10 @@ class ProjectDescriptor {
     private def content;
     private String name;
     private String path;
+
+    protected ProjectDescriptor() {
+
+    }
 
     public ProjectDescriptor(String name, String file) {
         this.name = name;

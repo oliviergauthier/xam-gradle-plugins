@@ -1,4 +1,6 @@
-package com.betomorrow.msbuild.tools.csproj
+package com.betomorrow.msbuild.tools.descriptors.project
+
+import junit.framework.Assert
 
 /**
  * Created by Olivier on 18/12/2015.
@@ -12,35 +14,35 @@ class ProjectDescriptorTest extends GroovyTestCase {
     def iosProject = new ProjectDescriptor('Sample', SAMPLE_IOS);
 
     public void testIsAndroidReturnsTrueWithAndroidCSProj() {
-        assertTrue(androidProject.isAndroidApplication())
+        Assert.assertTrue(androidProject.isAndroidApplication())
     }
 
     public void testIsAndroidReturnsFalseWithIosCSProj() {
-        assertFalse(androidProject.isIosApplication())
+        Assert.assertFalse(androidProject.isIosApplication())
     }
 
     public void testIsIPhoneReturnsFalseWithAndroidCSProj() {
-        assertFalse(iosProject.isAndroidApplication())
+        Assert.assertFalse(iosProject.isAndroidApplication())
     }
 
     public void testIsIPhoneReturnsTrueWithIosCSProj() {
-        assertTrue(iosProject.isIosApplication())
+        Assert.assertTrue(iosProject.isIosApplication())
     }
 
     public void testGetAndroidManifestReturnsPathOfManifest() {
-        assertEquals('Properties\\AndroidManifest.xml', androidProject.getAndroidManifest());
+        GroovyTestCase.assertEquals('Properties\\AndroidManifest.xml', androidProject.getAndroidManifest());
     }
 
     public void testGetAssemblyNameReturnsNameOfAssembly() {
-        assertEquals('Sample.Droid', androidProject.getAssemblyName())
+        GroovyTestCase.assertEquals('Sample.Droid', androidProject.getAssemblyName())
     }
 
     public void testGetOutputPathForDebugReturnsDebutPath() {
-        assertEquals('bin\\Debug', androidProject.getOutputPath("Debug"))
+        GroovyTestCase.assertEquals('bin\\Debug', androidProject.getOutputPath("Debug"))
     }
 
     public void testGetOutputPathForReleaseReturnsDebutPath() {
-        assertEquals('bin\\Release', androidProject.getOutputPath("Release"))
+        GroovyTestCase.assertEquals('bin\\Release', androidProject.getOutputPath("Release"))
     }
 
     public void testReferencesContainsGivenReference() {

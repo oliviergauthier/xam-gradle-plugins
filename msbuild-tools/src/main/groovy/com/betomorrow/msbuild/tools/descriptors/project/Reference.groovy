@@ -1,4 +1,4 @@
-package com.betomorrow.msbuild.tools.csproj
+package com.betomorrow.msbuild.tools.descriptors.project
 
 /**
  * Created by Olivier on 20/12/2015.

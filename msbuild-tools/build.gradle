@@ -11,6 +11,7 @@ dependencies {
     compile localGroovy()
     testCompile'junit:junit:4.11'
     testCompile 'org.assertj:assertj-core:3.2.0'
+//    testCompile 'org.mockito:mockito-all:1.10.19'
 }
 
 

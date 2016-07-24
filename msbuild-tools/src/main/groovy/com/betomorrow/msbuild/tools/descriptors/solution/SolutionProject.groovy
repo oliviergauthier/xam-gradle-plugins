@@ -1,4 +1,4 @@
-package com.betomorrow.msbuild.tools.solution
+package com.betomorrow.msbuild.tools.descriptors.solution
 
 /**
  * Created by olivier on 31/03/16.
