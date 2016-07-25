@@ -37,13 +37,13 @@ class XamarinAndroidApplicationExtension {
 
         // 2. try to find an appName.Droid in solution file
         String defaultAppName = applicationExtension.appName + DROID_SUFFIX;
-        if (solution.containsApp(defaultAppName)) {
+        if (solution.containsProject(defaultAppName)) {
             return  defaultAppName;
         }
 
         // 3. try to find a single android project
         if (solution.hasSingleAndroidProject()) {
-            return solution.androidProject.name;
+            return solution.firstAndroidProject.name;
         }
 
         throw new InvalidArgumentException("Can't resolve android project, please specify it with appName")

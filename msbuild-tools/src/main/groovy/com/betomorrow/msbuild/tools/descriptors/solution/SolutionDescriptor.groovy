@@ -23,7 +23,7 @@ public class SolutionDescriptor {
         return projects.values();
     }
 
-    public ProjectDescriptor getAndroidProject() {
+    public ProjectDescriptor getFirstAndroidProject() {
         return projects.values().find { it.isAndroidApplication() }
     }
 
@@ -31,7 +31,7 @@ public class SolutionDescriptor {
         return projects.values().count { it.isAndroidApplication()} == 1;
     }
 
-    public boolean containsApp(String appName) {
+    public boolean containsProject(String appName) {
         return projects.containsKey(appName)
     }
 
