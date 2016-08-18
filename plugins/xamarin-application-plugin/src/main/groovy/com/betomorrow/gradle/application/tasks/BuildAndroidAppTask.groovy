@@ -9,9 +9,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
 
-/**
- * Created by olivier on 05/07/16.
- */
+
 class BuildAndroidAppTask extends DefaultTask {
 
     def String appVersion;
@@ -38,7 +36,7 @@ class BuildAndroidAppTask extends DefaultTask {
 
 //        xbuild()
 
-//        copyBuiltAssemblyToOuput();
+//        copyBuiltAssemblyToOutput();
 
     }
 
@@ -58,7 +56,7 @@ class BuildAndroidAppTask extends DefaultTask {
     private void updateManifest(String path) {
         def editor = new AndroidManifestEditor(path);
         editor.versionCode = appVersion
-        editor.version = storeVersion
+        editor.versionName = storeVersion
         editor.packageName = packageName
         editor.write();
     }

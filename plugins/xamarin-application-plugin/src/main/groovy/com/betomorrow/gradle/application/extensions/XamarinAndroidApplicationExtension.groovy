@@ -4,7 +4,6 @@ import com.betomorrow.gradle.base.extensions.XamarinBaseExtension
 import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
 import com.betomorrow.msbuild.tools.descriptors.solution.SolutionDescriptor
 import com.betomorrow.msbuild.tools.descriptors.solution.SolutionLoader
-import com.sun.javaws.exceptions.InvalidArgumentException
 import org.gradle.api.Project
 
 import java.nio.file.Paths
@@ -46,7 +45,7 @@ class XamarinAndroidApplicationExtension {
             return solution.firstAndroidProject.name;
         }
 
-        throw new InvalidArgumentException("Can't resolve android project, please specify it with appName")
+        throw new IllegalArgumentException("Can't resolve android project, please specify it with appName")
 
     }
 

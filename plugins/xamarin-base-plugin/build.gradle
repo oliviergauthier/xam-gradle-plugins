@@ -1,4 +1,4 @@
 dependencies {
-    compile project(':msbuild-tools')
+    compile project(':shared:msbuild-tools')
 }
 
