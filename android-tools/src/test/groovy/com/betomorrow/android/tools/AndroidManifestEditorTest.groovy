@@ -42,13 +42,13 @@ class AndroidManifestEditorTest {
         editor.write();
 
         // Then
-        def content = new XmlSlurper().parse(copy);
+        def content = new XmlParser().parse(copy.absolutePath);
 
-        println(content)
-//        assert content.attributes()[ns.versionName] == "1.1.0"
-//        assert content.attributes()[ns.versionCode] == "14"
-//        assert content.attributes()["package"] == "another.package.name"
-
+        assert content.attribute(ns.versionName) == "1.1.0"
+        assert content.attribute(ns.versionCode) == "14"
+        assert content.attribute("package") == "another.package.name"
     }
+
+
 
 }
