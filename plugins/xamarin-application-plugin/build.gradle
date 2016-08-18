@@ -1,4 +1,6 @@
 dependencies {
+    compile project(':android-tools')
+    compile project(':ios-tools')
     compile project(':msbuild-tools')
     compile project(':plugins:xamarin-base-plugin')
 }

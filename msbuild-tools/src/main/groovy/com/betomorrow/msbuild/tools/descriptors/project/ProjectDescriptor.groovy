@@ -64,6 +64,10 @@ class ProjectDescriptor {
         return nodes[0].OutputPath
     }
 
+    public String getPackageName() {
+
+    }
+
     public Reference[] getReference() {
         return Arrays.asList(new Reference('Xamarin.Forms.Core', '..\\packages\\Xamarin.Forms.2.0.0.6490\\lib\\MonoAndroid10\\Xamarin.Forms.Core.dll'))
     }

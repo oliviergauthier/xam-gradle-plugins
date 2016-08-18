@@ -1,0 +1,26 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+repositories {
+    mavenCentral()
+    mavenLocal();
+}
+
+dependencies {
+    compile 'commons-io:commons-io:2.4'
+    compile localGroovy()
+    testCompile'junit:junit:4.11'
+    testCompile 'org.assertj:assertj-core:3.2.0'
+//    testCompile 'org.mockito:mockito-all:1.10.19'
+}
+
+
+afterEvaluate {
+    install {
+        repositories.mavenInstaller {
+            pom.version = project.version
+            pom.groupId = project.group
+            pom.artifactId = project.name
+        }
+    }
+}

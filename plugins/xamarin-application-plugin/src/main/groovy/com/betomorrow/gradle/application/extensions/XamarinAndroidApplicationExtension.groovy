@@ -1,6 +1,7 @@
 package com.betomorrow.gradle.application.extensions
 
 import com.betomorrow.gradle.base.extensions.XamarinBaseExtension
+import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
 import com.betomorrow.msbuild.tools.descriptors.solution.SolutionDescriptor
 import com.betomorrow.msbuild.tools.descriptors.solution.SolutionLoader
 import com.sun.javaws.exceptions.InvalidArgumentException
@@ -25,7 +26,6 @@ class XamarinAndroidApplicationExtension {
         baseExtension = project.extensions.getByType(XamarinBaseExtension)
         applicationExtension = project.extensions.getByType(XamarinApplicationExtension)
     }
-
 
     public String getAppName() {
         // 1. returns configured appName
@@ -77,12 +77,16 @@ class XamarinAndroidApplicationExtension {
         }
 
         // 2. return manifest of projectFile
-        def manifestRelativePath = getSolution().getProject(getAppName()).androidManifest.replace("\\", "/")
+        def manifestRelativePath = getProject().androidManifest.replace("\\", "/")
         return Paths.get(getProjectFile()).parent.resolve(manifestRelativePath).toString()
     }
 
     private SolutionDescriptor getSolution() {
         return solutionLoader.load(baseExtension.solution)
+    }
+
+    private ProjectDescriptor getProject() {
+        return getSolution().getProject(getAppName())
     }
 
 }

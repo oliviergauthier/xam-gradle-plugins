@@ -1,3 +1,3 @@
 rootProject.name = 'xamarin-gradle-plugins'
-include 'msbuild-tools'
+include 'msbuild-tools', 'android-tools', 'ios-tools'
 include 'plugins:xamarin-nuget-package-plugin', 'plugins:xamarin-base-plugin', 'plugins:xamarin-application-plugin'
