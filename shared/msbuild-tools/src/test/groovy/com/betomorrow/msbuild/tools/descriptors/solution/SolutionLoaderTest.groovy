@@ -1,10 +1,11 @@
 package com.betomorrow.msbuild.tools.descriptors.solution
 
+import com.betomorrow.msbuild.tools.FileUtils
 import org.junit.Test
 
 class SolutionLoaderTest {
 
-    String SAMPLE_SOLUTION = ClassLoader.getSystemResource('CrossApp/CrossApp.sln').file;
+    String SAMPLE_SOLUTION = FileUtils.getResourcePath('CrossApp/CrossApp.sln');
 
     @Test
     public void testLoadRealSolution() {

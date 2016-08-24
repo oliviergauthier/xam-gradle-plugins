@@ -1,11 +1,12 @@
 package com.betomorrow.msbuild.tools.descriptors.project
 
+import com.betomorrow.msbuild.tools.FileUtils
 import org.junit.Test
 
 class ProjectDescriptorTest {
 
-    def SAMPLE_DROID = ClassLoader.getSystemResource('Sample.Droid.csproj').file;
-    def SAMPLE_IOS = ClassLoader.getSystemResource('Sample.iOS.csproj').file;
+    def SAMPLE_DROID = FileUtils.getResourcePath('Sample.Droid.csproj');
+    def SAMPLE_IOS = FileUtils.getResourcePath('Sample.iOS.csproj');
 
     def androidProject = new ProjectDescriptor('Sample', SAMPLE_DROID);
     def iosProject = new ProjectDescriptor('Sample', SAMPLE_IOS);
@@ -22,7 +23,7 @@ class ProjectDescriptorTest {
 
     @Test
     public void testIsIPhoneReturnsFalseWithAndroidCSProj() {
-        assert iosProject.isAndroidApplication()
+        assert !iosProject.isAndroidApplication()
     }
 
     @Test
