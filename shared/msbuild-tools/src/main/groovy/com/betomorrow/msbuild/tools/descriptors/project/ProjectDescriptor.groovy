@@ -1,9 +1,11 @@
 package com.betomorrow.msbuild.tools.descriptors.project
 
+import com.betomorrow.msbuild.tools.FileUtils
 import groovy.transform.Canonical
 import sun.reflect.generics.reflectiveObjects.NotImplementedException
 
 import java.nio.file.Path
+import java.nio.file.Paths
 
 @Canonical
 class ProjectDescriptor {
@@ -51,14 +53,18 @@ class ProjectDescriptor {
         return path;
     }
 
-    public String getOutputPath(String configuration, String platform = null) {
+    public String getOutputDir(String configuration, String platform = null) {
         def pattern = platform == null ? ~/.*${configuration}.*/ : ~/.*'\s*${configuration}\s*\|\s*${platform}\s*'.*/
         def nodes = content.PropertyGroup.findAll{
             println(it.@Condition)
             it.@Condition =~ pattern
         }
-        println(nodes.size())
         return nodes[0].OutputPath
+    }
+
+    public Path getOutputPath(String configuration, String platform = null) {
+        def output = FileUtils.toUnixPath(getOutputDir(configuration, platform))
+        return Paths.get(path).resolve(output).resolve(getAssemblyName() + "." + getExtension());
     }
 
     public static String getPackageName() {
@@ -67,6 +73,14 @@ class ProjectDescriptor {
 
     public static Reference[] getReference() {
         return Arrays.asList(new Reference('Xamarin.Forms.Core', '..\\packages\\Xamarin.Forms.2.0.0.6490\\lib\\MonoAndroid10\\Xamarin.Forms.Core.dll'))
+    }
+
+    private String getExtension() {
+        if (isAndroidApplication()) {
+            return "apk"
+        } else {
+            return "ipa"
+        }
     }
 
 

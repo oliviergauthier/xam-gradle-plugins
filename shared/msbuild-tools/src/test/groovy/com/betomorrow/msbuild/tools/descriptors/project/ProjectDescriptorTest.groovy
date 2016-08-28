@@ -43,12 +43,12 @@ class ProjectDescriptorTest {
 
     @Test
     public void testGetOutputPathForDebugReturnsDebutPath() {
-        assert 'bin\\Debug' == androidProject.getOutputPath("Debug")
+        assert 'bin\\Debug' == androidProject.getOutputDir("Debug")
     }
 
     @Test
     public void testGetOutputPathForReleaseReturnsDebutPath() {
-        assert 'bin\\Release' == androidProject.getOutputPath("Release")
+        assert 'bin\\Release' == androidProject.getOutputDir("Release")
     }
 
     @Test

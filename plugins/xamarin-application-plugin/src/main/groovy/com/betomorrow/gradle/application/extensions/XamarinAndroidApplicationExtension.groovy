@@ -1,6 +1,6 @@
 package com.betomorrow.gradle.application.extensions
 
-import com.betomorrow.gradle.base.extensions.XamarinBaseExtension
+import com.betomorrow.msbuild.tools.FileUtils
 import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
 import com.betomorrow.msbuild.tools.descriptors.solution.SolutionDescriptor
 import com.betomorrow.msbuild.tools.descriptors.solution.SolutionLoader
@@ -18,11 +18,9 @@ class XamarinAndroidApplicationExtension {
     def String manifest;
     def String projectFile;
 
-    private XamarinBaseExtension baseExtension;
     private XamarinApplicationExtension applicationExtension;
 
     public XamarinAndroidApplicationExtension(Project project) {
-        baseExtension = project.extensions.getByType(XamarinBaseExtension)
         applicationExtension = project.extensions.getByType(XamarinApplicationExtension)
     }
 
@@ -32,7 +30,7 @@ class XamarinAndroidApplicationExtension {
             return appName
         }
 
-        def solution = solutionLoader.load(baseExtension.solution)
+        def solution = getSolution()
 
         // 2. try to find an appName.Droid in solution file
         String defaultAppName = applicationExtension.appName + DROID_SUFFIX;
@@ -76,12 +74,12 @@ class XamarinAndroidApplicationExtension {
         }
 
         // 2. return manifest of projectFile
-        def manifestRelativePath = getProject().androidManifest.replace("\\", "/")
+        def manifestRelativePath = FileUtils.toUnixPath(getProject().androidManifest)
         return Paths.get(getProjectFile()).parent.resolve(manifestRelativePath).toString()
     }
 
     private SolutionDescriptor getSolution() {
-        return solutionLoader.load(baseExtension.solution)
+        return solutionLoader.load(applicationExtension.solution)
     }
 
     private ProjectDescriptor getProject() {

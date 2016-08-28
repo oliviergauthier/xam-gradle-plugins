@@ -5,6 +5,7 @@ import com.betomorrow.gradle.application.extensions.XamarinApplicationExtension
 import com.betomorrow.gradle.application.extensions.XamarinIosApplicationExtension
 import com.betomorrow.gradle.application.tasks.BuildAndroidAppTask
 import com.betomorrow.gradle.base.extensions.XamarinBaseExtension
+import com.betomorrow.msbuild.tools.commands.DefaultCommandRunner
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -16,25 +17,17 @@ class XamarinApplicationPlugin implements Plugin<Project> {
     void apply(Project project) {
         project.with {
 
-//            beforeEvaluate {
-//                buildscript.configurations.classpath += 'com.betomorrow.gradle:xamarin-base-plugin'
-//            }
-//
-            configure(project) {
-                apply plugin: 'xamarin-base-plugin'
-            }
-
             extensions.create("application", XamarinApplicationExtension)
             application.extensions.create("android", XamarinAndroidApplicationExtension, project)
             application.extensions.create("ios", XamarinIosApplicationExtension)
 
-
             afterEvaluate {
 
-                XamarinBaseExtension baseExtension = extensions.getByName("xamarin");
                 XamarinApplicationExtension application = extensions.getByName("application");
                 XamarinAndroidApplicationExtension android = application.extensions.getByName("android");
                 XamarinIosApplicationExtension ios = application.extensions.getByName("ios");
+
+                DefaultCommandRunner.INSTANCE.dryRun = application.dryRun
 
                 task("buildAndroid", description: "build android application", group: BUILD_GROUP, type: BuildAndroidAppTask) {
                     appVersion = application.appVersion
@@ -43,6 +36,7 @@ class XamarinApplicationPlugin implements Plugin<Project> {
                     projectFile = android.projectFile
                     manifest = android.manifest
                     output = android.output
+                    configuration = application.configuration
                 }
             }
         }

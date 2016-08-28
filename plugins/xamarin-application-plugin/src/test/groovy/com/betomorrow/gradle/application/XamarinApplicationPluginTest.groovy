@@ -11,15 +11,15 @@ class XamarinApplicationPluginTest {
     @Test
     public void testApplyResolveDefaultValues() {
         Project project = ProjectBuilder.builder().build()
-        project.apply plugin: 'xamarin-base-plugin'
         project.apply plugin: 'xamarin-application-plugin'
 
-        project.xamarin {
-            configuration 'Release' // default value
-            solution 'src/test/resources/CrossApp/CrossApp.sln' // first solution file in current folder
-        }
-
         project.application {
+
+            configuration 'Release'
+            solution 'src/test/resources/CrossApp/CrossApp.sln' // first solution file in current folder
+
+            dryRun true
+
             appName 'CrossApp' // auto resolved (common part of all projects names in solution)
             appVersion '2.6' // if empty use the one defined in csproj
             storeVersion '1.0' // if empty use the one defined in csproj

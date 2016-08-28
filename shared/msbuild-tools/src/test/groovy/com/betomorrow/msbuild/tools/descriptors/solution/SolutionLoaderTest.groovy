@@ -19,16 +19,16 @@ class SolutionLoaderTest {
         assert !iosApp.isAndroidApplication();
         assert iosApp.isIosApplication();
         assert iosApp.getAssemblyName() == 'CrossApp.iOS'
-        assert iosApp.getOutputPath('Release', 'iPhone') == 'bin\\iPhone\\Release'
-        assert iosApp.getOutputPath('Debug', 'iPhone') == 'bin\\iPhone\\Debug'
+        assert iosApp.getOutputDir('Release', 'iPhone') == 'bin\\iPhone\\Release'
+        assert iosApp.getOutputDir('Debug', 'iPhone') == 'bin\\iPhone\\Debug'
 
         def androidApp = descriptor.getProject('CrossApp.Droid');
         assert androidApp != null;
         assert androidApp.isAndroidApplication();
         assert !androidApp.isIosApplication();
         assert androidApp.getAssemblyName() == 'CrossApp.Droid'
-        assert androidApp.getOutputPath('Release') == 'bin\\Release'
-        assert androidApp.getOutputPath('Debug|iPhone') == 'bin\\Debug'
+        assert androidApp.getOutputDir('Release') == 'bin\\Release'
+        assert androidApp.getOutputDir('Debug|iPhone') == 'bin\\Debug'
 
     }
 }
