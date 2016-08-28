@@ -42,7 +42,11 @@ class ProjectDescriptor {
     }
 
     public String getAndroidManifest() {
-        return  content.PropertyGroup.AndroidManifest;
+        return FileUtils.toUnixPath(content.PropertyGroup.AndroidManifest.toString());
+    }
+
+    public Path getAndroidManifestPath() {
+        return Paths.get(path).parent.resolve(getAndroidManifest());
     }
 
     public String getAssemblyName() {
@@ -56,15 +60,15 @@ class ProjectDescriptor {
     public String getOutputDir(String configuration, String platform = null) {
         def pattern = platform == null ? ~/.*${configuration}.*/ : ~/.*'\s*${configuration}\s*\|\s*${platform}\s*'.*/
         def nodes = content.PropertyGroup.findAll{
-            println(it.@Condition)
             it.@Condition =~ pattern
         }
-        return nodes[0].OutputPath
+        return FileUtils.toUnixPath(nodes[0].OutputPath.toString())
     }
 
     public Path getOutputPath(String configuration, String platform = null) {
-        def output = FileUtils.toUnixPath(getOutputDir(configuration, platform))
-        return Paths.get(path).resolve(output).resolve(getAssemblyName() + "." + getExtension());
+        return Paths.get(path).parent
+                .resolve(getOutputDir(configuration, platform))
+                .resolve(getAssemblyName() + "." + getExtension());
     }
 
     public static String getPackageName() {

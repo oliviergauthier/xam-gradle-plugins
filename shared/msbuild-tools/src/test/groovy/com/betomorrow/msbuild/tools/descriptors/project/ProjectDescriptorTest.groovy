@@ -3,6 +3,8 @@ package com.betomorrow.msbuild.tools.descriptors.project
 import com.betomorrow.msbuild.tools.FileUtils
 import org.junit.Test
 
+import java.nio.file.Paths
+
 class ProjectDescriptorTest {
 
     def SAMPLE_DROID = FileUtils.getResourcePath('Sample.Droid.csproj');
@@ -32,8 +34,13 @@ class ProjectDescriptorTest {
     }
 
     @Test
-    public void testGetAndroidManifestReturnsPathOfManifest() {
-        assert 'Properties\\AndroidManifest.xml' == androidProject.getAndroidManifest();
+    public void testGetAndroidManifestReturnsManifestValue() {
+        assert 'Properties/AndroidManifest.xml' == androidProject.getAndroidManifest();
+    }
+
+    @Test
+    public void testGetAndroidManifestPathReturnsCompletePathOfManifest() {
+        assert Paths.get(SAMPLE_DROID).parent.resolve("Properties/AndroidManifest.xml") == androidProject.getAndroidManifestPath();
     }
 
     @Test
@@ -42,13 +49,13 @@ class ProjectDescriptorTest {
     }
 
     @Test
-    public void testGetOutputPathForDebugReturnsDebutPath() {
-        assert 'bin\\Debug' == androidProject.getOutputDir("Debug")
+    public void testGetOutputDirForDebugReturnsDebutPath() {
+        assert 'bin/Debug' == androidProject.getOutputDir("Debug")
     }
 
     @Test
-    public void testGetOutputPathForReleaseReturnsDebutPath() {
-        assert 'bin\\Release' == androidProject.getOutputDir("Release")
+    public void testGetOutputDirForReleaseReturnsDebutPath() {
+        assert 'bin/Release' == androidProject.getOutputDir("Release")
     }
 
     @Test

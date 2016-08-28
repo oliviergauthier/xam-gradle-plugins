@@ -50,8 +50,7 @@ class BuildAndroidAppTask extends DefaultTask {
     }
 
     private String getManifestPathFromDescriptor() {
-        def manifestRelativePath = getProjectDescriptor().androidManifest.replace("\\", "/")
-        return Paths.get(projectFile).parent.resolve(manifestRelativePath).toString()
+        return getProjectDescriptor().getAndroidManifestPath().toString()
     }
 
     private void updateManifest(String path) {
