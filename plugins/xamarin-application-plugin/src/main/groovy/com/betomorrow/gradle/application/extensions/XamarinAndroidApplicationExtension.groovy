@@ -1,6 +1,6 @@
 package com.betomorrow.gradle.application.extensions
 
-import com.betomorrow.msbuild.tools.FileUtils
+import com.betomorrow.msbuild.tools.Files.FileUtils
 import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
 import com.betomorrow.msbuild.tools.descriptors.solution.SolutionDescriptor
 import com.betomorrow.msbuild.tools.descriptors.solution.SolutionLoader

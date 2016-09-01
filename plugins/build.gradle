@@ -12,6 +12,8 @@ subprojects {
     dependencies {
         compile localGroovy()
         compile gradleApi()
+
+        compile 'org.slf4j:slf4j-api:1.6.1'
     }
 
     group = 'com.betomorrow.gradle'

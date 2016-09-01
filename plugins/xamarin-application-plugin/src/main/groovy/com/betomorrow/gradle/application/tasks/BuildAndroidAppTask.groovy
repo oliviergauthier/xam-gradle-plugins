@@ -1,24 +1,21 @@
 package com.betomorrow.gradle.application.tasks
 
-import com.betomorrow.android.tools.AndroidManifestEditor
-import com.betomorrow.msbuild.tools.FileUtils
+import com.betomorrow.android.tools.AndroidManifestEditorFactory
+import com.betomorrow.msbuild.tools.Files.FakeFileCopier
+import com.betomorrow.msbuild.tools.Files.FileCopier
 import com.betomorrow.msbuild.tools.commands.CommandRunner
 import com.betomorrow.msbuild.tools.commands.DefaultCommandRunner
 import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
 import com.betomorrow.msbuild.tools.xbuild.AndroidTargets
 import com.betomorrow.msbuild.tools.xbuild.XBuildCmd
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
-
-import java.nio.file.Files
-import java.nio.file.Paths
-import java.nio.file.StandardCopyOption
-
 
 class BuildAndroidAppTask extends DefaultTask {
 
     protected CommandRunner commandRunner = DefaultCommandRunner.INSTANCE;
+    protected AndroidManifestEditorFactory androidManifestEditorFactory = new AndroidManifestEditorFactory();
+    protected FileCopier fileCopier = new FakeFileCopier();
 
     def String appVersion;
     def String storeVersion;
@@ -31,18 +28,11 @@ class BuildAndroidAppTask extends DefaultTask {
     @TaskAction
     def build() {
 
-        String manifestPathFromDescriptor = getManifestPathFromDescriptor()
-
-        if (manifestPathFromDescriptor != manifest) {
-            FileUtils.replace(manifest, manifestPathFromDescriptor)
-        }
-
-        updateManifest(manifestPathFromDescriptor);
+        updateManifest();
 
         invokeXBuild()
 
         copyBuiltAssemblyToOutput();
-
     }
 
     private ProjectDescriptor getProjectDescriptor() {
@@ -53,12 +43,12 @@ class BuildAndroidAppTask extends DefaultTask {
         return getProjectDescriptor().getAndroidManifestPath().toString()
     }
 
-    private void updateManifest(String path) {
-        def editor = new AndroidManifestEditor(path);
+    private void updateManifest() {
+        def editor = androidManifestEditorFactory.create(manifest);
         editor.versionCode = appVersion
         editor.versionName = storeVersion
         editor.packageName = packageName
-        editor.write();
+        editor.write(getManifestPathFromDescriptor());
     }
 
     private int invokeXBuild() {
@@ -70,7 +60,7 @@ class BuildAndroidAppTask extends DefaultTask {
     }
 
     private void copyBuiltAssemblyToOutput() {
-        FileUtils.replace(getProjectDescriptor().getOutputPath(configuration).toString(), output)
+        fileCopier.replace(getProjectDescriptor().getOutputPath(configuration).toString(), output)
     }
 
 }

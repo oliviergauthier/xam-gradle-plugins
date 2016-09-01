@@ -15,7 +15,7 @@ class AndroidManifestEditor {
         this.source = source
     }
 
-    void write() {
+    void write(String destination) {
 
         def ns = new Namespace("http://schemas.android.com/apk/res/android", "android")
 
@@ -34,7 +34,9 @@ class AndroidManifestEditor {
             content.attributes()[ns.versionCode] = versionCode;
         }
 
-        new FileOutputStream(source).withStream { out ->
+
+        String dst = destination == null ? source : destination
+        new FileOutputStream(dst).withStream { out ->
             XmlUtil.serialize(content, out)
         }
     }

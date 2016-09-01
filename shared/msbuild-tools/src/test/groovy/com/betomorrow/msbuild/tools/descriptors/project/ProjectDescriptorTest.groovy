@@ -1,6 +1,6 @@
 package com.betomorrow.msbuild.tools.descriptors.project
 
-import com.betomorrow.msbuild.tools.FileUtils
+import com.betomorrow.msbuild.tools.Files.FileUtils
 import org.junit.Test
 
 import java.nio.file.Paths
