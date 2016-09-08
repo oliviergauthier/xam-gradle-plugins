@@ -10,9 +10,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
 
-import static com.betomorrow.android.tools.AndroidManifestEditor.*
-
-class AndroidManifestEditorTest {
+class DefaultAndroidManifestEditorTest {
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
@@ -20,13 +18,13 @@ class AndroidManifestEditorTest {
     String SAMPLE_MANIFEST = ClassLoader.getSystemResource('AndroidManifest.xml').file;
     File copy;
 
-    AndroidManifestEditor editor
+    DefaultAndroidManifestEditor editor
 
     @Before
     public void setUp() {
         copy = testFolder.newFile("copy.manifest")
         Files.copy(Paths.get(SAMPLE_MANIFEST), copy.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        editor = new AndroidManifestEditor(copy.absolutePath);
+        editor = new DefaultAndroidManifestEditor(copy.absolutePath);
     }
 
     @Test

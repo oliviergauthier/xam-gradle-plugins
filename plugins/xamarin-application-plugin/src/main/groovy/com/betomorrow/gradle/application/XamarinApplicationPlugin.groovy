@@ -1,11 +1,10 @@
 package com.betomorrow.gradle.application
 
+import com.betomorrow.gradle.application.context.Context
 import com.betomorrow.gradle.application.extensions.XamarinAndroidApplicationExtension
 import com.betomorrow.gradle.application.extensions.XamarinApplicationExtension
 import com.betomorrow.gradle.application.extensions.XamarinIosApplicationExtension
 import com.betomorrow.gradle.application.tasks.BuildAndroidAppTask
-import com.betomorrow.gradle.base.extensions.XamarinBaseExtension
-import com.betomorrow.msbuild.tools.commands.DefaultCommandRunner
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -27,7 +26,7 @@ class XamarinApplicationPlugin implements Plugin<Project> {
                 XamarinAndroidApplicationExtension android = application.extensions.getByName("android");
                 XamarinIosApplicationExtension ios = application.extensions.getByName("ios");
 
-                DefaultCommandRunner.INSTANCE.dryRun = application.dryRun
+                Context.configure(application.dryRun);
 
                 task("buildAndroid", description: "build android application", group: BUILD_GROUP, type: BuildAndroidAppTask) {
                     appVersion = application.appVersion

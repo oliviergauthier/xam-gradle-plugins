@@ -37,17 +37,12 @@ class XamarinApplicationPluginTest {
             }
         }
 
-        project.task("info") << {
-            println project.application.android.projectFile
-        }
 
         project.evaluate();
 
         BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid;
         buildAndroidTask.actions.each { action -> action.execute(buildAndroidTask) }
 
-        def infoTask = project.tasks.info;
-        infoTask.actions.each { action -> action.execute(infoTask) }
 
     }
 }

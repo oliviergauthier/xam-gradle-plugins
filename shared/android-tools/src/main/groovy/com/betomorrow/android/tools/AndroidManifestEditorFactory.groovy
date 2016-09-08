@@ -1,9 +1,7 @@
 package com.betomorrow.android.tools
 
-class AndroidManifestEditorFactory {
+interface AndroidManifestEditorFactory {
 
-    AndroidManifestEditor create(String source) {
-        return new AndroidManifestEditor(source);
-    }
+    AndroidManifestEditor create(String source)
 
 }
