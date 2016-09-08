@@ -6,10 +6,17 @@ import com.betomorrow.msbuild.tools.Files.DefaultFileCopier
 import com.betomorrow.msbuild.tools.Files.FakeFileCopier
 import com.betomorrow.msbuild.tools.commands.FakeCommandRunner
 import com.betomorrow.msbuild.tools.commands.SystemCommandRunner
+import groovy.transform.PackageScope
 
 class Context {
 
     private static ApplicationContext instance;
+
+    @PackageScope
+    protected static ApplicationContext dryRunContext = createFakeApplicationContext();
+
+    @PackageScope
+    protected static ApplicationContext defaultContext = createRealApplicationContext();
 
     static {
         configure(false);
@@ -21,9 +28,9 @@ class Context {
 
     static void configure(boolean dryRun) {
         if (dryRun) {
-            instance = createFakeApplicationContext();
+            instance = dryRunContext;
         } else {
-            instance = createRealApplicationContext();
+            instance = defaultContext;
         }
     }
 

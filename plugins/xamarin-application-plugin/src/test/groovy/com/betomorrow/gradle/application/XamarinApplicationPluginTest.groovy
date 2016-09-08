@@ -1,5 +1,6 @@
 package com.betomorrow.gradle.application
 
+import com.betomorrow.gradle.application.context.Context
 import com.betomorrow.gradle.application.tasks.BuildAndroidAppTask
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
@@ -12,6 +13,9 @@ class XamarinApplicationPluginTest {
     public void testApplyResolveDefaultValues() {
         Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'xamarin-application-plugin'
+
+
+       //s Context.dryRunContext = null;
 
         project.application {
 
