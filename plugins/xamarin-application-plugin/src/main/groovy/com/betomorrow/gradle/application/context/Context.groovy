@@ -1,7 +1,7 @@
 package com.betomorrow.gradle.application.context
 
-import com.betomorrow.android.tools.DefaultAndroidManifestEditorFactory
-import com.betomorrow.android.tools.FakeAndroidManifestEditorFactory
+import com.betomorrow.android.tools.manifest.DefaultAndroidManifestWriter
+import com.betomorrow.android.tools.manifest.FakeAndroidManifestWriter
 import com.betomorrow.msbuild.tools.Files.DefaultFileCopier
 import com.betomorrow.msbuild.tools.Files.FakeFileCopier
 import com.betomorrow.msbuild.tools.commands.FakeCommandRunner
@@ -37,13 +37,13 @@ class Context {
     private static ApplicationContext createFakeApplicationContext() {
         return [getFileCopier : { new FakeFileCopier() },
                 getCommandRunner : { new FakeCommandRunner() },
-                getAndroidManifestEditorFactory : { new FakeAndroidManifestEditorFactory() }] as ApplicationContext;
+                getAndroidManifestWriter : { new FakeAndroidManifestWriter() }] as ApplicationContext;
     }
 
     private static ApplicationContext createRealApplicationContext() {
         return [getFileCopier : { new DefaultFileCopier() },
                 getCommandRunner : { new SystemCommandRunner() },
-                getAndroidManifestEditorFactory : { new DefaultAndroidManifestEditorFactory() }] as ApplicationContext;
+                getAndroidManifestWriter : { new DefaultAndroidManifestWriter() }] as ApplicationContext;
     }
 
 

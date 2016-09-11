@@ -9,6 +9,6 @@ class FakeFileCopier implements FileCopier {
 
     @Override
     void replace(String src, String dst) {
-        println "Copy $src to $dst";
+        println "Copy $src to ${FileUtils.toUnixPath(dst)}";
     }
 }

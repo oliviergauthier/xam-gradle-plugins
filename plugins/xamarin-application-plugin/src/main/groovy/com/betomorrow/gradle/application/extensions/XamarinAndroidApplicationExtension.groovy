@@ -88,7 +88,7 @@ class XamarinAndroidApplicationExtension {
         }
 
         // 2. returns the one in manifest
-        return readManifest.getVersionName();
+        return readManifest.versionName;
     }
 
     public String getStoreVersion() {
@@ -98,7 +98,7 @@ class XamarinAndroidApplicationExtension {
         }
 
         // 2. returns the one in manifest
-        return readManifest.getVersionCode();
+        return readManifest.versionCode;
     }
 
     public String getPackageName() {
@@ -108,7 +108,7 @@ class XamarinAndroidApplicationExtension {
         }
 
         // 2. returns the one in manifest
-        return readManifest.getPackageName();
+        return readManifest.packageName;
     }
 
     @Lazy ProjectDescriptor project = solution.getProject(getAppName());

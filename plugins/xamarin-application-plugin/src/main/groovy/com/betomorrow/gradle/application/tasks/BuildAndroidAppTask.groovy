@@ -1,6 +1,8 @@
 package com.betomorrow.gradle.application.tasks
 
-import com.betomorrow.android.tools.AndroidManifestEditorFactory
+
+import com.betomorrow.android.tools.manifest.AndroidManifest
+import com.betomorrow.android.tools.manifest.AndroidManifestWriter
 import com.betomorrow.gradle.application.context.Context
 import com.betomorrow.msbuild.tools.Files.FileCopier
 import com.betomorrow.msbuild.tools.commands.CommandRunner
@@ -13,7 +15,7 @@ import org.gradle.api.tasks.TaskAction
 class BuildAndroidAppTask extends DefaultTask {
 
     protected CommandRunner commandRunner = Context.current.commandRunner;
-    protected AndroidManifestEditorFactory androidManifestEditorFactory = Context.current.androidManifestEditorFactory;
+    protected AndroidManifestWriter androidManifestWriter = Context.current.androidManifestWriter;
     protected FileCopier fileCopier = Context.current.fileCopier;
 
     def String appVersion;
@@ -43,11 +45,16 @@ class BuildAndroidAppTask extends DefaultTask {
     }
 
     private void updateManifest() {
-        def editor = androidManifestEditorFactory.create(manifest);
-        editor.versionCode = appVersion
-        editor.versionName = storeVersion
-        editor.packageName = packageName
-        editor.write(getManifestPathFromDescriptor());
+        if (manifest != getManifestPathFromDescriptor()) {
+            fileCopier.replace(manifest, getProjectDescriptor().getAndroidManifestPath());
+        }
+
+        def androidManifest = new AndroidManifest();
+        androidManifest.versionCode = appVersion
+        androidManifest.versionName = storeVersion
+        androidManifest.packageName = packageName
+
+        androidManifestWriter.write(androidManifest, getManifestPathFromDescriptor());
     }
 
     private int invokeXBuild() {

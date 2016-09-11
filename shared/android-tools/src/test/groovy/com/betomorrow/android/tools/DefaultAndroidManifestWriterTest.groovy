@@ -1,5 +1,6 @@
 package com.betomorrow.android.tools
 
+import com.betomorrow.android.tools.manifest.DefaultAndroidManifestWriter
 import groovy.xml.Namespace
 import org.junit.Before
 import org.junit.Rule
@@ -10,7 +11,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.nio.file.StandardCopyOption
 
-class DefaultAndroidManifestEditorTest {
+class DefaultAndroidManifestWriterTest {
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
@@ -18,13 +19,13 @@ class DefaultAndroidManifestEditorTest {
     String SAMPLE_MANIFEST = ClassLoader.getSystemResource('AndroidManifest.xml').file;
     File copy;
 
-    DefaultAndroidManifestEditor editor
+    DefaultAndroidManifestWriter editor
 
     @Before
     public void setUp() {
         copy = testFolder.newFile("copy.manifest")
         Files.copy(Paths.get(SAMPLE_MANIFEST), copy.toPath(), StandardCopyOption.REPLACE_EXISTING);
-        editor = new DefaultAndroidManifestEditor(copy.absolutePath);
+        editor = new DefaultAndroidManifestWriter(copy.absolutePath);
     }
 
     @Test
