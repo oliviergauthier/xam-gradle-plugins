@@ -29,9 +29,9 @@ class XamarinApplicationPlugin implements Plugin<Project> {
                 Context.configure(application.dryRun);
 
                 task("buildAndroid", description: "build android application", group: BUILD_GROUP, type: BuildAndroidAppTask) {
-                    appVersion = application.appVersion
-                    storeVersion = application.storeVersion
-                    packageName = application.packageName
+                    appVersion = android.appVersion
+                    storeVersion = android.storeVersion
+                    packageName = android.packageName
                     projectFile = android.projectFile
                     manifest = android.manifest
                     output = android.output

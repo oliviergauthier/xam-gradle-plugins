@@ -54,7 +54,7 @@ class ProjectDescriptor {
     }
 
     public String getPath() {
-        return path;
+        return FileUtils.toUnixPath(path);
     }
 
     public String getOutputDir(String configuration, String platform = null) {

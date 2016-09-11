@@ -1,10 +1,11 @@
 package com.betomorrow.gradle.application
 
-import com.betomorrow.gradle.application.context.Context
 import com.betomorrow.gradle.application.tasks.BuildAndroidAppTask
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Test
+
+import java.nio.file.Paths
 
 class XamarinApplicationPluginTest {
 
@@ -14,15 +15,31 @@ class XamarinApplicationPluginTest {
         Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'xamarin-application-plugin'
 
+        project.application {
+            solution 'src/test/resources/CrossApp/CrossApp.sln' // first solution file in current folder
+        }
 
-       //s Context.dryRunContext = null;
+        project.evaluate();
+
+        BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid;
+
+        assert buildAndroidTask.configuration == 'Release'
+        assert buildAndroidTask.appVersion == "1.0"
+        assert buildAndroidTask.packageName ==  "com.acme.crossapp"
+        assert buildAndroidTask.output == "dist/CrossApp.Droid-1.0.apk"
+        assert buildAndroidTask.projectFile == "src/test/resources/CrossApp/Droid/CrossApp.Droid.csproj"
+        assert buildAndroidTask.manifest == Paths.get("src/test/resources/CrossApp/Droid/Properties/AndroidManifest.xml").toString()
+    }
+
+    @Test
+    public void testApplyOverrideValues() {
+        Project project = ProjectBuilder.builder().build()
+        project.apply plugin: 'xamarin-application-plugin'
 
         project.application {
 
             configuration 'Release'
             solution 'src/test/resources/CrossApp/CrossApp.sln' // first solution file in current folder
-
-            dryRun true
 
             appName 'CrossApp' // auto resolved (common part of all projects names in solution)
             appVersion '2.6' // if empty use the one defined in csproj
@@ -31,9 +48,9 @@ class XamarinApplicationPluginTest {
             packageName "com.acme.crossapp" // if empty use the one defined in csproj
 
             android {
-//                manifest "path/to/manifest" // auto resolved
-//                output "dist/${appName}-${appVersion}.apk"  // default value
-//                projectFile "path/to/myapp" // auto resolved
+                manifest "path/to/manifest" // auto resolved
+                output "dist/my-${appName}-${appVersion}.apk"  // default value
+                projectFile "path/to/myapp" // auto resolved
             }
 
             ios {
@@ -41,12 +58,18 @@ class XamarinApplicationPluginTest {
             }
         }
 
-
         project.evaluate();
 
         BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid;
-        buildAndroidTask.actions.each { action -> action.execute(buildAndroidTask) }
+        assert buildAndroidTask.configuration == 'Release'
+        assert buildAndroidTask.appVersion == "2.6"
+        assert buildAndroidTask.storeVersion == "1.0"
+        assert buildAndroidTask.packageName ==  "com.acme.crossapp"
+        assert buildAndroidTask.output == "dist/my-CrossApp.Droid-2.6.apk"
+        assert buildAndroidTask.projectFile == "path/to/myapp"
+        assert buildAndroidTask.manifest == "path/to/manifest"
 
 
+//        buildAndroidTask.actions.each { action -> action.execute(buildAndroidTask) }
     }
 }
