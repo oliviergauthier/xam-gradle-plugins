@@ -25,6 +25,7 @@ class XamarinApplicationPluginTest {
 
         assert buildAndroidTask.configuration == 'Release'
         assert buildAndroidTask.appVersion == "1.0"
+        assert buildAndroidTask.storeVersion == "2.6"
         assert buildAndroidTask.packageName ==  "com.acme.crossapp"
         assert buildAndroidTask.output == "dist/CrossApp.Droid-1.0.apk"
         assert buildAndroidTask.projectFile == "src/test/resources/CrossApp/Droid/CrossApp.Droid.csproj"
@@ -42,10 +43,10 @@ class XamarinApplicationPluginTest {
             solution 'src/test/resources/CrossApp/CrossApp.sln' // first solution file in current folder
 
             appName 'CrossApp' // auto resolved (common part of all projects names in solution)
-            appVersion '2.6' // if empty use the one defined in csproj
-            storeVersion '1.0' // if empty use the one defined in csproj
+            appVersion '2.6' // if empty use the one defined in manifest
+            storeVersion '1.0' // if empty use the one defined in manifest
 
-            packageName "com.acme.crossapp" // if empty use the one defined in csproj
+            packageName "com.acme.crossapp" // if empty use the one defined in manifet
 
             android {
                 manifest "path/to/manifest" // auto resolved
@@ -92,7 +93,7 @@ class XamarinApplicationPluginTest {
             packageName "com.acme.crossapp" // if empty use the one defined in csproj
 
             android {
-                //manifest "path/to/manifest" // auto resolved
+                manifest "path/to/manifest" // auto resolved
                 output "dist/my-${appName}-${appVersion}.apk"  // default value
                 //projectFile "path/to/myapp" // auto resolved
             }

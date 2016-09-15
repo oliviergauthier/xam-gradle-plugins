@@ -46,12 +46,12 @@ class BuildAndroidAppTask extends DefaultTask {
 
     private void updateManifest() {
         if (manifest != getManifestPathFromDescriptor()) {
-            fileCopier.replace(manifest, getProjectDescriptor().getAndroidManifestPath());
+            fileCopier.replace(manifest, getManifestPathFromDescriptor());
         }
 
         def androidManifest = new AndroidManifest();
-        androidManifest.versionCode = appVersion
-        androidManifest.versionName = storeVersion
+        androidManifest.versionCode = storeVersion
+        androidManifest.versionName = appVersion
         androidManifest.packageName = packageName
 
         androidManifestWriter.write(androidManifest, getManifestPathFromDescriptor());
