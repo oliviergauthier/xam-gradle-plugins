@@ -22,11 +22,11 @@ application {
 
     android {
         manifest "path/to/manifest" // auto resolved
-//        output "dist/{appName}-{appVersion}.apk"  // default value
+//        output "dist/{appName}-{bundleVersion}.apk"  // default value
     }
 
     ios {
-        output "dist/{appName}-{appVersion}.ipa"  // default value
+        output "dist/{appName}-{bundleVersion}.ipa"  // default value
     }
 }
 

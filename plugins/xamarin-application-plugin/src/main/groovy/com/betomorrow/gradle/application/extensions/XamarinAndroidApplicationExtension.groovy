@@ -17,6 +17,10 @@ class XamarinAndroidApplicationExtension {
     protected AndroidManifestReader manifestReader = new DefaultAndroidManifestReader();
     protected String DROID_SUFFIX = ".Droid"
 
+    @Lazy ProjectDescriptor project = solution.getProject(getAppName());
+    @Lazy SolutionDescriptor solution = solutionLoader.load(applicationExtension.solution);
+    @Lazy AndroidManifest readManifest = manifestReader.read(getManifest());
+
     def String appName;
     def String output;
     def String manifest;
@@ -82,7 +86,7 @@ class XamarinAndroidApplicationExtension {
 
 
     public String getAppVersion() {
-        // 1. returns configured appVersion
+        // 1. returns configured bundleVersion
         if (applicationExtension.appVersion != null) {
             return applicationExtension.appVersion;
         }
@@ -92,7 +96,7 @@ class XamarinAndroidApplicationExtension {
     }
 
     public String getStoreVersion() {
-        // 1. returns configured storeVersion
+        // 1. returns configured versionCode
         if (applicationExtension.storeVersion != null) {
             return applicationExtension.storeVersion;
         }
@@ -102,7 +106,7 @@ class XamarinAndroidApplicationExtension {
     }
 
     public String getPackageName() {
-        // 1. returns configured packageName
+        // 1. returns configured bundleIdentifier
         if (applicationExtension.packageName != null) {
             return applicationExtension.packageName;
         }
@@ -110,9 +114,5 @@ class XamarinAndroidApplicationExtension {
         // 2. returns the one in manifest
         return readManifest.packageName;
     }
-
-    @Lazy ProjectDescriptor project = solution.getProject(getAppName());
-    @Lazy SolutionDescriptor solution = solutionLoader.load(applicationExtension.solution);
-    @Lazy AndroidManifest readManifest = manifestReader.read(getManifest());
 
 }

@@ -45,6 +45,10 @@ class ProjectDescriptor {
         return FileUtils.toUnixPath(content.PropertyGroup.AndroidManifest.toString());
     }
 
+    public String getInfoPlist() {
+        return "Info.plist";
+    }
+
     public Path getAndroidManifestPath() {
         return Paths.get(path).parent.resolve(getAndroidManifest());
     }

@@ -21,6 +21,21 @@ public class SolutionDescriptorTest {
         assert sd.hasSingleAndroidProject() == false
     }
 
+
+    @Test
+    public void testHasSingleIosProjectReturnsTrueWithOnlyOneAndroidProject() {
+        SolutionDescriptor sd = new SolutionDescriptor(['sample' : createIosProject()]);
+        assert sd.hasSingleIosProject() == true
+    }
+
+    @Test
+    public void testHasSingleIosProjectReturnsFalseWithManyAndroidProject() {
+        SolutionDescriptor sd = new SolutionDescriptor(['sample' : createIosProject(),
+                                                        'sample2' : createIosProject()]);
+        assert sd.hasSingleIosProject() == false
+    }
+
+
     @Test
     public void testContainsApplication() {
         SolutionDescriptor sd = new SolutionDescriptor(['sample' : createAndroidProject(),
@@ -37,6 +52,16 @@ public class SolutionDescriptorTest {
                                                         'sample3' : createAndroidProject()]);
         assert sd.firstAndroidProject == firstAndroidProject
     }
+
+    @Test
+    public void testGetFirsIosProject() {
+        def firstIosProject = createIosProject()
+        SolutionDescriptor sd = new SolutionDescriptor(['sample' : createAndroidProject(),
+                                                        'sample2' :firstIosProject,
+                                                        'sample3' : createIosProject()]);
+        assert sd.firstAndroidProject == firstIosProject
+    }
+
 
     public ProjectDescriptor createAndroidProject() {
         return [isAndroidApplication: { true }, isIosApplication: { false }] as ProjectDescriptor

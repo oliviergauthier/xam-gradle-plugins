@@ -19,7 +19,7 @@ class BuildAndroidAppTask extends DefaultTask {
     protected FileCopier fileCopier = Context.current.fileCopier;
 
     def String appVersion;
-    def String storeVersion;
+    def String versionCode;
     def String packageName;
     def String output;
     def String projectFile;
@@ -50,7 +50,7 @@ class BuildAndroidAppTask extends DefaultTask {
         }
 
         def androidManifest = new AndroidManifest();
-        androidManifest.versionCode = storeVersion
+        androidManifest.versionCode = versionCode
         androidManifest.versionName = appVersion
         androidManifest.packageName = packageName
 

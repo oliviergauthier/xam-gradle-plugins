@@ -28,6 +28,14 @@ public class SolutionDescriptor {
         return projects.values().count { it.isAndroidApplication()} == 1;
     }
 
+    public ProjectDescriptor getFirstIosProject() {
+        return projects.values().find { it.isIosApplication() }
+    }
+
+    public boolean hasSingleIosProject() {
+        return projects.values().count { it.isIosApplication()} == 1;
+    }
+    
     public boolean containsProject(String appName) {
         return projects.containsKey(appName)
     }

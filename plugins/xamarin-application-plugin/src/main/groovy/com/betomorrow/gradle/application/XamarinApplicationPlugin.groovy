@@ -5,6 +5,7 @@ import com.betomorrow.gradle.application.extensions.XamarinAndroidApplicationExt
 import com.betomorrow.gradle.application.extensions.XamarinApplicationExtension
 import com.betomorrow.gradle.application.extensions.XamarinIosApplicationExtension
 import com.betomorrow.gradle.application.tasks.BuildAndroidAppTask
+import com.betomorrow.gradle.application.tasks.BuildIOSAppTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -18,7 +19,7 @@ class XamarinApplicationPlugin implements Plugin<Project> {
 
             extensions.create("application", XamarinApplicationExtension)
             application.extensions.create("android", XamarinAndroidApplicationExtension, project)
-            application.extensions.create("ios", XamarinIosApplicationExtension)
+            application.extensions.create("ios", XamarinIosApplicationExtension, project)
 
             afterEvaluate {
 
@@ -30,13 +31,26 @@ class XamarinApplicationPlugin implements Plugin<Project> {
 
                 task("buildAndroid", description: "build android application", group: BUILD_GROUP, type: BuildAndroidAppTask) {
                     appVersion = android.appVersion
-                    storeVersion = android.storeVersion
+                    versionCode = android.storeVersion
                     packageName = android.packageName
                     projectFile = android.projectFile
                     manifest = android.manifest
                     output = android.output
                     configuration = application.configuration
                 }
+
+                task("buildIOS", description: "build ios application", group: BUILD_GROUP, type: BuildIOSAppTask) {
+                    bundleVersion = ios.bundleVersion
+                    bundleShortVersion = ios.bundleShortVersion
+                    bundleIdentifier = ios.bundleIdentifier
+                    projectFile = ios.projectFile
+                    infoPlist = ios.infoPlist
+                    output = ios.output
+                    configuration = application.configuration
+                    solutionFile = application.solution
+                    platform = ios.platform
+                }
+
             }
         }
     }
