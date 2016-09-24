@@ -10,7 +10,7 @@ class DefaultAndroidManifestWriter implements AndroidManifestWriter {
         def ns = new Namespace("http://schemas.android.com/apk/res/android", "android")
 
         XmlParser parser = new XmlParser()
-        def content = parser.parse(source);
+        def content = parser.parse(destination);
 
         if (!isNullOrEmpty(manifest.packageName)) {
             content.@package = manifest.packageName;

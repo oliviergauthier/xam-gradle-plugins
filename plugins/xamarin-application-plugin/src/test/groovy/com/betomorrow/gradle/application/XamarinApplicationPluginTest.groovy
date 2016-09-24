@@ -12,7 +12,7 @@ class XamarinApplicationPluginTest {
 
 
     @Test
-    public void testApplyResolveDefaultValues() {
+    public void testApplyCreatesBuildAndroidTasksWithResolvedValues() {
         Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'xamarin-application-plugin'
 
@@ -32,6 +32,19 @@ class XamarinApplicationPluginTest {
         assert buildAndroidTask.projectFile == "src/test/resources/CrossApp/Droid/CrossApp.Droid.csproj"
         assert buildAndroidTask.manifest == Paths.get("src/test/resources/CrossApp/Droid/Properties/AndroidManifest.xml").toString()
 
+    }
+
+    @Test
+    public void testApplyCreatesBuildIOSTasksWithResolvedValues() {
+        Project project = ProjectBuilder.builder().build()
+        project.apply plugin: 'xamarin-application-plugin'
+
+        project.application {
+            solution 'src/test/resources/CrossApp/CrossApp.sln' // first solution file in current folder
+        }
+
+        project.evaluate();
+
         BuildIOSAppTask buildIOSTask = project.tasks.buildIOS;
 
         assert buildIOSTask.configuration == 'Release'
@@ -46,7 +59,7 @@ class XamarinApplicationPluginTest {
     }
 
     @Test
-    public void testApplyOverrideValues() {
+    public void testApplyCreatesBuildAndroidTaskWithOverridedValues() {
         Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'xamarin-application-plugin'
 
@@ -66,13 +79,6 @@ class XamarinApplicationPluginTest {
                 output "dist/my-${appName}-${appVersion}.apk"  // default value
                 projectFile "path/to/myapp" // auto resolved
             }
-
-            ios {
-                infoPlist "path/to/Info.plist"
-                output "dist/my-${appName}-${appVersion}.ipa"  // default value
-                projectFile "path/to/myapp"
-                platform "iPhoneSimulator"
-            }
         }
 
         project.evaluate();
@@ -85,6 +91,33 @@ class XamarinApplicationPluginTest {
         assert buildAndroidTask.output == "dist/my-CrossApp.Droid-2.6.apk"
         assert buildAndroidTask.projectFile == "path/to/myapp"
         assert buildAndroidTask.manifest == "path/to/manifest"
+    }
+
+    @Test
+    public void testApplyCreatesBuildIOSTaskWithOverridedValues() {
+        Project project = ProjectBuilder.builder().build()
+        project.apply plugin: 'xamarin-application-plugin'
+
+        project.application {
+
+            configuration 'Release'
+            solution 'src/test/resources/CrossApp/CrossApp.sln' // first solution file in current folder
+
+            appName 'CrossApp' // auto resolved (common part of all projects names in solution)
+            appVersion '2.6' // if empty use the one defined in manifest
+            storeVersion '1.0' // if empty use the one defined in manifest
+
+            packageName "com.acme.crossapp" // if empty use the one defined in manifet
+
+            ios {
+                infoPlist "path/to/Info.plist"
+                output "dist/my-${appName}-${appVersion}.ipa"  // default value
+                projectFile "path/to/myapp"
+                platform "iPhoneSimulator"
+            }
+        }
+
+        project.evaluate();
 
         BuildIOSAppTask buildIOSTask = project.tasks.buildIOS;
 

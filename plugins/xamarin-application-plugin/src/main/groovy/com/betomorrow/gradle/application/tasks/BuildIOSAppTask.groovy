@@ -17,7 +17,7 @@ class BuildIOSAppTask extends DefaultTask {
 
     protected CommandRunner commandRunner = Context.current.commandRunner;
     protected FileCopier fileCopier = Context.current.fileCopier;
-    protected InfoPlistWriter infoPlistWriter;
+    protected InfoPlistWriter infoPlistWriter = Context.current.infoPlistWriter;
 
     def String bundleVersion;
     def String bundleShortVersion;
@@ -71,7 +71,7 @@ class BuildIOSAppTask extends DefaultTask {
     }
 
     private String getInfoPlistPathFromDescriptor() {
-        return getProjectDescriptor().getAndroidManifestPath().toString()
+        return getProjectDescriptor().getInfoPlistPath().toString()
     }
 
 
