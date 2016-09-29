@@ -3,9 +3,11 @@ package com.betomorrow.msbuild.tools.descriptors.solution
 import com.betomorrow.msbuild.tools.Files.FileUtils
 import org.junit.Test
 
+import java.nio.file.Path
+
 public class SolutionParserTest {
 
-    String SAMPLE_SOLUTION = FileUtils.getResourcePath('Sample.sln');
+    Path SAMPLE_SOLUTION = FileUtils.getResourcePath('Sample.sln');
 
     @Test
     public void testLoadSolutionFile() {

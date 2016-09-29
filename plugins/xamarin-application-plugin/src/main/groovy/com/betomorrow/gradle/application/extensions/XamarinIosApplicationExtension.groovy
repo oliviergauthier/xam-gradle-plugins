@@ -84,7 +84,7 @@ class XamarinIosApplicationExtension {
 
         // 2. return manifest of projectFile
         def infoPlistPath = FileUtils.toUnixPath(project.infoPlist)
-        return Paths.get(project.path).parent.resolve(infoPlistPath).toString()
+        return project.path.parent.resolve(infoPlistPath).toString()
     }
 
 

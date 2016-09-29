@@ -6,6 +6,7 @@ import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Test
 
+import java.nio.file.Path
 import java.nio.file.Paths
 
 class XamarinApplicationPluginTest {
@@ -29,8 +30,8 @@ class XamarinApplicationPluginTest {
         assert buildAndroidTask.versionCode == "2.6"
         assert buildAndroidTask.packageName ==  "com.acme.crossapp"
         assert buildAndroidTask.output == "dist/CrossApp.Droid-1.0.apk"
-        assert buildAndroidTask.projectFile == "src/test/resources/CrossApp/Droid/CrossApp.Droid.csproj"
-        assert buildAndroidTask.manifest == Paths.get("src/test/resources/CrossApp/Droid/Properties/AndroidManifest.xml").toString()
+        assert Paths.get(buildAndroidTask.projectFile) == Paths.get("src/test/resources/CrossApp/Droid/CrossApp.Droid.csproj")
+        assert Paths.get(buildAndroidTask.manifest) == Paths.get("src/test/resources/CrossApp/Droid/Properties/AndroidManifest.xml")
 
     }
 
@@ -52,7 +53,7 @@ class XamarinApplicationPluginTest {
         assert buildIOSTask.bundleShortVersion == "2.6"
         assert buildIOSTask.bundleIdentifier == "com.sample.crossapp"
         assert buildIOSTask.output == "dist/CrossApp.iOS-1.0.ipa"
-        assert buildIOSTask.projectFile == "src/test/resources/CrossApp/iOS/CrossApp.iOS.csproj"
+        assert Paths.get(buildIOSTask.projectFile) == Paths.get("src/test/resources/CrossApp/iOS/CrossApp.iOS.csproj")
         assert Paths.get(buildIOSTask.infoPlist) == Paths.get("src/test/resources/CrossApp/iOS/Info.plist")
         assert buildIOSTask.platform == "iPhone"
 

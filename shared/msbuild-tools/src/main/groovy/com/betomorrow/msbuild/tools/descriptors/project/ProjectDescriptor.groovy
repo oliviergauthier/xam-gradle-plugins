@@ -12,20 +12,20 @@ class ProjectDescriptor {
 
     private def content;
     private String name;
-    private String path;
+    private Path path;
 
     protected ProjectDescriptor() {
     }
 
     public ProjectDescriptor(String name, String file) {
         this.name = name;
-        this.path = file;
+        this.path = Paths.get(file);
         content = new XmlSlurper().parse(file);
     }
 
     public ProjectDescriptor(String name, Path path) {
         this.name = name;
-        this.path = path.toString();
+        this.path = path;
         content = new XmlSlurper().parse(path.toFile());
     }
 
@@ -46,7 +46,7 @@ class ProjectDescriptor {
     }
 
     public Path getAndroidManifestPath() {
-        return Paths.get(path).parent.resolve(getAndroidManifest());
+        return path.parent.resolve(getAndroidManifest());
     }
 
     public String getInfoPlist() {
@@ -54,33 +54,27 @@ class ProjectDescriptor {
     }
 
     public Path getInfoPlistPath() {
-        return  Paths.get(path).parent.resolve(getInfoPlist());
+        return  path.parent.resolve(getInfoPlist());
     }
 
     public String getAssemblyName() {
         return  content.PropertyGroup.AssemblyName;
     }
 
-    public String getPath() {
-        return FileUtils.toUnixPath(path);
+    public Path getPath() {
+        return path;
     }
 
-    public String getOutputDir(String configuration, String platform = null) {
+    private Path getOutputDir(String configuration, String platform = null) {
         def pattern = platform == null ? ~/.*${configuration}.*/ : ~/.*'\s*${configuration}\s*\|\s*${platform}\s*'.*/
         def nodes = content.PropertyGroup.findAll{
             it.@Condition =~ pattern
         }
-        return FileUtils.toUnixPath(nodes[0].OutputPath.toString())
+        return path.parent.resolve(FileUtils.toUnixPath(nodes[0].OutputPath.toString()))
     }
 
     public Path getOutputPath(String configuration, String platform = null) {
-        return Paths.get(path).parent
-                .resolve(getOutputDir(configuration, platform))
-                .resolve(getAssemblyName() + "." + getExtension());
-    }
-
-    public static String getPackageName() {
-        throw new NotImplementedException()
+        return getOutputDir(configuration, platform).resolve(getAssemblyName() + "." + getExtension());
     }
 
     public static Reference[] getReference() {

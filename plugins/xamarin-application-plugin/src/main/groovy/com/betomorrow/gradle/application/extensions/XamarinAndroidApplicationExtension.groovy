@@ -81,7 +81,7 @@ class XamarinAndroidApplicationExtension {
 
         // 2. return manifest of projectFile
         def manifestRelativePath = FileUtils.toUnixPath(project.androidManifest)
-        return Paths.get(project.path).parent.resolve(manifestRelativePath).toString()
+        return project.path.parent.resolve(manifestRelativePath).toString()
     }
 
 

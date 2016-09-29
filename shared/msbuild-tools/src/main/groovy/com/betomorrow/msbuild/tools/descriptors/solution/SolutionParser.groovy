@@ -13,7 +13,7 @@ class SolutionParser {
 
     Pattern pattern = ~/(?m)Project[^=]*=\s"([^"]*)",\s"([^"]*)",\s"([^"]*)"\s*\nEndProject/
 
-    public List<SolutionProject> parse(String path) {
+    public List<SolutionProject> parse(Path path) {
         List<SolutionProject> solutions = new ArrayList<>()
         String content = readFully(path)
         def projectLines = findProjectLines(content);
@@ -31,8 +31,7 @@ class SolutionParser {
         return solutions
     }
 
-    private static String readFully(String path) {
-        Path p = Paths.get(path)
+    private static String readFully(Path p) {
         try {
             byte[] allBytes = Files.readAllBytes(p);
             return new String(allBytes, "utf-8");

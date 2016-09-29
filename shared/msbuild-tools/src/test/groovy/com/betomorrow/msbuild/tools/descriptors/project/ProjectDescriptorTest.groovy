@@ -40,7 +40,7 @@ class ProjectDescriptorTest {
 
     @Test
     public void testGetAndroidManifestPathReturnsCompletePathOfManifest() {
-        assert Paths.get(SAMPLE_DROID).parent.resolve("Properties/AndroidManifest.xml") == androidProject.getAndroidManifestPath();
+        assert SAMPLE_DROID.parent.resolve("Properties/AndroidManifest.xml") == androidProject.getAndroidManifestPath();
     }
 
     @Test
@@ -50,12 +50,12 @@ class ProjectDescriptorTest {
 
     @Test
     public void testGetOutputDirForDebugReturnsDebutPath() {
-        assert 'bin/Debug' == androidProject.getOutputDir("Debug")
+        assert SAMPLE_DROID.parent.resolve('bin/Debug') == androidProject.getOutputDir("Debug")
     }
 
     @Test
     public void testGetOutputDirForReleaseReturnsDebutPath() {
-        assert 'bin/Release' == androidProject.getOutputDir("Release")
+        assert SAMPLE_DROID.parent.resolve('bin/Release') == androidProject.getOutputDir("Release")
     }
 
     @Test

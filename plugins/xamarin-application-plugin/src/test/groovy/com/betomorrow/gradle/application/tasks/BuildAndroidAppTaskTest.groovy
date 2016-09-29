@@ -69,7 +69,8 @@ class BuildAndroidAppTaskTest extends Specification {
             return 1;
         }
 
-        assert capturedCmd.build() == ["xbuild", "/t:Build", "/p:Configuration=Release", "src/test/resources/CrossApp/Droid/CrossApp.Droid.csproj"]
+        def expectedPath = Paths.get("src/test/resources/CrossApp/Droid/CrossApp.Droid.csproj").toString();
+        assert capturedCmd.build() == ["xbuild", "/t:Build", "/p:Configuration=Release", expectedPath]
     }
 
     def "should copy to output"() {
