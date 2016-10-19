@@ -1,5 +1,5 @@
 ﻿using System;
-namespace CrossLib
+namespace CrossLib.Abstractions
 {
 	public class MyClass
 	{

@@ -1,5 +1,5 @@
 ﻿using System;
-namespace CrossLib
+namespace CrossLib.IOS
 {
 	public class MyClass
 	{

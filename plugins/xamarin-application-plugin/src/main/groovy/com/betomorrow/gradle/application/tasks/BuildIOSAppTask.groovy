@@ -10,9 +10,6 @@ import com.betomorrow.msbuild.tools.mdtool.MdToolCmd
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
-/**
- * Created by olivier on 26/07/16.
- */
 class BuildIOSAppTask extends DefaultTask {
 
     protected CommandRunner commandRunner = Context.current.commandRunner;

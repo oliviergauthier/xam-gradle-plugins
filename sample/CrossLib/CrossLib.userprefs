@@ -1,1 +1,9 @@
-﻿<Properties StartupItem="CrossLib/CrossLib.csproj" />
+﻿<Properties StartupConfiguration="{1D057D98-E6C8-4CBF-995C-343CD2189393}|Default">
+  <MonoDevelop.Ide.Workbench />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.ItemProperties.CrossLib.Droid PreferredExecutionTarget="Android.Android_Accelerated_x86" />
+</Properties>
