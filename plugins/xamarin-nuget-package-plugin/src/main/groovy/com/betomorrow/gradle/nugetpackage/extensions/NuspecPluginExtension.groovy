@@ -12,6 +12,7 @@ class NuspecPluginExtension {
     def String authors;
     def String owners;
     def String description;
+    def String output;
 
     NuspecPluginExtension(Project project) {
         this.project = project

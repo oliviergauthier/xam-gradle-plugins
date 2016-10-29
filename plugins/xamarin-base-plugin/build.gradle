@@ -1,4 +1,0 @@
-dependencies {
-    compile project(':shared:msbuild-tools')
-}
-

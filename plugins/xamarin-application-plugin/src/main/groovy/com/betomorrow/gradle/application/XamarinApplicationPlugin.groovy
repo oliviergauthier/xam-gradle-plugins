@@ -6,13 +6,12 @@ import com.betomorrow.gradle.application.extensions.XamarinApplicationExtension
 import com.betomorrow.gradle.application.extensions.XamarinIosApplicationExtension
 import com.betomorrow.gradle.application.tasks.BuildAndroidAppTask
 import com.betomorrow.gradle.application.tasks.BuildIOSAppTask
-import com.betomorrow.gradle.application.tasks.CleanTask
+import com.betomorrow.gradle.commons.tasks.CleanTask
+import com.betomorrow.gradle.commons.tasks.Groups
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 class XamarinApplicationPlugin implements Plugin<Project> {
-
-    static final String BUILD_GROUP = "build"
 
     @Override
     void apply(Project project) {
@@ -30,11 +29,11 @@ class XamarinApplicationPlugin implements Plugin<Project> {
 
                 Context.configure(application.dryRun);
 
-                task("clean", description: "clean android application", group: BUILD_GROUP, 'type': CleanTask) {
+                task("clean", description: "clean application", group: Groups.BUILD, 'type': CleanTask) {
                     solutionFile = application.solution
                 }
 
-                task("buildAndroid", description: "build android application", group: BUILD_GROUP, type: BuildAndroidAppTask) {
+                task("buildAndroid", description: "build android application", group: Groups.BUILD, type: BuildAndroidAppTask) {
                     appVersion = android.appVersion
                     versionCode = android.storeVersion
                     packageName = android.packageName
@@ -44,7 +43,7 @@ class XamarinApplicationPlugin implements Plugin<Project> {
                     configuration = application.configuration
                 }
 
-                task("buildIOS", description: "build ios application", group: BUILD_GROUP, type: BuildIOSAppTask) {
+                task("buildIOS", description: "build ios application", group: Groups.BUILD, type: BuildIOSAppTask) {
                     bundleVersion = ios.bundleVersion
                     bundleShortVersion = ios.bundleShortVersion
                     bundleIdentifier = ios.bundleIdentifier
