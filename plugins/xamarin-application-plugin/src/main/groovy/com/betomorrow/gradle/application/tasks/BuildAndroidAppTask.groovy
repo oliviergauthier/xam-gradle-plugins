@@ -7,7 +7,7 @@ import com.betomorrow.gradle.application.context.Context
 import com.betomorrow.msbuild.tools.Files.FileCopier
 import com.betomorrow.msbuild.tools.commands.CommandRunner
 import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
-import com.betomorrow.msbuild.tools.xbuild.AndroidTargets
+import com.betomorrow.msbuild.tools.xbuild.XBuildTargets
 import com.betomorrow.msbuild.tools.xbuild.XBuildCmd
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
@@ -60,7 +60,7 @@ class BuildAndroidAppTask extends DefaultTask {
     private int invokeXBuild() {
         XBuildCmd cmd = new XBuildCmd()
         cmd.setConfiguration(configuration)
-        cmd.setTarget(AndroidTargets.Build)
+        cmd.setTarget(XBuildTargets.Build)
         cmd.setProjectPath(projectFile)
         return commandRunner.run(cmd)
     }

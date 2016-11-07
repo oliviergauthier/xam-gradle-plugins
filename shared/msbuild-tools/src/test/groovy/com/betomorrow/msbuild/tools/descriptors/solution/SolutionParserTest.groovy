@@ -15,9 +15,18 @@ public class SolutionParserTest {
 
         def projects = solution.parse(SAMPLE_SOLUTION);
 
-        assert projects[0] == new SolutionProject("CrossApp", "CrossApp/CrossApp.csproj")
-        assert projects[1] == new SolutionProject("CrossApp.iOS", "iOS/CrossApp.iOS.csproj")
-        assert projects[2] == new SolutionProject("CrossApp.Droid", "Droid/CrossApp.Droid.csproj")
+        def project = projects[0]
+        assert project.name == "CrossApp"
+        assert project.path ==  "CrossApp/CrossApp.csproj"
+
+        project = projects[1]
+        assert project.name == "CrossApp.iOS"
+        assert project.path ==  "iOS/CrossApp.iOS.csproj"
+
+        project = projects[2]
+        assert project.name == "CrossApp.Droid"
+        assert project.path ==  "Droid/CrossApp.Droid.csproj"
+
     }
 
 }

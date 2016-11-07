@@ -1,6 +1,6 @@
 package com.betomorrow.msbuild.tools.xbuild
 
-class AndroidTargets {
+class XBuildTargets {
 
     public static String Build = 'Build';
     public static String Clean = 'Clean';

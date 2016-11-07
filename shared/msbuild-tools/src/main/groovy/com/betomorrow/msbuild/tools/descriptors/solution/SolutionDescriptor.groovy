@@ -40,4 +40,8 @@ public class SolutionDescriptor {
         return projects.containsKey(appName)
     }
 
+    public boolean containsIosProject() {
+        return getFirstIosProject() != null;
+    }
+
 }
