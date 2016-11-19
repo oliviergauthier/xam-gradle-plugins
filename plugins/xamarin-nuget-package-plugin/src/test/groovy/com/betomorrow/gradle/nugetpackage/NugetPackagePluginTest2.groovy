@@ -1,13 +1,4 @@
 package com.betomorrow.gradle.nugetpackage
-
-import com.betomorrow.gradle.nugetpackage.extensions.AssembliesPluginExtension
-import com.betomorrow.gradle.nugetpackage.extensions.AssemblyTarget
-import com.betomorrow.gradle.nugetpackage.extensions.DependenciesPluginExtension
-import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
-import org.gradle.api.Project
-import org.gradle.testfixtures.ProjectBuilder
-import org.junit.Test
-
 /**
  * Created by olivier on 22/02/16.
  * https://docs.gradle.org/current/userguide/test_kit.html

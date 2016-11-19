@@ -1,6 +1,5 @@
 package com.betomorrow.gradle.nugetpackage
 
-import com.betomorrow.gradle.base.extensions.XamarinBaseExtension
 import com.betomorrow.gradle.nugetpackage.extensions.AssembliesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.DependenciesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.NuspecPluginExtension
@@ -18,14 +17,6 @@ class NugetPackagePlugin implements Plugin<Project>{
      */
     @Override
     void apply(Project project) {
-
-        project.beforeEvaluate {
-            buildscript.configurations.classpath += 'com.betomorrow.gradle:xamarin-base-plugin'
-        }
-
-        project.configure(project) {
-            apply plugin: 'xamarin-base-plugin'
-        }
 
         project.extensions.create("nuspec", NuspecPluginExtension, project)
         project.nuspec.extensions.create("dependencies", DependenciesPluginExtension, project)
