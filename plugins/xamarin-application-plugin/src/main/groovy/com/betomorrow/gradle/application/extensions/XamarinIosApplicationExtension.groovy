@@ -26,7 +26,7 @@ class XamarinIosApplicationExtension {
     def String platform;
 
     private @Lazy ProjectDescriptor project = solution.getProject(getAppName());
-    private @Lazy SolutionDescriptor solution = solutionLoader.load(applicationExtension.solution);
+    private @Lazy SolutionDescriptor solution = solutionLoader.load(applicationExtension.solutionPath);
     private @Lazy InfoPlist readInfoPlist = infoPlistReader.read(getInfoPlist());
 
     private XamarinApplicationExtension applicationExtension;

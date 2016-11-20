@@ -1,2 +1,6 @@
 group 'com.betomorrow'
 version '1.0-SNAPSHOT'
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.2'
+}

@@ -1,0 +1,72 @@
+package CrossApp
+
+apply plugin : 'xamarin-application-plugin'
+
+ext {
+    version = "1.0.0"
+    name = "Xam.ACME.CrossApp"
+}
+
+xamarin {
+    configuration 'Release'
+    solution 'CrossApp.sln'
+}
+
+application {
+
+    appName name
+    appVersion version
+    storeVersion '1.0'
+
+    packageName "com.acme.crossapp.${env}"
+
+    android {
+        manifest "path/to/manifest" // auto resolved
+//        output "dist/{appName}-{bundleVersion}.apk"  // default value
+    }
+
+    ios {
+        output "dist/{appName}-{bundleVersion}.ipa"  // default value
+    }
+}
+
+signIpa {
+
+    ipa "${application.ios.output}"
+
+    AppStore {
+        cert "iPhone Distribution: CrossApp (ABCDEFGHIJKL)"
+        provisioningProfile "resources/provisioning/Appstore.mobileprovision"
+        output "dist/CrossApp_APPSTORE.ipa"
+    }
+
+    AdHoc {
+        cert "iPhone Distribution: CrossApp (ABCDEFGHIJKL)"
+        provisioningProfile "resources/provisioning/Appstore.mobileprovision"
+        output "dist/CrossApp_ADHOC.ipa"
+    }
+
+}
+
+task "updateAndroidManifest" << {
+    // ...
+}
+
+task "copyResources" << {
+    // ...
+}
+
+task "checkAndroidAppSize" << {
+    // ...
+}
+
+afterEvaluate {
+    // Preprocess Resources
+    getTasksByName("processAndroidResources").dependsOn "updateAndroidManifest"
+    getTasksByName("processAndroidResources").dependsOn "copyResources"
+    getTasksByName("processIosResources").dependsOn "copyResources"
+
+    // Verify
+    getTasksByName("checkAndroid").dependsOn "checkAndroidAppSize"
+}
+

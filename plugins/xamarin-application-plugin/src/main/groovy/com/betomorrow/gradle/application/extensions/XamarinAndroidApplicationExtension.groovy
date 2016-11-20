@@ -18,7 +18,7 @@ class XamarinAndroidApplicationExtension {
     protected String DROID_SUFFIX = ".Droid"
 
     @Lazy ProjectDescriptor project = solution.getProject(getAppName());
-    @Lazy SolutionDescriptor solution = solutionLoader.load(applicationExtension.solution);
+    @Lazy SolutionDescriptor solution = solutionLoader.load(applicationExtension.solutionPath);
     @Lazy AndroidManifest readManifest = manifestReader.read(getManifest());
 
     def String appName;

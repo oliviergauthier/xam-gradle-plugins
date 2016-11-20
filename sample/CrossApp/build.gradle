@@ -1,16 +1,24 @@
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.betomorrow.gradle:xamarin-application-plugin:1.0-SNAPSHOT'
+    }
+}
+
 apply plugin : 'xamarin-application-plugin'
 
 ext {
     version = "1.0.0"
     name = "Xam.ACME.CrossApp"
-}
-
-xamarin {
-    configuration 'Release'
-    solution 'CrossApp.sln'
+    env = "alpha"
 }
 
 application {
+
+    configuration 'Release'
+    solution 'CrossApp.sln'
 
     appName name
     appVersion version
@@ -19,15 +27,15 @@ application {
     packageName "com.acme.crossapp.${env}"
 
     android {
-        manifest "path/to/manifest" // auto resolved
-        output "dist/{appName}-{appVersion}.apk"  // default value
+
     }
 
     ios {
-        output "dist/{appName}-{appVersion}.ipa"  // default value
+
     }
 }
 
+/*
 signIpa {
 
     ipa "${application.ios.output}"
@@ -68,3 +76,4 @@ afterEvaluate {
     getTasksByName("checkAndroid").dependsOn "checkAndroidAppSize"
 }
 
+*/

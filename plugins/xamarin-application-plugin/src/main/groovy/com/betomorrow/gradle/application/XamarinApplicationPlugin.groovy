@@ -17,7 +17,7 @@ class XamarinApplicationPlugin implements Plugin<Project> {
     void apply(Project project) {
         project.with {
 
-            extensions.create("application", XamarinApplicationExtension)
+            extensions.create("application", XamarinApplicationExtension, project)
             application.extensions.create("android", XamarinAndroidApplicationExtension, project)
             application.extensions.create("ios", XamarinIosApplicationExtension, project)
 
