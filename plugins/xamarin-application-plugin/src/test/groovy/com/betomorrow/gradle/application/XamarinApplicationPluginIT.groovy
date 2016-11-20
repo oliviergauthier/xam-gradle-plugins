@@ -13,7 +13,7 @@ class XamarinApplicationPluginIT {
         BuildResult result = GradleRunner.create()
                 .withProjectDir(sampleDir)
                 .withDebug(true)
-                .withArguments("tasks", "--stacktrace")
+                .withArguments("buildAndroid", "--stacktrace")
                 .build();
 
         println(result.getOutput());

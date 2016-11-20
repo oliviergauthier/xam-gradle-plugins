@@ -5,3 +5,9 @@
 # Gradle
 .gradle
 build
+
+sample/*/dist
+sample/**/packages
+sample/**/bin/**
+sample/**/obj/**
+*.userprefs

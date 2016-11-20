@@ -7,6 +7,7 @@ class XBuildTargets {
     public static String Install = 'Install';
     public static String Uninstall = 'Uninstall';
     public static String SignAndroidPackage = 'SignAndroidPackage';
+    public static String PackageForAndroid = 'PackageForAndroid';
     public static String UpdateAndroidResources = 'UpdateAndroidResources';
 
 }

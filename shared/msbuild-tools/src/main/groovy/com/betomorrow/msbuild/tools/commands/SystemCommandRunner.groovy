@@ -6,8 +6,15 @@ class SystemCommandRunner implements CommandRunner {
 
     @Override
     int run(CommandRunner.Cmd cmd) {
-        def process = new ProcessBuilder(cmd.build()).directory(workingDirectory).redirectErrorStream().strart();
+        println "Execute command : ${cmd.build().join(" ")}";
+
+        def process = new ProcessBuilder(cmd.build() as String[])
+                .directory(workingDirectory)
+                .inheritIO()
+                .start();
+
         process.waitFor();
+
         return process.exitValue();
     }
 }

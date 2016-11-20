@@ -10,8 +10,8 @@ buildscript {
 apply plugin : 'xamarin-application-plugin'
 
 ext {
-    version = "1.0.0"
-    name = "Xam.ACME.CrossApp"
+    appVersion = "1.0.0"
+    appName = "Xam.ACME.CrossApp"
     env = "alpha"
 }
 
@@ -20,9 +20,9 @@ application {
     configuration 'Release'
     solution 'CrossApp.sln'
 
-    appName name
-    appVersion version
-    storeVersion '1.0'
+    appName project.appName
+    appVersion project.appVersion
+    storeVersion "10"
 
     packageName "com.acme.crossapp.${env}"
 

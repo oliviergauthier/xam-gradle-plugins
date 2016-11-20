@@ -60,13 +60,16 @@ class BuildAndroidAppTask extends DefaultTask {
     private int invokeXBuild() {
         XBuildCmd cmd = new XBuildCmd()
         cmd.setConfiguration(configuration)
-        cmd.setTarget(XBuildTargets.Build)
+        cmd.setTarget(XBuildTargets.PackageForAndroid)
         cmd.setProjectPath(projectFile)
         return commandRunner.run(cmd)
     }
 
     private void copyBuiltAssemblyToOutput() {
-        fileCopier.replace(getProjectDescriptor().getOutputPath(configuration).toString(), output)
+        // TODO find a better place for outputPath resolution
+        def xamarinOutputPath = getProjectDescriptor().getOutputDir(configuration).resolve(packageName + ".apk");
+        def outputPath = project.file(output).toPath();
+        fileCopier.replace(xamarinOutputPath, outputPath);
     }
 
 }
