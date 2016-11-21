@@ -16,6 +16,5 @@ class XamarinApplicationPluginIT {
                 .build();
 
         println(result.getOutput());
-
     }
 }

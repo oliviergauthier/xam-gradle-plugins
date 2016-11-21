@@ -16,6 +16,7 @@ ext {
 }
 
 application {
+    dryRun = true
 
     configuration 'Release'
     solution 'CrossApp.sln'
