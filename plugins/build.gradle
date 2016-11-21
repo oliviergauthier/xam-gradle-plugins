@@ -8,6 +8,26 @@ subprojects {
         mavenLocal();
     }
 
+//    configurations {
+//        integrationTestCompile.extendsFrom testCompile
+//        integrationTestRuntime.extendsFrom testRuntime
+//    }
+//    sourceSets {
+//        integrationTest {
+//            groovy {
+//                compileClasspath += main.output + test.output
+//                runtimeClasspath += main.output + test.output
+//                srcDir file('src/integration-test/groovy')
+//            }
+//            resources.srcDir file('src/integration-test/resources')
+//        }
+//    }
+//
+//    task integrationTest(type: Test) {
+//        testClassesDir = sourceSets.integrationTest.output.classesDir
+//        classpath = sourceSets.integrationTest.runtimeClasspath
+//        outputs.upToDateWhen { false }
+//    }
 
     dependencies {
         compile localGroovy()
@@ -15,11 +35,12 @@ subprojects {
 
         compile 'org.slf4j:slf4j-api:1.6.1'
 
-
+//        testCompile 'junit:junit:4.12'
         testCompile gradleTestKit()
         testCompile ("org.spockframework:spock-core:1.0-groovy-2.4") {
             exclude module : 'groovy-all'
         }
+
         testRuntime "cglib:cglib-nodep:3.2.4"          // allows mocking of classes (in addition to interfaces)
         testRuntime "org.objenesis:objenesis:2.4"    // allows mocking of classes without default constructor (together with CGLIB)
 

@@ -6,7 +6,6 @@ import org.junit.Test
 
 class XamarinApplicationPluginIT {
 
-
     @Test
     public void testRunRealScript() {
         File sampleDir = new File("../../sample/CrossApp");
