@@ -1,16 +1,14 @@
 package com.betomorrow.msbuild.tools.descriptors.solution
 
-import org.slf4j.Logger
-import org.slf4j.LoggerFactory
+import groovy.util.logging.Slf4j
 
 import java.nio.file.Files
 import java.nio.file.Path
 import java.util.regex.Matcher
 import java.util.regex.Pattern
 
+@Slf4j
 class SolutionParser {
-
-    private Logger logger = LoggerFactory.getLogger(SolutionParser)
 
     private static final String START_TAG = 'Project'
     private static final String END_TAG = 'EndProject'
@@ -18,7 +16,7 @@ class SolutionParser {
     Pattern projectPattern = ~/(?m)Project[^=]*=\s"([^"]*)",\s"([^"]*)",\s"([^"]*)"\s*\nEndProject/
     Pattern configurationPattern = ~/(.*)/
 
-    public List<SolutionProject> parse(Path path) {
+    List<SolutionProject> parse(Path path) {
         List<SolutionProject> solutions = new ArrayList<>()
         String content = readFully(path)
         def projectLines = findProjectLines(content);
@@ -96,7 +94,7 @@ class SolutionParser {
                 def pair = it.tokenize('=')[0].trim().tokenize('.')[1].tokenize('|')
                 result.add(new BuildConfiguration(pair[0], pair[1]))
             } catch (Exception e) {
-                logger.error("Can't parse configuration line ${it}", e);
+                log.error("Can't parse configuration line ${it}", e);
             }
         }
         return result
