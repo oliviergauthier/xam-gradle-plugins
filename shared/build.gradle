@@ -4,7 +4,7 @@ subprojects {
 
     repositories {
         mavenCentral()
-        mavenLocal();
+        mavenLocal()
     }
 
     dependencies {
@@ -16,6 +16,9 @@ subprojects {
         testCompile 'org.assertj:assertj-core:3.2.0'
     }
 
+
+    version = '1.0-SNAPSHOT'
+    group = 'com.betomorrow.gradle'
 
     afterEvaluate {
         install {
