@@ -4,6 +4,7 @@ import com.betomorrow.gradle.application.tasks.BuildAndroidAppTask
 import com.betomorrow.gradle.application.tasks.BuildIOSAppTask
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
+import org.junit.Before
 import org.junit.Test
 
 import java.nio.file.Path
@@ -11,14 +12,20 @@ import java.nio.file.Paths
 
 class XamarinApplicationPluginTest {
 
+    Project project;
+
+    @Before
+    public void setUp() {
+        project = ProjectBuilder.builder().withProjectDir( new File('src/test/resources')).build()
+    }
+
 
     @Test
     public void testApplyCreatesBuildAndroidTasksWithResolvedValues() {
-        Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'xamarin-application-plugin'
 
         project.application {
-            solution 'src/test/resources/CrossApp/CrossApp.sln' // first solution file in current folder
+            solution 'CrossApp/CrossApp.sln' // first solution file in current folder
         }
 
         project.evaluate();
@@ -30,18 +37,17 @@ class XamarinApplicationPluginTest {
         assert buildAndroidTask.versionCode == "2.6"
         assert buildAndroidTask.packageName ==  "com.acme.crossapp"
         assert buildAndroidTask.output == "dist/CrossApp.Droid-1.0.apk"
-        assert Paths.get(buildAndroidTask.projectFile) == Paths.get("src/test/resources/CrossApp/Droid/CrossApp.Droid.csproj")
-        assert Paths.get(buildAndroidTask.manifest) == Paths.get("src/test/resources/CrossApp/Droid/Properties/AndroidManifest.xml")
+        assert Paths.get(buildAndroidTask.projectFile) == project.file("CrossApp/Droid/CrossApp.Droid.csproj").toPath()
+        assert Paths.get(buildAndroidTask.manifest) == project.file("CrossApp/Droid/Properties/AndroidManifest.xml").toPath()
 
     }
 
     @Test
     public void testApplyCreatesBuildIOSTasksWithResolvedValues() {
-        Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'xamarin-application-plugin'
 
         project.application {
-            solution 'src/test/resources/CrossApp/CrossApp.sln' // first solution file in current folder
+            solution 'CrossApp/CrossApp.sln' // first solution file in current folder
         }
 
         project.evaluate();
@@ -53,21 +59,20 @@ class XamarinApplicationPluginTest {
         assert buildIOSTask.bundleShortVersion == "2.6"
         assert buildIOSTask.bundleIdentifier == "com.sample.crossapp"
         assert buildIOSTask.output == "dist/CrossApp.iOS-1.0.ipa"
-        assert Paths.get(buildIOSTask.projectFile) == Paths.get("src/test/resources/CrossApp/iOS/CrossApp.iOS.csproj")
-        assert Paths.get(buildIOSTask.infoPlist) == Paths.get("src/test/resources/CrossApp/iOS/Info.plist")
+        assert Paths.get(buildIOSTask.projectFile) == project.file("CrossApp/iOS/CrossApp.iOS.csproj").toPath()
+        assert Paths.get(buildIOSTask.infoPlist) == project.file("CrossApp/iOS/Info.plist").toPath()
         assert buildIOSTask.platform == "iPhone"
 
     }
 
     @Test
     public void testApplyCreatesBuildAndroidTaskWithOverridedValues() {
-        Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'xamarin-application-plugin'
 
         project.application {
 
             configuration 'Release'
-            solution 'src/test/resources/CrossApp/CrossApp.sln' // first solution file in current folder
+            solution 'CrossApp/CrossApp.sln' // first solution file in current folder
 
             appName 'CrossApp' // auto resolved (common part of all projects names in solution)
             appVersion '2.6' // if empty use the one defined in manifest
@@ -96,13 +101,12 @@ class XamarinApplicationPluginTest {
 
     @Test
     public void testApplyCreatesBuildIOSTaskWithOverridedValues() {
-        Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'xamarin-application-plugin'
 
         project.application {
 
             configuration 'Release'
-            solution 'src/test/resources/CrossApp/CrossApp.sln' // first solution file in current folder
+            solution 'CrossApp/CrossApp.sln' // first solution file in current folder
 
             appName 'CrossApp' // auto resolved (common part of all projects names in solution)
             appVersion '2.6' // if empty use the one defined in manifest
@@ -134,7 +138,6 @@ class XamarinApplicationPluginTest {
 
     @Test
     public void testDryRun() {
-        Project project = ProjectBuilder.builder().build()
         project.apply plugin: 'xamarin-application-plugin'
 
         project.application {
@@ -142,7 +145,7 @@ class XamarinApplicationPluginTest {
             dryRun = true
 
             configuration 'Release'
-            solution 'src/test/resources/CrossApp/CrossApp.sln' // first solution file in current folder
+            solution 'CrossApp/CrossApp.sln' // first solution file in current folder
 
             appName 'CrossApp' // auto resolved (common part of all projects names in solution)
             appVersion '2.6' // if empty use the one defined in csproj

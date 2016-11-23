@@ -1,6 +1,7 @@
 buildscript {
     repositories {
         mavenLocal()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.betomorrow.gradle:xamarin-application-plugin:1.0-SNAPSHOT'

@@ -1,8 +1,6 @@
 package com.betomorrow.gradle.application.tasks
 
-import com.betomorrow.android.tools.manifest.AndroidManifest
 import com.betomorrow.ios.tools.plist.InfoPlist
-import com.betomorrow.ios.tools.plist.InfoPlistReader
 import com.betomorrow.ios.tools.plist.InfoPlistWriter
 import com.betomorrow.msbuild.tools.Files.FileCopier
 import com.betomorrow.msbuild.tools.commands.CommandRunner
@@ -18,15 +16,15 @@ class BuildIOSAppTaskTest extends Specification {
     CommandRunner runner = Mock();
     InfoPlistWriter infoPlistWriter = Mock();
 
+    Project project
     BuildIOSAppTask task;
 
-
     def setup() {
-        Project project = ProjectBuilder.builder().build()
+        project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/')).build()
         project.apply plugin: 'xamarin-application-plugin'
 
         project.application {
-            solution 'src/test/resources/CrossApp/CrossApp.sln'
+            solution 'CrossApp/CrossApp.sln'
         }
 
         project.evaluate();
@@ -71,7 +69,7 @@ class BuildIOSAppTaskTest extends Specification {
             return 1;
         }
 
-        assert capturedCmd.build() == ["mdtool", "build", "--configuration:Release|iPhone", "src/test/resources/CrossApp/CrossApp.sln"]
+        assert capturedCmd.build() == ["mdtool", "build", "--configuration:Release|iPhone", "CrossApp/CrossApp.sln"]
     }
 
     def "should copy to output"() {
@@ -88,8 +86,8 @@ class BuildIOSAppTaskTest extends Specification {
             capturedDst = dst;
         }
 
-        assert Paths.get(capturedSrc) == Paths.get("src/test/resources/CrossApp/iOS/bin/iPhone/Release/CrossApp.iOS.ipa");
-        assert Paths.get(capturedDst) == Paths.get("dist/CrossApp.iOS-1.0.ipa");
+        assert Paths.get(capturedSrc) == project.file("CrossApp/iOS/bin/iPhone/Release/CrossApp.iOS.ipa").toPath()
+        assert Paths.get(capturedDst) == Paths.get("dist/CrossApp.iOS-1.0.ipa")
     }
 
     def "should do operations in the right order"() {

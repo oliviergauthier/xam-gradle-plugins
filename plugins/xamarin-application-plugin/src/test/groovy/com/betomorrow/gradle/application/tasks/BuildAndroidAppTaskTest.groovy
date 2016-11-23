@@ -8,6 +8,7 @@ import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
 
+import java.nio.file.Path
 import java.nio.file.Paths
 
 class BuildAndroidAppTaskTest extends Specification {
@@ -17,13 +18,14 @@ class BuildAndroidAppTaskTest extends Specification {
     CommandRunner runner = Mock();
 
     BuildAndroidAppTask task;
+    Project project
 
     def setup() {
-        Project project = ProjectBuilder.builder().build()
+        project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/')).build()
         project.apply plugin: 'xamarin-application-plugin'
 
         project.application {
-            solution 'src/test/resources/CrossApp/CrossApp.sln'
+            solution 'CrossApp/CrossApp.sln'
         }
 
         project.evaluate();
@@ -69,8 +71,8 @@ class BuildAndroidAppTaskTest extends Specification {
             return 1;
         }
 
-        def expectedPath = Paths.get("src/test/resources/CrossApp/Droid/CrossApp.Droid.csproj").toString();
-        assert capturedCmd.build() == ["xbuild", "/t:Build", "/p:Configuration=Release", expectedPath]
+        def expectedPath = project.file("CrossApp/Droid/CrossApp.Droid.csproj").toString();
+        assert capturedCmd.build() == ["xbuild", "/t:PackageForAndroid", "/p:Configuration=Release", expectedPath]
     }
 
     def "should copy to output"() {
@@ -87,8 +89,8 @@ class BuildAndroidAppTaskTest extends Specification {
             capturedDst = dst;
         }
 
-        assert Paths.get(capturedSrc) == Paths.get("src/test/resources/CrossApp/Droid/bin/Release/CrossApp.Droid.apk");
-        assert Paths.get(capturedDst) == Paths.get("dist/CrossApp.Droid-1.0.apk");
+        assert Paths.get(capturedSrc) == project.file("CrossApp/Droid/bin/Release/com.acme.crossapp.apk").toPath();
+        assert Paths.get(capturedDst) == project.file("dist/CrossApp.Droid-1.0.apk").toPath();
     }
 
     def "should do operations in the right order"() {
