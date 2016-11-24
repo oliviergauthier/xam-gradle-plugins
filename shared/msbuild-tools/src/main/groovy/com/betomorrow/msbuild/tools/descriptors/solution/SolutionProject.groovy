@@ -7,12 +7,12 @@ class SolutionProject {
 
     String name
     String path
-    Collection<BuildConfiguration> configurations;
+    Collection<BuildConfiguration> configurations
 
     SolutionProject(String name, String path, Collection<BuildConfiguration> configurations) {
         this.name = name
         this.path = path
-        this.configurations = configurations;
+        this.configurations = configurations
     }
 
 }

@@ -5,25 +5,25 @@ import com.betomorrow.msbuild.tools.commands.SystemCommandRunner
 
 class Nuget {
 
-    protected CommandRunner runner = CommandRunner.INSTANCE;
+    protected CommandRunner runner = CommandRunner.INSTANCE
 
-    public void install(String packageId, String version) {
+    void install(String packageId, String version) {
         runner.run(new NugetCmd(action : 'install', packageId : packageId, version : version))
     }
 
-    public void restore() {
+    void restore() {
         runner.run(new NugetCmd(action : 'restore'))
     }
 
-    public void update(String packageId, String version) {
+    void update(String packageId, String version) {
         runner.run(new NugetCmd(action : 'install', packageId : packageId, version : version))
     }
 
-    public void delete(String packageId, String version) {
+    void delete(String packageId, String version) {
         runner.run(new NugetCmd(action : 'delete', packageId : packageId, version : version))
     }
 
-    public void list(boolean preRelease = false, boolean allVersions = false) {
+    void list(boolean preRelease = false, boolean allVersions = false) {
         def extra = []
         if (allVersions) {
             extra.add('-allversions')
@@ -34,11 +34,11 @@ class Nuget {
         runner.run(new NugetCmd(action : 'liste',  extra : extra))
     }
 
-    public void pack() {
+    void pack() {
         throw new UnsupportedOperationException()
     }
 
-    public void deploy() {
+    void deploy() {
         throw new UnsupportedOperationException()
     }
 

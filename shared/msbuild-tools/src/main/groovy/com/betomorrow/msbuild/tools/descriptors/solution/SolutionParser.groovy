@@ -19,17 +19,17 @@ class SolutionParser {
     List<SolutionProject> parse(Path path) {
         List<SolutionProject> solutions = new ArrayList<>()
         String content = readFully(path)
-        def projectLines = findProjectLines(content);
+        def projectLines = findProjectLines(content)
         projectLines.forEach { it ->
-            Matcher matcher = projectPattern.matcher(it);
-            def matches = matcher.matches();
-            def groupCount = matcher.groupCount();
+            Matcher matcher = projectPattern.matcher(it)
+            def matches = matcher.matches()
+            def groupCount = matcher.groupCount()
             if (groupCount == 3) {
-                def projectName = matcher.group(1);
-                def projectPath = matcher.group(2).replace('\\', '/');
-                def projectHash = matcher.group(3);
-                def configurations = findConfifurations(projectHash, content);
-                solutions.add(new SolutionProject(projectName, projectPath, configurations));
+                def projectName = matcher.group(1)
+                def projectPath = matcher.group(2).replace('\\', '/')
+                def projectHash = matcher.group(3)
+                def configurations = findConfifurations(projectHash, content)
+                solutions.add(new SolutionProject(projectName, projectPath, configurations))
             }
         }
 
@@ -38,52 +38,52 @@ class SolutionParser {
 
     private String readFully(Path p) {
         try {
-            byte[] allBytes = Files.readAllBytes(p);
-            return new String(allBytes, "utf-8");
+            byte[] allBytes = Files.readAllBytes(p)
+            return new String(allBytes, "utf-8")
         } catch (Exception e) {
             println("Can't open path " + p.toAbsolutePath().toString())
-            throw  e;
+            throw  e
         }
     }
 
     private List<String> findProjectLines(String content) {
         List<String> lines = new ArrayList<>()
 
-        int endTagIndex = 0;
+        int endTagIndex = 0
 
         while(true) {
             int startTagIndex = content.indexOf(START_TAG, endTagIndex)
             endTagIndex = content.indexOf(END_TAG, startTagIndex)
             if (startTagIndex > 0 && endTagIndex > 0) {
                 endTagIndex += END_TAG.length()
-                lines.add(content.substring(startTagIndex, endTagIndex));
+                lines.add(content.substring(startTagIndex, endTagIndex))
             } else {
-                break;
+                break
             }
         }
 
-        return lines;
+        return lines
     }
 
     private List<String> findConfigurationLines(String projectHash, String content) {
-        List<String> lines = new ArrayList<>();
+        List<String> lines = new ArrayList<>()
 
-        int endTagIndex = 0;
-        String startTag = "${projectHash}.";
-        String endTag = "\n";
+        int endTagIndex = 0
+        String startTag = "${projectHash}."
+        String endTag = "\n"
 
         while(true) {
             int startTagIndex = content.indexOf(startTag, endTagIndex)
             endTagIndex = content.indexOf(endTag, startTagIndex)
             if (startTagIndex > 0 && endTagIndex > 0) {
                 endTagIndex += endTag.length()
-                lines.add(content.substring(startTagIndex, endTagIndex));
+                lines.add(content.substring(startTagIndex, endTagIndex))
             } else {
-                break;
+                break
             }
         }
 
-        return lines;
+        return lines
     }
 
     private Collection<BuildConfiguration> findConfifurations(String projectHash, String content) {
@@ -94,7 +94,7 @@ class SolutionParser {
                 def pair = it.tokenize('=')[0].trim().tokenize('.')[1].tokenize('|')
                 result.add(new BuildConfiguration(pair[0], pair[1]))
             } catch (Exception e) {
-                log.error("Can't parse configuration line ${it}", e);
+                log.error("Can't parse configuration line ${it}", e)
             }
         }
         return result

@@ -9,51 +9,49 @@ import com.betomorrow.msbuild.tools.descriptors.solution.SolutionDescriptor
 import com.betomorrow.msbuild.tools.descriptors.solution.SolutionLoader
 import org.gradle.api.Project
 
-import java.nio.file.Paths
-
 class XamarinAndroidApplicationExtension {
 
-    protected SolutionLoader solutionLoader = new SolutionLoader();
-    protected AndroidManifestReader manifestReader = new DefaultAndroidManifestReader();
+    protected SolutionLoader solutionLoader = new SolutionLoader()
+    protected AndroidManifestReader manifestReader = new DefaultAndroidManifestReader()
     protected String DROID_SUFFIX = ".Droid"
 
-    @Lazy ProjectDescriptor project = solution.getProject(getAppName());
-    @Lazy SolutionDescriptor solution = solutionLoader.load(applicationExtension.solutionPath);
-    @Lazy AndroidManifest readManifest = manifestReader.read(getManifest());
+    @Lazy ProjectDescriptor project = solution.getProject(getAppName())
+    @Lazy SolutionDescriptor solution = solutionLoader.load(applicationExtension.solutionPath)
+    @Lazy AndroidManifest readManifest = manifestReader.read(getManifest())
 
-    def String appName;
-    def String output;
-    def String manifest;
-    def String projectFile;
+    String appName
+    String output
+    String manifest
+    String projectFile
 
-    private XamarinApplicationExtension applicationExtension;
+    private XamarinApplicationExtension applicationExtension
 
-    public XamarinAndroidApplicationExtension(Project project) {
+    XamarinAndroidApplicationExtension(Project project) {
         applicationExtension = project.extensions.getByType(XamarinApplicationExtension)
     }
 
-    public String getAppName() {
+    String getAppName() {
         // 1. returns configured appName
         if (appName != null) {
             return appName
         }
 
         // 2. try to find an appName.Droid in solution file
-        String defaultAppName = applicationExtension.appName + DROID_SUFFIX;
+        String defaultAppName = applicationExtension.appName + DROID_SUFFIX
         if (solution.containsProject(defaultAppName)) {
-            return  defaultAppName;
+            return  defaultAppName
         }
 
         // 3. try to find a single android project
         if (solution.hasSingleAndroidProject()) {
-            return solution.firstAndroidProject.name;
+            return solution.firstAndroidProject.name
         }
 
         throw new IllegalArgumentException("Can't resolve android project, please specify it with appName")
 
     }
 
-    public String getProjectFile() {
+    String getProjectFile() {
         // 1. returns configured projectFile
         if (projectFile != null) {
             return projectFile
@@ -63,7 +61,7 @@ class XamarinAndroidApplicationExtension {
         return project.path
     }
 
-    public String getOutput() {
+    String getOutput() {
         // 1. returns configured output
         if (output != null) {
             return output
@@ -73,10 +71,10 @@ class XamarinAndroidApplicationExtension {
         return "dist/${getAppName()}-${getAppVersion()}.apk"
     }
 
-    public String getManifest() {
+    String getManifest() {
         // 1. returns configured manifest
         if (manifest != null) {
-            return manifest;
+            return manifest
         }
 
         // 2. return manifest of projectFile
@@ -85,34 +83,34 @@ class XamarinAndroidApplicationExtension {
     }
 
 
-    public String getAppVersion() {
+    String getAppVersion() {
         // 1. returns configured bundleVersion
         if (applicationExtension.appVersion != null) {
-            return applicationExtension.appVersion;
+            return applicationExtension.appVersion
         }
 
         // 2. returns the one in manifest
-        return readManifest.versionName;
+        return readManifest.versionName
     }
 
-    public String getStoreVersion() {
+    String getStoreVersion() {
         // 1. returns configured versionCode
         if (applicationExtension.storeVersion != null) {
-            return applicationExtension.storeVersion;
+            return applicationExtension.storeVersion
         }
 
         // 2. returns the one in manifest
-        return readManifest.versionCode;
+        return readManifest.versionCode
     }
 
-    public String getPackageName() {
+    String getPackageName() {
         // 1. returns configured bundleIdentifier
         if (applicationExtension.packageName != null) {
-            return applicationExtension.packageName;
+            return applicationExtension.packageName
         }
 
         // 2. returns the one in manifest
-        return readManifest.packageName;
+        return readManifest.packageName
     }
 
 }

@@ -6,8 +6,8 @@ class FakeCommandRunner implements CommandRunner {
 
     @Override
     int run(CommandRunner.Cmd cmd) {
-        println "Execute command : ${cmd.build().join(" ")}";
+        println "Execute command : ${cmd.build().join(" ")}"
         executedCommands.add(cmd)
-        return 1;
+        return 1
     }
 }

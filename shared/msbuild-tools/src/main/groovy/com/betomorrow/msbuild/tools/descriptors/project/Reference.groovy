@@ -2,12 +2,12 @@ package com.betomorrow.msbuild.tools.descriptors.project
 
 class Reference {
 
-    String include;
-    String hintPath;
+    String include
+    String hintPath
 
-    public Reference(String include, String hintPath) {
-        this.include = include;
-        this.hintPath = hintPath;
+    Reference(String include, String hintPath) {
+        this.include = include
+        this.hintPath = hintPath
     }
 
     boolean equals(o) {

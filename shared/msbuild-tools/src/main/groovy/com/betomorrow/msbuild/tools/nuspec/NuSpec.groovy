@@ -71,7 +71,7 @@ class NuSpec {
         dependencySet.forEach { updateDependency(packageNode, it) }
         assemblySet.forEach { updateAssembly(packageNode, it) }
 
-        println(XmlUtil.serialize(content));
+        println(XmlUtil.serialize(content))
 
         new FileOutputStream(output).withStream { out ->
             XmlUtil.serialize(content, out)
@@ -92,7 +92,7 @@ class NuSpec {
 
     private static void updateAssembly(PackageNode packageNode, Assembly assembly) {
         if (assembly != null) {
-            packageNode.files().add(assembly);
+            packageNode.files().add(assembly)
         }
     }
 

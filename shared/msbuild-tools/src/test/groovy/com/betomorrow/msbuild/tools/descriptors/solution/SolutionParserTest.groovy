@@ -5,15 +5,15 @@ import org.junit.Test
 
 import java.nio.file.Path
 
-public class SolutionParserTest {
+class SolutionParserTest {
 
-    Path SAMPLE_SOLUTION = FileUtils.getResourcePath('Sample.sln');
+    Path SAMPLE_SOLUTION = FileUtils.getResourcePath('Sample.sln')
 
     @Test
-    public void testLoadSolutionFile() {
-        def solution = new SolutionParser();
+     void testLoadSolutionFile() {
+        def solution = new SolutionParser()
 
-        def projects = solution.parse(SAMPLE_SOLUTION);
+        def projects = solution.parse(SAMPLE_SOLUTION)
 
         def project = projects[0]
         assert project.name == "CrossApp"

@@ -13,7 +13,7 @@ class DependencyGroupNode {
         if (node == null) {
             return dependencyGroupNode.appendNode("dependency", [id:id])
         } else {
-            return node;
+            return node
         }
     }
 }

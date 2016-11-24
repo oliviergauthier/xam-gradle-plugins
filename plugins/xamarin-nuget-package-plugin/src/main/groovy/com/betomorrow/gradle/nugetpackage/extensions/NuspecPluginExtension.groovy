@@ -7,12 +7,12 @@ import org.gradle.api.Project
  */
 class NuspecPluginExtension {
 
-    private Project project;
+    private Project project
 
-    def String authors;
-    def String owners;
-    def String description;
-    def String output;
+    String authors
+    String owners
+    String description
+    String output
 
     NuspecPluginExtension(Project project) {
         this.project = project

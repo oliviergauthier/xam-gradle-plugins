@@ -12,33 +12,33 @@ import groovy.transform.PackageScope
 
 class Context {
 
-    private static ApplicationContext instance;
+    private static ApplicationContext instance
 
     @PackageScope
-    protected static ApplicationContext dryRunContext = createFakeApplicationContext();
+    protected static ApplicationContext dryRunContext = createFakeApplicationContext()
 
     @PackageScope
-    protected static ApplicationContext defaultContext = createRealApplicationContext();
+    protected static ApplicationContext defaultContext = createRealApplicationContext()
 
     static {
-        configure(false);
+        configure(false)
     }
 
     static ApplicationContext getCurrent() {
-        return instance;
+        return instance
     }
 
     static void configure(ApplicationContext newContext) {
-        defaultContext = newContext;
-        dryRunContext = newContext;
-        instance = newContext;
+        defaultContext = newContext
+        dryRunContext = newContext
+        instance = newContext
     }
 
     static void configure(boolean dryRun) {
         if (dryRun) {
-            instance = dryRunContext;
+            instance = dryRunContext
         } else {
-            instance = defaultContext;
+            instance = defaultContext
         }
     }
 
@@ -46,14 +46,14 @@ class Context {
         return [getFileCopier : { new FakeFileCopier() },
                 getCommandRunner : { new FakeCommandRunner() },
                 getAndroidManifestWriter : { new FakeAndroidManifestWriter() },
-                getInfoPlistWriter : { new FakeInfoPlistWriter()}] as ApplicationContext;
+                getInfoPlistWriter : { new FakeInfoPlistWriter()}] as ApplicationContext
     }
 
     private static ApplicationContext createRealApplicationContext() {
         return [getFileCopier : { new DefaultFileCopier() },
                 getCommandRunner : { new SystemCommandRunner() },
                 getAndroidManifestWriter : { new DefaultAndroidManifestWriter() },
-                getInfoPlistWriter : { new DefaultInfoPlistWriter()}] as ApplicationContext;
+                getInfoPlistWriter : { new DefaultInfoPlistWriter()}] as ApplicationContext
     }
 
 

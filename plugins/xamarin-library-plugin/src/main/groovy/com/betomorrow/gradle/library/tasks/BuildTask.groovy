@@ -8,18 +8,18 @@ import org.gradle.api.tasks.TaskAction
 
 class BuildTask extends DefaultTask {
 
-    protected XBuild xBuild = new XBuild();
-    protected SolutionLoader solutionLoader = new SolutionLoader();
+    protected XBuild xBuild = new XBuild()
+    protected SolutionLoader solutionLoader = new SolutionLoader()
 
-    String solution;
-    String configuration;
+    String solution
+    String configuration
 
     @TaskAction
-    public void build() {
-        SolutionDescriptor sd = solutionLoader.load(solution);
+     void build() {
+        SolutionDescriptor sd = solutionLoader.load(solution)
 
         sd.getProjects(configuration).forEach {
-            xBuild.build(configuration, it.path);
+            xBuild.build(configuration, it.path)
         }
 
     }

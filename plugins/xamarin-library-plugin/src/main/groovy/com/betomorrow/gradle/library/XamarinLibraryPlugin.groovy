@@ -17,7 +17,7 @@ class XamarinLibraryPlugin implements Plugin<Project> {
 
             afterEvaluate {
 
-                XamarinLibraryExtension library = extensions.getByName("library");
+                XamarinLibraryExtension library = extensions.getByName("library")
 
                 task("clean", description: "clean library", group: Groups.BUILD, 'type': CleanTask) {
                     solutionFile = library.solution

@@ -10,18 +10,18 @@ class DefaultAndroidManifestWriter implements AndroidManifestWriter {
         def ns = new Namespace("http://schemas.android.com/apk/res/android", "android")
 
         XmlParser parser = new XmlParser()
-        def content = parser.parse(destination);
+        def content = parser.parse(destination)
 
         if (!isNullOrEmpty(manifest.packageName)) {
-            content.@package = manifest.packageName;
+            content.@package = manifest.packageName
         }
 
         if (!isNullOrEmpty(manifest.versionName)) {
-            content.attributes()[ns.versionName] = manifest.versionName;
+            content.attributes()[ns.versionName] = manifest.versionName
         }
 
         if (!isNullOrEmpty(manifest.versionCode)) {
-            content.attributes()[ns.versionCode] =manifest. versionCode;
+            content.attributes()[ns.versionCode] =manifest. versionCode
         }
 
         new FileOutputStream(destination).withStream { out ->
@@ -30,7 +30,7 @@ class DefaultAndroidManifestWriter implements AndroidManifestWriter {
     }
 
     private static boolean isNullOrEmpty(String str) {
-        return str == null || str.length() == 0;
+        return str == null || str.length() == 0
     }
 
 

@@ -4,8 +4,8 @@ subprojects {
     apply plugin: 'maven'
 
     repositories {
-        mavenCentral();
-        mavenLocal();
+        mavenCentral()
+        mavenLocal()
     }
 
     configurations {

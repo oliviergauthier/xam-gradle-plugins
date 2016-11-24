@@ -6,11 +6,11 @@ import java.nio.file.Paths
 class FileUtils {
 
     static Path getResourcePath(String resourceName) {
-        return Paths.get(ClassLoader.getSystemResource(resourceName).toURI());
+        return Paths.get(ClassLoader.getSystemResource(resourceName).toURI())
     }
 
     static String toUnixPath(String path) {
-        return path.replace("\\", "/");
+        return path.replace("\\", "/")
     }
 
 }

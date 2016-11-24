@@ -7,14 +7,14 @@ import org.junit.Test
 class XamarinApplicationPluginIT {
 
     @Test
-    public void testRunRealScript() {
-        File sampleDir = new File("../../sample/CrossApp");
+     void testRunRealScript() {
+        File sampleDir = new File("../../sample/CrossApp")
         BuildResult result = GradleRunner.create()
                 .withProjectDir(sampleDir)
                 .withDebug(true)
                 .withArguments("buildAndroid", "--stacktrace")
-                .build();
+                .build()
 
-        println(result.getOutput());
+        println(result.getOutput())
     }
 }

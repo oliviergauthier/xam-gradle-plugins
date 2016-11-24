@@ -8,11 +8,11 @@ import org.junit.rules.TemporaryFolder
 class DefaultInfoPlistWriterTest {
 
     @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    public TemporaryFolder testFolder = new TemporaryFolder()
 
-    private File copy;
-    private InfoPlistWriter writer;
-    private InfoPlistReader reader;
+    private File copy
+    private InfoPlistWriter writer
+    private InfoPlistReader reader
 
     @Before
     void setUp() {
@@ -29,10 +29,10 @@ class DefaultInfoPlistWriterTest {
                 bundleVersion: "4.0",
                 bundleIdentifier:"com.acme.my.sample.app" )
 
-        writer.write(infoPlist, copy.path);
+        writer.write(infoPlist, copy.path)
 
-        InfoPlist saved = reader.read(copy.path);
+        InfoPlist saved = reader.read(copy.path)
 
-        assert saved == infoPlist;
+        assert saved == infoPlist
     }
 }

@@ -12,43 +12,43 @@ import org.gradle.api.tasks.TaskAction
 
 class BuildIOSAppTask extends DefaultTask {
 
-    protected CommandRunner commandRunner = Context.current.commandRunner;
-    protected FileCopier fileCopier = Context.current.fileCopier;
-    protected InfoPlistWriter infoPlistWriter = Context.current.infoPlistWriter;
+    protected CommandRunner commandRunner = Context.current.commandRunner
+    protected FileCopier fileCopier = Context.current.fileCopier
+    protected InfoPlistWriter infoPlistWriter = Context.current.infoPlistWriter
 
-    def String bundleVersion;
-    def String bundleShortVersion;
-    def String bundleIdentifier;
+    String bundleVersion
+    String bundleShortVersion
+    String bundleIdentifier
 
-    def String infoPlist;
+    String infoPlist
 
-    def String output;
-    def String projectFile;
-    def String solutionFile;
-    def String configuration;
-    def String platform;
+    String output
+    String projectFile
+    String solutionFile
+    String configuration
+    String platform
 
     @TaskAction
     def build() {
 
-        updatePlistInfo();
+        updatePlistInfo()
 
-        invokeMDTool();
+        invokeMDTool()
 
-        copyBuiltAssemblyToOutput();
+        copyBuiltAssemblyToOutput()
     }
 
     private void updatePlistInfo() {
         if (infoPlist != getInfoPlistPathFromDescriptor()) {
-            fileCopier.replace(infoPlist, getInfoPlistPathFromDescriptor());
+            fileCopier.replace(infoPlist, getInfoPlistPathFromDescriptor())
         }
 
-        def infPlist = new InfoPlist();
+        def infPlist = new InfoPlist()
         infPlist.bundleShortVersion = bundleShortVersion
         infPlist.bundleVersion = bundleVersion
         infPlist.bundleIdentifier = bundleIdentifier
 
-        infoPlistWriter.write(infPlist, getInfoPlistPathFromDescriptor());
+        infoPlistWriter.write(infPlist, getInfoPlistPathFromDescriptor())
     }
 
     private int invokeMDTool() {
@@ -64,7 +64,7 @@ class BuildIOSAppTask extends DefaultTask {
     }
 
     private ProjectDescriptor getProjectDescriptor() {
-        return new ProjectDescriptor("", projectFile);
+        return new ProjectDescriptor("", projectFile)
     }
 
     private String getInfoPlistPathFromDescriptor() {

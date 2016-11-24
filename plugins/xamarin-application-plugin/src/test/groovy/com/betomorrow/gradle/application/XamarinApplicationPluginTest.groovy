@@ -12,25 +12,25 @@ import java.nio.file.Paths
 
 class XamarinApplicationPluginTest {
 
-    Project project;
+    Project project
 
     @Before
-    public void setUp() {
+     void setUp() {
         project = ProjectBuilder.builder().withProjectDir( new File('src/test/resources')).build()
     }
 
 
     @Test
-    public void testApplyCreatesBuildAndroidTasksWithResolvedValues() {
+     void testApplyCreatesBuildAndroidTasksWithResolvedValues() {
         project.apply plugin: 'xamarin-application-plugin'
 
         project.application {
             solution 'CrossApp/CrossApp.sln' // first solution file in current folder
         }
 
-        project.evaluate();
+        project.evaluate()
 
-        BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid;
+        BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid
 
         assert buildAndroidTask.configuration == 'Release'
         assert buildAndroidTask.appVersion == "1.0"
@@ -43,16 +43,16 @@ class XamarinApplicationPluginTest {
     }
 
     @Test
-    public void testApplyCreatesBuildIOSTasksWithResolvedValues() {
+     void testApplyCreatesBuildIOSTasksWithResolvedValues() {
         project.apply plugin: 'xamarin-application-plugin'
 
         project.application {
             solution 'CrossApp/CrossApp.sln' // first solution file in current folder
         }
 
-        project.evaluate();
+        project.evaluate()
 
-        BuildIOSAppTask buildIOSTask = project.tasks.buildIOS;
+        BuildIOSAppTask buildIOSTask = project.tasks.buildIOS
 
         assert buildIOSTask.configuration == 'Release'
         assert buildIOSTask.bundleVersion == "1.0"
@@ -66,7 +66,7 @@ class XamarinApplicationPluginTest {
     }
 
     @Test
-    public void testApplyCreatesBuildAndroidTaskWithOverridedValues() {
+     void testApplyCreatesBuildAndroidTaskWithOverridedValues() {
         project.apply plugin: 'xamarin-application-plugin'
 
         project.application {
@@ -87,9 +87,9 @@ class XamarinApplicationPluginTest {
             }
         }
 
-        project.evaluate();
+        project.evaluate()
 
-        BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid;
+        BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid
         assert buildAndroidTask.configuration == 'Release'
         assert buildAndroidTask.appVersion == "2.6"
         assert buildAndroidTask.versionCode == "1.0"
@@ -100,7 +100,7 @@ class XamarinApplicationPluginTest {
     }
 
     @Test
-    public void testApplyCreatesBuildIOSTaskWithOverridedValues() {
+     void testApplyCreatesBuildIOSTaskWithOverridedValues() {
         project.apply plugin: 'xamarin-application-plugin'
 
         project.application {
@@ -122,9 +122,9 @@ class XamarinApplicationPluginTest {
             }
         }
 
-        project.evaluate();
+        project.evaluate()
 
-        BuildIOSAppTask buildIOSTask = project.tasks.buildIOS;
+        BuildIOSAppTask buildIOSTask = project.tasks.buildIOS
 
         assert buildIOSTask.configuration == 'Release'
         assert buildIOSTask.bundleVersion == "2.6"
@@ -137,7 +137,7 @@ class XamarinApplicationPluginTest {
     }
 
     @Test
-    public void testDryRun() {
+     void testDryRun() {
         project.apply plugin: 'xamarin-application-plugin'
 
         project.application {
@@ -164,9 +164,9 @@ class XamarinApplicationPluginTest {
             }
         }
 
-        project.evaluate();
+        project.evaluate()
 
-        BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid;
+        BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid
         buildAndroidTask.actions.each { action -> action.execute(buildAndroidTask) }
     }
 }

@@ -9,10 +9,10 @@ class NugetCmd implements CommandRunner.Cmd{
     String packageId
     String packageVersion
 
-    String[] extra;
+    String[] extra
 
     @Override
-    public List<String> build() {
+     List<String> build() {
         List<String> cmd = [nugetPath, action]
 
         if (packageId) {

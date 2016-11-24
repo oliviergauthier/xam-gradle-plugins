@@ -7,7 +7,7 @@ class DefaultInfoPlistReader implements InfoPlistReader {
     @Override
     InfoPlist read(String source) {
 
-        def root = parser.parse(source);
+        def root = parser.parse(source)
 
         InfoPlist infoPlist = new InfoPlist()
         infoPlist.bundleIdentifier = root.getValueNode("CFBundleIdentifier").text()

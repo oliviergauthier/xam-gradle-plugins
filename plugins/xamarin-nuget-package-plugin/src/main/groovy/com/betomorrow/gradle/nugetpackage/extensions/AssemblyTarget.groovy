@@ -21,7 +21,7 @@ class AssemblyTarget {
     }
 
     def getDest() {
-        return _dest;
+        return _dest
     }
 
     def includes(String... includes) {
@@ -29,7 +29,7 @@ class AssemblyTarget {
     }
 
     def getIncludes() {
-        return _includes;
+        return _includes
     }
 
 }

@@ -8,7 +8,7 @@ import org.gradle.api.Project
  */
 class DependenciesPluginExtension {
 
-    private Project project;
+    private Project project
 
     List<Dependency> dependencies = []
 
@@ -16,7 +16,7 @@ class DependenciesPluginExtension {
         this.project = project
     }
 
-    public Dependency dependency(String dependency) {
+    Dependency dependency(String dependency) {
         def dep = new Dependency(dependency)
         dependencies.add(dep)
         return dep

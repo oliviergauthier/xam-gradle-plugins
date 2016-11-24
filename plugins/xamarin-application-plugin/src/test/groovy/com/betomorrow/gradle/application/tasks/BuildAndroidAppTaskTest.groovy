@@ -13,11 +13,11 @@ import java.nio.file.Paths
 
 class BuildAndroidAppTaskTest extends Specification {
 
-    AndroidManifestWriter manifestWriter = Mock();
-    FileCopier fileCopier = Mock();
-    CommandRunner runner = Mock();
+    AndroidManifestWriter manifestWriter = Mock()
+    FileCopier fileCopier = Mock()
+    CommandRunner runner = Mock()
 
-    BuildAndroidAppTask task;
+    BuildAndroidAppTask task
     Project project
 
     def setup() {
@@ -28,28 +28,28 @@ class BuildAndroidAppTaskTest extends Specification {
             solution 'CrossApp/CrossApp.sln'
         }
 
-        project.evaluate();
+        project.evaluate()
 
-        task = project.tasks.buildAndroid;
+        task = project.tasks.buildAndroid
 
-        task.androidManifestWriter = manifestWriter;
-        task.fileCopier = fileCopier;
-        task.commandRunner = runner;
+        task.androidManifestWriter = manifestWriter
+        task.fileCopier = fileCopier
+        task.commandRunner = runner
     }
 
 
     def "should update manifest"() {
         given:
-        AndroidManifest capturedManifest;
-        String capturedManifestOutput;
+        AndroidManifest capturedManifest
+        String capturedManifestOutput
 
         when:
         task.build()
 
         then:
         1 * manifestWriter.write(_, _) >> { m, out ->
-            capturedManifest = m;
-            capturedManifestOutput = out;
+            capturedManifest = m
+            capturedManifestOutput = out
         }
 
         assert capturedManifest.packageName == "com.acme.crossapp"
@@ -60,51 +60,51 @@ class BuildAndroidAppTaskTest extends Specification {
 
     def "should run xbuild"() {
         given:
-        CommandRunner.Cmd capturedCmd;
+        CommandRunner.Cmd capturedCmd
 
         when:
         task.build()
 
         then:
         1 * runner.run(_) >> { cmd ->
-            capturedCmd = cmd[0];
-            return 1;
+            capturedCmd = cmd[0]
+            return 1
         }
 
-        def expectedPath = project.file("CrossApp/Droid/CrossApp.Droid.csproj").toString();
+        def expectedPath = project.file("CrossApp/Droid/CrossApp.Droid.csproj").toString()
         assert capturedCmd.build() == ["xbuild", "/t:PackageForAndroid", "/p:Configuration=Release", expectedPath]
     }
 
     def "should copy to output"() {
         given:
-        String capturedSrc;
-        String capturedDst;
+        String capturedSrc
+        String capturedDst
 
         when:
-        task.build();
+        task.build()
 
         then:
         1 * fileCopier.replace(_,_) >> { src, dst ->
-            capturedSrc = src;
-            capturedDst = dst;
+            capturedSrc = src
+            capturedDst = dst
         }
 
-        assert Paths.get(capturedSrc) == project.file("CrossApp/Droid/bin/Release/com.acme.crossapp.apk").toPath();
-        assert Paths.get(capturedDst) == project.file("dist/CrossApp.Droid-1.0.apk").toPath();
+        assert Paths.get(capturedSrc) == project.file("CrossApp/Droid/bin/Release/com.acme.crossapp.apk").toPath()
+        assert Paths.get(capturedDst) == project.file("dist/CrossApp.Droid-1.0.apk").toPath()
     }
 
     def "should do operations in the right order"() {
         when:
-        task.build();
+        task.build()
 
         then:
-        1 * manifestWriter.write(_, _);
+        1 * manifestWriter.write(_, _)
 
         then:
-        1 * runner.run(_) >> 1;
+        1 * runner.run(_) >> 1
 
         then:
-        1 * fileCopier.replace(_,_);
+        1 * fileCopier.replace(_,_)
     }
 
 }

@@ -11,28 +11,28 @@ import org.gradle.api.tasks.TaskAction
  */
 class GenerateNuspec extends DefaultTask {
 
-    def String source
-    def String output
+    String source
+    String output
 
-    def String packageId
-    def String version
-    def String authors
-    def String owners
-    def String licenseUrl
-    def String projectUrl
-    def String iconUrl
-    def Boolean requireLicenseAcceptance
-    def String description
-    def String releaseNotes
-    def String copyright
-    def String tags
+    String packageId
+    String version
+    String authors
+    String owners
+    String licenseUrl
+    String projectUrl
+    String iconUrl
+    Boolean requireLicenseAcceptance
+    String description
+    String releaseNotes
+    String copyright
+    String tags
 
 
-    def DependencySet dependencies;
-    def AssemblySet assemblies;
+    DependencySet dependencies
+    AssemblySet assemblies
 
     @TaskAction
-    public void generateNuspec() {
+     void generateNuspec() {
         NuSpec nuSpec = new NuSpec()
 
         nuSpec.output = output

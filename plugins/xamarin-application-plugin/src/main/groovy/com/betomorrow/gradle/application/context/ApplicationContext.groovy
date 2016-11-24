@@ -7,9 +7,9 @@ import com.betomorrow.msbuild.tools.commands.CommandRunner
 
 interface ApplicationContext {
 
-    FileCopier getFileCopier();
-    CommandRunner getCommandRunner();
-    AndroidManifestWriter getAndroidManifestWriter();
-    InfoPlistWriter getInfoPlistWriter();
+    FileCopier getFileCopier()
+    CommandRunner getCommandRunner()
+    AndroidManifestWriter getAndroidManifestWriter()
+    InfoPlistWriter getInfoPlistWriter()
 
 }

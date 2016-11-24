@@ -13,18 +13,18 @@ class XBuildCmd implements CommandRunner.Cmd {
     String configuration
     String projectPath
 
-    public void addProperty(String key, String value) {
+    void addProperty(String key, String value) {
         properties[key] = value
     }
 
-    public List<String> build() {
+    List<String> build() {
         def cmd = [xBuildPath]
 
         if (target) {
             cmd.add("/t:${target}")
         }
 
-        def allProperties = properties.clone();
+        def allProperties = properties.clone()
         if (configuration) {
             allProperties[AndroidBuildProperties.Configuration] = configuration
         }
@@ -33,7 +33,7 @@ class XBuildCmd implements CommandRunner.Cmd {
 
         cmd.add(projectPath)
 
-        return cmd;
+        return cmd
     }
 
 

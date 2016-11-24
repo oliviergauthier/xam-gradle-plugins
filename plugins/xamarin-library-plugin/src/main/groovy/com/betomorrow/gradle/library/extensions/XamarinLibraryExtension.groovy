@@ -4,10 +4,10 @@ class XamarinLibraryExtension {
 
     private static String DEFAULT_CONFIGURATION = 'Release'
 
-    String solution;
-    String configuration;
+    String solution
+    String configuration
 
-    public String getConfiguration() {
+    String getConfiguration() {
         if (configuration != null) {
             return configuration
         }

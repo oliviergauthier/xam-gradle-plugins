@@ -3,12 +3,12 @@ package com.betomorrow.ios.tools.plist
 class DefaultInfoPlistReaderTest extends GroovyTestCase {
 
 
-    String SAMPLE = ClassLoader.getSystemResource('Info.plist').file;
+    String SAMPLE = ClassLoader.getSystemResource('Info.plist').file
 
-    DefaultInfoPlistReader reader = new DefaultInfoPlistReader();
+    DefaultInfoPlistReader reader = new DefaultInfoPlistReader()
 
     void testReadShouldReturnsCompleteInfoPlist() {
-        InfoPlist infoPlist = reader.read(SAMPLE);
+        InfoPlist infoPlist = reader.read(SAMPLE)
 
         assert infoPlist.bundleIdentifier == "com.sample.crossapp"
         assert infoPlist.bundleShortVersion == "2.0"

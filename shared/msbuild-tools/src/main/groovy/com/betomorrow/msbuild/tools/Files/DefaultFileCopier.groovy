@@ -12,8 +12,8 @@ class DefaultFileCopier implements FileCopier {
     }
 
     void replace(Path src, Path dst) {
-        Files.createDirectories(dst.parent);
-        Files.copy(src, dst, StandardCopyOption.REPLACE_EXISTING);
+        Files.createDirectories(dst.parent)
+        Files.copy(src, dst, StandardCopyOption.REPLACE_EXISTING)
     }
 
 }

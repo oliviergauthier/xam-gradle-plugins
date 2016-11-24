@@ -1,8 +1,8 @@
 package com.betomorrow.msbuild.tools.nuspec.dependencies
 
-public class DependencySet implements Set<Dependency> {
+class DependencySet implements Set<Dependency> {
 
-    @Delegate Set<Dependency> dependencies = new HashSet<>();
+    @Delegate Set<Dependency> dependencies = new HashSet<>()
 
     void add(String packageId, String version) {
         dependencies.add(new Dependency(id : packageId, version : version))

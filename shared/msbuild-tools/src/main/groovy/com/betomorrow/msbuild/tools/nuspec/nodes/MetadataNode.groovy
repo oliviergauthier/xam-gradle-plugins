@@ -1,15 +1,15 @@
 package com.betomorrow.msbuild.tools.nuspec.nodes
 
-public class MetadataNode {
+class MetadataNode {
 
-    Node metadataNode;
+    Node metadataNode
 
     MetadataNode(Node metadataNode) {
         this.metadataNode = metadataNode
     }
 
     DependenciesNode dependencies() {
-        return new DependenciesNode(NodesUtils.getNodeOrCreate(metadataNode, "dependencies"));
+        return new DependenciesNode(NodesUtils.getNodeOrCreate(metadataNode, "dependencies"))
     }
 
     Node property(String name) {

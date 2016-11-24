@@ -11,7 +11,7 @@ import java.nio.file.Paths
 
 class CleanTaskTest extends Specification {
 
-    CleanTask task;
+    CleanTask task
 
     def setup() {
         Project project = ProjectBuilder.builder().build()
@@ -42,16 +42,16 @@ class CleanTaskTest extends Specification {
     }
 
     private void createFile(String file) {
-        Path p = Paths.get('src/test/resources/CrossApp').resolve(file);
-        Files.createDirectories(p.parent);
+        Path p = Paths.get('src/test/resources/CrossApp').resolve(file)
+        Files.createDirectories(p.parent)
         if (!Files.exists(p)) {
-            Files.createFile(p);
-            Files.write(p, "Content".getBytes(StandardCharsets.UTF_8));
+            Files.createFile(p)
+            Files.write(p, "Content".getBytes(StandardCharsets.UTF_8))
         }
     }
 
     private boolean exists(String file) {
-        Path p = Paths.get('src/test/resources/CrossApp').resolve(file);
-        return Files.exists(p);
+        Path p = Paths.get('src/test/resources/CrossApp').resolve(file)
+        return Files.exists(p)
     }
 }

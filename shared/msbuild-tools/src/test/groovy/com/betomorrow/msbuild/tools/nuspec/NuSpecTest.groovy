@@ -11,15 +11,15 @@ import org.junit.rules.TemporaryFolder
 class NuSpecTest {
 
     @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
+    public TemporaryFolder testFolder = new TemporaryFolder()
 
-    def SAMPLE_NUSPEC = ClassLoader.getSystemResource('Sample.nuspec').file;
-    def output;
+    def SAMPLE_NUSPEC = ClassLoader.getSystemResource('Sample.nuspec').file
+    def output
 
     NuSpec nuspec
 
     @Before
-    public void setUp() {
+     void setUp() {
         output = testFolder.newFile("out.nuspec")
 
 //        nuspec = new NuSpec()
@@ -28,14 +28,14 @@ class NuSpecTest {
     }
 
     @Test
-    public void testReadAndWriteWithoutModification() {
+     void testReadAndWriteWithoutModification() {
         nuspec.process()
 
         assert new XmlSlurper().parse(SAMPLE_NUSPEC) == new XmlSlurper().parse(output)
     }
 
     @Test
-    public void testUpdateId() {
+     void testUpdateId() {
         nuspec.packageId = "new packageId"
         nuspec.process()
 
@@ -43,7 +43,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testUpdateVersion() {
+     void testUpdateVersion() {
         nuspec.version = "new version"
         nuspec.process()
 
@@ -52,7 +52,7 @@ class NuSpecTest {
 
 
     @Test
-    public void testUpdateAuthor() {
+     void testUpdateAuthor() {
         nuspec.authors = "new authors"
         nuspec.process()
 
@@ -60,7 +60,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testUpdateOwner() {
+     void testUpdateOwner() {
         nuspec.owners = "new owners"
         nuspec.process()
 
@@ -69,7 +69,7 @@ class NuSpecTest {
 
 
     @Test
-    public void testUpdateLicenceUrl() {
+     void testUpdateLicenceUrl() {
         nuspec.licenseUrl = "new licence url"
         nuspec.process()
 
@@ -77,7 +77,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testUpdateProjectUrl() {
+     void testUpdateProjectUrl() {
         nuspec.projectUrl = "new project url"
         nuspec.process()
 
@@ -85,7 +85,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testUpdateIconUrl() {
+     void testUpdateIconUrl() {
         nuspec.iconUrl = "new icon url"
         nuspec.process()
 
@@ -93,7 +93,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testUpdateRequireLicenseAcceptance() {
+     void testUpdateRequireLicenseAcceptance() {
         nuspec.requireLicenseAcceptance = true
         nuspec.process()
 
@@ -101,7 +101,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testUpdateDescription() {
+     void testUpdateDescription() {
         nuspec.description = "new description"
         nuspec.process()
 
@@ -109,7 +109,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testUpdateReleaseNote() {
+     void testUpdateReleaseNote() {
         nuspec.releaseNotes = "new release note"
         nuspec.process()
 
@@ -117,7 +117,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testUpdateCopyright() {
+     void testUpdateCopyright() {
         nuspec.copyright = "new copyright"
         nuspec.process()
 
@@ -125,7 +125,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testUpdateTags() {
+     void testUpdateTags() {
         nuspec.tags = "new tags"
         nuspec.process()
 
@@ -133,7 +133,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testUpdateDependency() {
+     void testUpdateDependency() {
         nuspec.dependencySet.add("SampleDependency:version")
         nuspec.process()
 
@@ -141,7 +141,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testAddDependency() {
+     void testAddDependency() {
         nuspec.dependencySet.add("CustomDependency:version")
         nuspec.process()
 
@@ -149,7 +149,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testUpdateDependencyWithGroup() {
+     void testUpdateDependencyWithGroup() {
         nuspec.dependencySet.add("net40:jQuery:version")
         nuspec.process()
 
@@ -157,7 +157,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testAddDependencyWithGroup() {
+     void testAddDependencyWithGroup() {
         nuspec.dependencySet.add("net40:CustomDependency:version")
         nuspec.process()
 
@@ -165,7 +165,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testAddAssembly() {
+     void testAddAssembly() {
         nuspec.assemblySet.add(new Assembly("build/Release/MyAssembly.dll", "libs/"))
         nuspec.process()
 
@@ -173,7 +173,7 @@ class NuSpecTest {
     }
 
     @Test
-    public void testAddAssemblyTwiceDontAddTwoNode() {
+     void testAddAssemblyTwiceDontAddTwoNode() {
         nuspec.assemblySet.add(new Assembly("build/Release/MyAssembly.dll", "libs/"))
         nuspec.process()
 
@@ -185,7 +185,7 @@ class NuSpecTest {
     }
 
     private void assertContainsDependency(Dependency dependency) {
-        def result = new XmlSlurper().parse(output);
+        def result = new XmlSlurper().parse(output)
 
         if (dependency.group == null) {
             def node = result.metadata.dependencies.group.dependency.find { it.@id == dependency.id }
@@ -197,7 +197,7 @@ class NuSpecTest {
     }
 
     private NodeChild assemblyNode(Assembly assembly) {
-        def result = new XmlSlurper().parse(output);
+        def result = new XmlSlurper().parse(output)
         def node = result.files.file.find { it.@src == assembly.assemblyPath && it.@target == assembly.targetDirectory}
     }
 

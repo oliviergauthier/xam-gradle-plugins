@@ -1,6 +1,6 @@
-package com.betomorrow.msbuild.tools.nuspec.dependencies;
+package com.betomorrow.msbuild.tools.nuspec.dependencies
 
-public class Dependency {
+class Dependency {
 
     String group
     String id
@@ -30,8 +30,8 @@ public class Dependency {
 
 
     @Override
-    public String toString() {
-        return group + ":" + id + ":" + version;
+     String toString() {
+        return group + ":" + id + ":" + version
     }
 
     boolean equals(o) {

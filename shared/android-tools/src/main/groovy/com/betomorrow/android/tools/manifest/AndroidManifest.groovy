@@ -5,8 +5,8 @@ import groovy.transform.Canonical
 @Canonical
 class AndroidManifest {
 
-    String versionCode;
-    String versionName;
-    String packageName;
+    String versionCode
+    String versionName
+    String packageName
 
 }

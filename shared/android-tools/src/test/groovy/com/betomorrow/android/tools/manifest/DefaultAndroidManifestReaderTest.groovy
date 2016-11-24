@@ -5,18 +5,18 @@ import org.junit.Test
 
 class DefaultAndroidManifestReaderTest {
 
-    String SAMPLE_MANIFEST = ClassLoader.getSystemResource('AndroidManifest.xml').file;
+    String SAMPLE_MANIFEST = ClassLoader.getSystemResource('AndroidManifest.xml').file
 
-    DefaultAndroidManifestReader reader;
+    DefaultAndroidManifestReader reader
 
     @Before
-    public void setUp() {
-        reader = new DefaultAndroidManifestReader();
+     void setUp() {
+        reader = new DefaultAndroidManifestReader()
     }
 
     @Test
-    public void testReadShouldReturnsCompleteManifest() {
-        AndroidManifest manifest = reader.read(SAMPLE_MANIFEST);
+     void testReadShouldReturnsCompleteManifest() {
+        AndroidManifest manifest = reader.read(SAMPLE_MANIFEST)
 
         assert manifest.packageName == "com.sample.crossapp"
         assert manifest.versionCode == "1"

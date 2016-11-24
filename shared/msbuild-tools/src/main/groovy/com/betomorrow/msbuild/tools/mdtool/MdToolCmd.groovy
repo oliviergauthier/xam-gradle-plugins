@@ -5,12 +5,12 @@ import com.betomorrow.msbuild.tools.commands.CommandRunner
 class MdToolCmd implements CommandRunner.Cmd {
 
     String mdToolPath = 'mdtool'
-    String configuration;
-    String platform;
-    boolean verbose;
-    String solutionPath;
+    String configuration
+    String platform
+    boolean verbose
+    String solutionPath
 
-    public List<String> build() {
+    List<String> build() {
         def cmd = [mdToolPath]
 
         if (verbose) {
@@ -31,6 +31,6 @@ class MdToolCmd implements CommandRunner.Cmd {
 
         cmd.add(solutionPath)
 
-        return cmd;
+        return cmd
     }
 }

@@ -4,22 +4,22 @@ import groovy.xml.XmlUtil
 
 class DefaultInfoPlistWriter implements InfoPlistWriter {
 
-    protected PlistXmlParser parser = new PlistXmlParser();
+    protected PlistXmlParser parser = new PlistXmlParser()
 
     @Override
     void write(InfoPlist plist, String destination) {
-        def root = parser.parse(destination);
+        def root = parser.parse(destination)
 
         if (!isNullOrEmpty(plist.bundleIdentifier)) {
-            root.getValueNode("CFBundleIdentifier").value  = plist.bundleIdentifier;
+            root.getValueNode("CFBundleIdentifier").value  = plist.bundleIdentifier
         }
 
         if (!isNullOrEmpty(plist.bundleVersion)) {
-            root.getValueNode("CFBundleVersion").value = plist.bundleVersion;
+            root.getValueNode("CFBundleVersion").value = plist.bundleVersion
         }
 
         if (!isNullOrEmpty(plist.bundleShortVersion)) {
-            root.getValueNode("CFBundleShortVersionString").value = plist.bundleShortVersion;
+            root.getValueNode("CFBundleShortVersionString").value = plist.bundleShortVersion
         }
 
        println  XmlUtil.serialize(root)
@@ -32,6 +32,6 @@ class DefaultInfoPlistWriter implements InfoPlistWriter {
     }
 
     private static boolean isNullOrEmpty(String str) {
-        return str == null || str.length() == 0;
+        return str == null || str.length() == 0
     }
 }
