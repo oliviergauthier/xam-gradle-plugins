@@ -1,9 +1,9 @@
 package com.betomorrow.gradle.application.extensions
 
-import com.betomorrow.android.tools.manifest.AndroidManifest
-import com.betomorrow.android.tools.manifest.AndroidManifestReader
-import com.betomorrow.android.tools.manifest.DefaultAndroidManifestReader
-import com.betomorrow.msbuild.tools.Files.FileUtils
+import com.betomorrow.msbuild.tools.android.manifest.AndroidManifest
+import com.betomorrow.msbuild.tools.android.manifest.AndroidManifestReader
+import com.betomorrow.msbuild.tools.android.manifest.DefaultAndroidManifestReader
+import com.betomorrow.msbuild.tools.files.FileUtils
 import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
 import com.betomorrow.msbuild.tools.descriptors.solution.SolutionDescriptor
 import com.betomorrow.msbuild.tools.descriptors.solution.SolutionLoader

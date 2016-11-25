@@ -1,12 +1,12 @@
 package com.betomorrow.gradle.application.tasks
 
 
-import com.betomorrow.android.tools.manifest.AndroidManifest
-import com.betomorrow.android.tools.manifest.AndroidManifestWriter
+import com.betomorrow.msbuild.tools.android.manifest.AndroidManifest
+import com.betomorrow.msbuild.tools.android.manifest.AndroidManifestWriter
 import com.betomorrow.gradle.application.context.Context
-import com.betomorrow.msbuild.tools.Files.FileCopier
+import com.betomorrow.msbuild.tools.files.FileCopier
 import com.betomorrow.msbuild.tools.commands.CommandRunner
-import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
+import com.betomorrow.msbuild.tools.descriptors.project.XamarinProjectDescriptor
 import com.betomorrow.msbuild.tools.xbuild.XBuildTargets
 import com.betomorrow.msbuild.tools.xbuild.XBuildCmd
 import org.gradle.api.DefaultTask
@@ -36,8 +36,8 @@ class BuildAndroidAppTask extends DefaultTask {
         copyBuiltAssemblyToOutput()
     }
 
-    private ProjectDescriptor getProjectDescriptor() {
-        return new ProjectDescriptor("", projectFile)
+    private XamarinProjectDescriptor getProjectDescriptor() {
+        return new XamarinProjectDescriptor("", projectFile)
     }
 
     private String getManifestPathFromDescriptor() {
@@ -66,10 +66,8 @@ class BuildAndroidAppTask extends DefaultTask {
     }
 
     private void copyBuiltAssemblyToOutput() {
-        // TODO find a better place for outputPath resolution
-        def xamarinOutputPath = getProjectDescriptor().getOutputDir(configuration).resolve(packageName + ".apk")
         def outputPath = project.file(output).toPath()
-        fileCopier.replace(xamarinOutputPath, outputPath)
+        fileCopier.replace(getProjectDescriptor().getOutputPath(configuration), outputPath)
     }
 
 }

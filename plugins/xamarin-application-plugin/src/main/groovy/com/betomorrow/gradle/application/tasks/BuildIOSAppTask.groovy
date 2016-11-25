@@ -1,9 +1,9 @@
 package com.betomorrow.gradle.application.tasks
 
 import com.betomorrow.gradle.application.context.Context
-import com.betomorrow.ios.tools.plist.InfoPlist
-import com.betomorrow.ios.tools.plist.InfoPlistWriter
-import com.betomorrow.msbuild.tools.Files.FileCopier
+import com.betomorrow.msbuild.tools.ios.plist.InfoPlist
+import com.betomorrow.msbuild.tools.ios.plist.InfoPlistWriter
+import com.betomorrow.msbuild.tools.files.FileCopier
 import com.betomorrow.msbuild.tools.commands.CommandRunner
 import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
 import com.betomorrow.msbuild.tools.mdtool.MdToolCmd

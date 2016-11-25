@@ -1,41 +1,41 @@
 package com.betomorrow.msbuild.tools.descriptors.solution
 
-import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
+import com.betomorrow.msbuild.tools.descriptors.project.XamarinProjectDescriptor
 import groovy.transform.Canonical
 
 @Canonical
- class SolutionDescriptor {
+class SolutionDescriptor {
 
-    private Map<String, ProjectDescriptor> projects
+    private Map<String, XamarinProjectDescriptor> projects
 
-    SolutionDescriptor(Map<String, ProjectDescriptor> projects) {
+    SolutionDescriptor(Map<String, XamarinProjectDescriptor> projects) {
         this.projects = projects
     }
 
-    ProjectDescriptor getProject(String name) {
+    XamarinProjectDescriptor getProject(String name) {
         return projects.get(name)
     }
 
-    Collection<ProjectDescriptor> getProjects() {
+    Collection<XamarinProjectDescriptor> getProjects() {
         return projects.values()
     }
 
-    ProjectDescriptor getFirstAndroidProject() {
+    XamarinProjectDescriptor getFirstAndroidProject() {
         return projects.values().find { it.isAndroidApplication() }
     }
 
     boolean hasSingleAndroidProject() {
-        return projects.values().count { it.isAndroidApplication()} == 1
+        return projects.values().count { it.isAndroidApplication() } == 1
     }
 
-    ProjectDescriptor getFirstIosProject() {
+    XamarinProjectDescriptor getFirstIosProject() {
         return projects.values().find { it.isIosApplication() }
     }
 
     boolean hasSingleIosProject() {
-        return projects.values().count { it.isIosApplication()} == 1
+        return projects.values().count { it.isIosApplication() } == 1
     }
-    
+
     boolean containsProject(String appName) {
         return projects.containsKey(appName)
     }

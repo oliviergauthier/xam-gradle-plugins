@@ -1,9 +1,7 @@
 package com.betomorrow.msbuild.tools.descriptors.solution
 
-import com.betomorrow.msbuild.tools.Files.FileUtils
+import com.betomorrow.msbuild.tools.files.FileUtils
 import org.junit.Test
-
-import java.nio.file.Paths
 
 class SolutionLoaderTest {
 
@@ -21,16 +19,16 @@ class SolutionLoaderTest {
         assert !iosApp.isAndroidApplication()
         assert iosApp.isIosApplication()
         assert iosApp.getAssemblyName() == 'CrossApp.iOS'
-        assert iosApp.getOutputDir('Release', 'iPhone').toString() == SAMPLE_SOLUTION.parent.resolve('iOS/bin/iPhone/Release').toString()
-        assert iosApp.getOutputDir('Debug', 'iPhone').toString() == SAMPLE_SOLUTION.parent.resolve('iOS/bin/iPhone/Debug').toString()
+        assert iosApp.getOutputPath('Release', 'iPhone') == SAMPLE_SOLUTION.parent.resolve('iOS/bin/iPhone/Release/CrossApp.iOS.ipa')
+        assert iosApp.getOutputPath('Debug', 'iPhone') == SAMPLE_SOLUTION.parent.resolve('iOS/bin/iPhone/Debug/CrossApp.iOS.ipa')
 
         def androidApp = descriptor.getProject('CrossApp.Droid')
         assert androidApp != null
         assert androidApp.isAndroidApplication()
         assert !androidApp.isIosApplication()
         assert androidApp.getAssemblyName() == 'CrossApp.Droid'
-        assert androidApp.getOutputDir('Release') == SAMPLE_SOLUTION.parent.resolve('Droid/bin/Release')
-        assert androidApp.getOutputDir('Debug|iPhone') == SAMPLE_SOLUTION.parent.resolve('Droid/bin/Debug')
+        assert androidApp.getOutputPath('Release') == SAMPLE_SOLUTION.parent.resolve('Droid/bin/Release/com.acme.crossapp.alpha.apk')
+        assert androidApp.getOutputPath('Debug') == SAMPLE_SOLUTION.parent.resolve('Droid/bin/Debug/com.acme.crossapp.alpha.apk')
 
     }
 }

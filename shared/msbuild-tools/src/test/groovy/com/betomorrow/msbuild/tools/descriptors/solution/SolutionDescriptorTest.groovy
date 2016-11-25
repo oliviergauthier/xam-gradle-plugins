@@ -1,6 +1,7 @@
 package com.betomorrow.msbuild.tools.descriptors.solution
 
 import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
+import com.betomorrow.msbuild.tools.descriptors.project.XamarinProjectDescriptor
 import org.junit.Test
 
 /**
@@ -63,12 +64,12 @@ class SolutionDescriptorTest {
     }
 
 
-    ProjectDescriptor createAndroidProject() {
-        return [isAndroidApplication: { true }, isIosApplication: { false }] as ProjectDescriptor
+    XamarinProjectDescriptor createAndroidProject() {
+        return [isAndroidApplication: { true }, isIosApplication: { false }] as XamarinProjectDescriptor
     }
 
-    ProjectDescriptor createIosProject() {
-        return [isIosApplication: { true }, isAndroidApplication: { false }] as ProjectDescriptor
+    XamarinProjectDescriptor createIosProject() {
+        return [isIosApplication: { true }, isAndroidApplication: { false }] as XamarinProjectDescriptor
     }
 
 }

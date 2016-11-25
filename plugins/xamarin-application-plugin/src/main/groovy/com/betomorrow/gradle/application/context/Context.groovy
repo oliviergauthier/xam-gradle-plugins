@@ -1,11 +1,11 @@
 package com.betomorrow.gradle.application.context
 
-import com.betomorrow.android.tools.manifest.DefaultAndroidManifestWriter
-import com.betomorrow.android.tools.manifest.FakeAndroidManifestWriter
-import com.betomorrow.ios.tools.plist.DefaultInfoPlistWriter
-import com.betomorrow.ios.tools.plist.FakeInfoPlistWriter
-import com.betomorrow.msbuild.tools.Files.DefaultFileCopier
-import com.betomorrow.msbuild.tools.Files.FakeFileCopier
+import com.betomorrow.msbuild.tools.android.manifest.DefaultAndroidManifestWriter
+import com.betomorrow.msbuild.tools.android.manifest.FakeAndroidManifestWriter
+import com.betomorrow.msbuild.tools.ios.plist.DefaultInfoPlistWriter
+import com.betomorrow.msbuild.tools.ios.plist.FakeInfoPlistWriter
+import com.betomorrow.msbuild.tools.files.DefaultFileCopier
+import com.betomorrow.msbuild.tools.files.FakeFileCopier
 import com.betomorrow.msbuild.tools.commands.FakeCommandRunner
 import com.betomorrow.msbuild.tools.commands.SystemCommandRunner
 import groovy.transform.PackageScope

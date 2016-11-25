@@ -7,7 +7,7 @@ import org.junit.Test
 class XamarinApplicationPluginIT {
 
     @Test
-     void testRunRealScript() {
+    void testRunRealScript() {
         File sampleDir = new File("../../sample/CrossApp")
         BuildResult result = GradleRunner.create()
                 .withProjectDir(sampleDir)

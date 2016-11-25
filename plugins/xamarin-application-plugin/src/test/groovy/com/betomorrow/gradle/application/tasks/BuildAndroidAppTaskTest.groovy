@@ -1,14 +1,13 @@
 package com.betomorrow.gradle.application.tasks
 
-import com.betomorrow.android.tools.manifest.AndroidManifest
-import com.betomorrow.android.tools.manifest.AndroidManifestWriter
-import com.betomorrow.msbuild.tools.Files.FileCopier
+import com.betomorrow.msbuild.tools.android.manifest.AndroidManifest
+import com.betomorrow.msbuild.tools.android.manifest.AndroidManifestWriter
+import com.betomorrow.msbuild.tools.files.FileCopier
 import com.betomorrow.msbuild.tools.commands.CommandRunner
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
 
-import java.nio.file.Path
 import java.nio.file.Paths
 
 class BuildAndroidAppTaskTest extends Specification {
