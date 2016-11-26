@@ -1,9 +1,9 @@
 package com.betomorrow.gradle.application.tasks
 
-import com.betomorrow.msbuild.tools.ios.plist.InfoPlist
-import com.betomorrow.msbuild.tools.ios.plist.InfoPlistWriter
-import com.betomorrow.msbuild.tools.files.FileCopier
+import com.betomorrow.ios.plist.InfoPlist
+import com.betomorrow.ios.plist.InfoPlistWriter
 import com.betomorrow.msbuild.tools.commands.CommandRunner
+import com.betomorrow.msbuild.tools.files.FileCopier
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification

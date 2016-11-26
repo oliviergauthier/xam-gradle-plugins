@@ -1,4 +1,4 @@
 dependencies {
-    compile project(':shared:msbuild-tools')
+    compile project(':shared:xamarin-tools')
     compile project(':plugins:xamarin-commons')
 }

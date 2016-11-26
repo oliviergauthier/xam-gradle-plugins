@@ -1,12 +1,12 @@
 package com.betomorrow.gradle.application.extensions
 
-import com.betomorrow.msbuild.tools.ios.plist.DefaultInfoPlistReader
-import com.betomorrow.msbuild.tools.ios.plist.InfoPlist
-import com.betomorrow.msbuild.tools.ios.plist.InfoPlistReader
+import com.betomorrow.ios.plist.DefaultInfoPlistReader
+import com.betomorrow.ios.plist.InfoPlist
+import com.betomorrow.ios.plist.InfoPlistReader
 import com.betomorrow.msbuild.tools.files.FileUtils
-import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
-import com.betomorrow.msbuild.tools.descriptors.solution.SolutionDescriptor
-import com.betomorrow.msbuild.tools.descriptors.solution.SolutionLoader
+import com.betomorrow.xamarin.descriptors.project.ProjectDescriptor
+import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
+import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
 import org.gradle.api.Project
 
 class XamarinIosApplicationExtension {

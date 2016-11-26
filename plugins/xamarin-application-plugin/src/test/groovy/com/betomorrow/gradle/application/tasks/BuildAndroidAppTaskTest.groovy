@@ -1,7 +1,7 @@
 package com.betomorrow.gradle.application.tasks
 
-import com.betomorrow.msbuild.tools.android.manifest.AndroidManifest
-import com.betomorrow.msbuild.tools.android.manifest.AndroidManifestWriter
+import com.betomorrow.android.manifest.AndroidManifest
+import com.betomorrow.android.manifest.AndroidManifestWriter
 import com.betomorrow.msbuild.tools.files.FileCopier
 import com.betomorrow.msbuild.tools.commands.CommandRunner
 import org.gradle.api.Project

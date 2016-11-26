@@ -1,8 +1,8 @@
 package com.betomorrow.gradle.commons.tasks
 
-import com.betomorrow.msbuild.tools.descriptors.project.ProjectDescriptor
-import com.betomorrow.msbuild.tools.descriptors.solution.SolutionDescriptor
-import com.betomorrow.msbuild.tools.descriptors.solution.SolutionLoader
+import com.betomorrow.xamarin.descriptors.project.ProjectDescriptor
+import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
+import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 

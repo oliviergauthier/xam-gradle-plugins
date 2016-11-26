@@ -7,7 +7,6 @@ import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Before
 import org.junit.Test
 
-import java.nio.file.Path
 import java.nio.file.Paths
 
 class XamarinApplicationPluginTest {
