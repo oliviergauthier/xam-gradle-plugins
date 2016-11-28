@@ -8,7 +8,7 @@ import com.betomorrow.msbuild.tools.files.FileCopier
 import com.betomorrow.msbuild.tools.commands.CommandRunner
 import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
 import com.betomorrow.msbuild.tools.xbuild.XBuildTargets
-import com.betomorrow.msbuild.tools.xbuild.XBuildCmd
+import com.betomorrow.xamarin.xbuild.XBuildCmd
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 

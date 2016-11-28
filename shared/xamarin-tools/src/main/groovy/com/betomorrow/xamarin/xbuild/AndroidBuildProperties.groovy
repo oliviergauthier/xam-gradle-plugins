@@ -1,4 +1,4 @@
-package com.betomorrow.msbuild.tools.xbuild
+package com.betomorrow.xamarin.xbuild
 
 class AndroidBuildProperties {
 

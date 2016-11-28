@@ -1,4 +1,4 @@
-package com.betomorrow.msbuild.tools.xbuild
+package com.betomorrow.xamarin.xbuild
 
 import com.betomorrow.msbuild.tools.commands.CommandRunner
 
@@ -33,7 +33,7 @@ class XBuildCmd implements CommandRunner.Cmd {
 
         cmd.add(projectPath)
 
-        return cmd
+        return (cmd as String[]).toList()
     }
 
 
