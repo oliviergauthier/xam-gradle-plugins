@@ -1,18 +1,17 @@
 package com.betomorrow.gradle.application.tasks
 
-import com.betomorrow.ios.plist.InfoPlistWriter
 import com.betomorrow.gradle.application.context.Context
 import com.betomorrow.ios.plist.InfoPlist
-import com.betomorrow.msbuild.tools.commands.CommandRunner
+import com.betomorrow.ios.plist.InfoPlistWriter
 import com.betomorrow.msbuild.tools.files.FileCopier
-import com.betomorrow.msbuild.tools.mdtool.MdToolCmd
-import com.betomorrow.xamarin.descriptors.project.ProjectDescriptor
+import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
+import com.betomorrow.xamarin.xbuild.XBuild
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 class BuildIOSAppTask extends DefaultTask {
 
-    protected CommandRunner commandRunner = Context.current.commandRunner
+    protected XBuild xBuild = Context.current.xbuild
     protected FileCopier fileCopier = Context.current.fileCopier
     protected InfoPlistWriter infoPlistWriter = Context.current.infoPlistWriter
 
@@ -29,11 +28,11 @@ class BuildIOSAppTask extends DefaultTask {
     String platform
 
     @TaskAction
-    def build() {
+    void build() {
 
         updatePlistInfo()
 
-        invokeMDTool()
+        invokeXBuild()
 
         copyBuiltAssemblyToOutput()
     }
@@ -51,20 +50,17 @@ class BuildIOSAppTask extends DefaultTask {
         infoPlistWriter.write(infPlist, getInfoPlistPathFromDescriptor())
     }
 
-    private int invokeMDTool() {
-        MdToolCmd cmd = new MdToolCmd()
-        cmd.setConfiguration(configuration)
-        cmd.setSolutionPath(solutionFile)
-        cmd.setPlatform(platform)
-        return commandRunner.run(cmd)
+    private void invokeXBuild() {
+        def defaultOutputDir = getProjectDescriptor().getOutputDir(configuration, platform)
+        xBuild.buildIosApp(configuration, platform, "bin/$platform/$configuration", solutionFile)
     }
 
     private void copyBuiltAssemblyToOutput() {
         fileCopier.replace(getProjectDescriptor().getOutputPath(configuration, platform).toString(), output)
     }
 
-    private ProjectDescriptor getProjectDescriptor() {
-        return new ProjectDescriptor("", projectFile)
+    private XamarinProjectDescriptor getProjectDescriptor() {
+        return new XamarinProjectDescriptor("", projectFile)
     }
 
     private String getInfoPlistPathFromDescriptor() {

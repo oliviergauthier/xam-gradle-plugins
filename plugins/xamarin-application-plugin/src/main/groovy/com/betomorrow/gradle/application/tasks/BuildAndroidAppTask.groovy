@@ -1,20 +1,17 @@
 package com.betomorrow.gradle.application.tasks
 
-
 import com.betomorrow.android.manifest.AndroidManifest
 import com.betomorrow.android.manifest.AndroidManifestWriter
 import com.betomorrow.gradle.application.context.Context
 import com.betomorrow.msbuild.tools.files.FileCopier
-import com.betomorrow.msbuild.tools.commands.CommandRunner
 import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
-import com.betomorrow.msbuild.tools.xbuild.XBuildTargets
-import com.betomorrow.xamarin.xbuild.XBuildCmd
+import com.betomorrow.xamarin.xbuild.XBuild
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 class BuildAndroidAppTask extends DefaultTask {
 
-    protected CommandRunner commandRunner = Context.current.commandRunner
+    protected XBuild xBuild = Context.current.xbuild
     protected AndroidManifestWriter androidManifestWriter = Context.current.androidManifestWriter
     protected FileCopier fileCopier = Context.current.fileCopier
 
@@ -27,7 +24,7 @@ class BuildAndroidAppTask extends DefaultTask {
     String configuration
 
     @TaskAction
-    def build() {
+    void build() {
 
         updateManifest()
 
@@ -57,12 +54,8 @@ class BuildAndroidAppTask extends DefaultTask {
         androidManifestWriter.write(androidManifest, getManifestPathFromDescriptor())
     }
 
-    private int invokeXBuild() {
-        XBuildCmd cmd = new XBuildCmd()
-        cmd.setConfiguration(configuration)
-        cmd.setTarget(XBuildTargets.PackageForAndroid)
-        cmd.setProjectPath(projectFile)
-        return commandRunner.run(cmd)
+    private void invokeXBuild() {
+        xBuild.buildAndroidApp(configuration, projectFile)
     }
 
     private void copyBuiltAssemblyToOutput() {

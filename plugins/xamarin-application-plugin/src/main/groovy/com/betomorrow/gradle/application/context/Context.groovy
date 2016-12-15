@@ -8,6 +8,7 @@ import com.betomorrow.msbuild.tools.commands.FakeCommandRunner
 import com.betomorrow.msbuild.tools.commands.SystemCommandRunner
 import com.betomorrow.msbuild.tools.files.DefaultFileCopier
 import com.betomorrow.msbuild.tools.files.FakeFileCopier
+import com.betomorrow.xamarin.xbuild.XBuild
 import groovy.transform.PackageScope
 
 class Context {
@@ -44,16 +45,16 @@ class Context {
 
     private static ApplicationContext createFakeApplicationContext() {
         return [getFileCopier : { new FakeFileCopier() },
-                getCommandRunner : { new FakeCommandRunner() },
                 getAndroidManifestWriter : { new FakeAndroidManifestWriter() },
-                getInfoPlistWriter : { new FakeInfoPlistWriter()}] as ApplicationContext
+                getInfoPlistWriter : { new FakeInfoPlistWriter()},
+                getXbuild : { new XBuild(new FakeCommandRunner())}] as ApplicationContext
     }
 
     private static ApplicationContext createRealApplicationContext() {
         return [getFileCopier : { new DefaultFileCopier() },
-                getCommandRunner : { new SystemCommandRunner() },
                 getAndroidManifestWriter : { new DefaultAndroidManifestWriter() },
-                getInfoPlistWriter : { new DefaultInfoPlistWriter()}] as ApplicationContext
+                getInfoPlistWriter : { new DefaultInfoPlistWriter()},
+                getXbuild : { new XBuild(new SystemCommandRunner())}] as ApplicationContext
     }
 
 

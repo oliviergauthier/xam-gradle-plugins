@@ -5,7 +5,14 @@ import com.betomorrow.msbuild.tools.commands.SystemCommandRunner
 
 class XBuild {
 
-    public CommandRunner commandRunner = new SystemCommandRunner()
+    private CommandRunner commandRunner = new SystemCommandRunner()
+
+    XBuild() {
+    }
+
+    XBuild(CommandRunner runner) {
+        commandRunner = runner
+    }
 
     void buildAndroidApp(String configuration, String projectFile) {
         XBuildCmd cmd = new XBuildCmd()

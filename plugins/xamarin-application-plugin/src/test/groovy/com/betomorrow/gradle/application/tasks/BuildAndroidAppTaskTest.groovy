@@ -4,6 +4,7 @@ import com.betomorrow.android.manifest.AndroidManifest
 import com.betomorrow.android.manifest.AndroidManifestWriter
 import com.betomorrow.msbuild.tools.files.FileCopier
 import com.betomorrow.msbuild.tools.commands.CommandRunner
+import com.betomorrow.xamarin.xbuild.XBuild
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
@@ -14,7 +15,7 @@ class BuildAndroidAppTaskTest extends Specification {
 
     AndroidManifestWriter manifestWriter = Mock()
     FileCopier fileCopier = Mock()
-    CommandRunner runner = Mock()
+    XBuild xbuild = Mock()
 
     BuildAndroidAppTask task
     Project project
@@ -33,7 +34,7 @@ class BuildAndroidAppTaskTest extends Specification {
 
         task.androidManifestWriter = manifestWriter
         task.fileCopier = fileCopier
-        task.commandRunner = runner
+        task.xBuild = xbuild
     }
 
 
@@ -59,19 +60,12 @@ class BuildAndroidAppTaskTest extends Specification {
 
     def "should run xbuild"() {
         given:
-        CommandRunner.Cmd capturedCmd
 
         when:
         task.build()
 
         then:
-        1 * runner.run(_) >> { cmd ->
-            capturedCmd = cmd[0]
-            return 1
-        }
-
-        def expectedPath = project.file("CrossApp/Droid/CrossApp.Droid.csproj").toString()
-        assert capturedCmd.build() == ["xbuild", "/t:PackageForAndroid", "/p:Configuration=Release", expectedPath]
+        1 * xbuild.buildAndroidApp("Release",  project.file("CrossApp/Droid/CrossApp.Droid.csproj").toString())
     }
 
     def "should copy to output"() {
@@ -100,7 +94,7 @@ class BuildAndroidAppTaskTest extends Specification {
         1 * manifestWriter.write(_, _)
 
         then:
-        1 * runner.run(_) >> 1
+        1 * xbuild.buildAndroidApp(_,_)
 
         then:
         1 * fileCopier.replace(_,_)

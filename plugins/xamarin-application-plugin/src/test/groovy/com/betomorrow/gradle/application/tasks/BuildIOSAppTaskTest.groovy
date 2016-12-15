@@ -4,6 +4,7 @@ import com.betomorrow.ios.plist.InfoPlist
 import com.betomorrow.ios.plist.InfoPlistWriter
 import com.betomorrow.msbuild.tools.commands.CommandRunner
 import com.betomorrow.msbuild.tools.files.FileCopier
+import com.betomorrow.xamarin.xbuild.XBuild
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
@@ -13,7 +14,7 @@ import java.nio.file.Paths
 class BuildIOSAppTaskTest extends Specification {
 
     FileCopier fileCopier = Mock()
-    CommandRunner runner = Mock()
+    XBuild xBuild = Mock()
     InfoPlistWriter infoPlistWriter = Mock()
 
     Project project
@@ -33,7 +34,7 @@ class BuildIOSAppTaskTest extends Specification {
 
         task.infoPlistWriter = infoPlistWriter
         task.fileCopier = fileCopier
-        task.commandRunner = runner
+        task.xBuild = xBuild
     }
 
 
@@ -56,20 +57,15 @@ class BuildIOSAppTaskTest extends Specification {
         assert capturedInfoPlist.bundleVersion == "1.0"
     }
 
-    def "should run mdtool"() {
+    def "should run xbuild"() {
         given:
-        CommandRunner.Cmd capturedCmd
 
         when:
         task.build()
 
         then:
-        1 * runner.run(_) >> { cmd ->
-            capturedCmd = cmd[0]
-            return 1
-        }
-
-        assert capturedCmd.build() == ["mdtool", "build", "--configuration:Release|iPhone", "CrossApp/CrossApp.sln"]
+        1 * xBuild.buildIosApp('Release', 'iPhone', 'bin/iPhone/Release',
+                project.file("CrossApp/CrossApp.sln").toString())
     }
 
     def "should copy to output"() {
@@ -98,7 +94,7 @@ class BuildIOSAppTaskTest extends Specification {
         1 * infoPlistWriter.write(_, _)
 
         then:
-        1 * runner.run(_) >> 1
+        1 * xBuild.buildIosApp(_,_,_,_)
 
         then:
         1 * fileCopier.replace(_,_)

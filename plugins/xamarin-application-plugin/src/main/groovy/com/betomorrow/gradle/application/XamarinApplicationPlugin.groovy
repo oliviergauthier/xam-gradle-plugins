@@ -51,7 +51,7 @@ class XamarinApplicationPlugin implements Plugin<Project> {
                     infoPlist = ios.infoPlist
                     output = ios.output
                     configuration = application.configuration
-                    solutionFile = application.solution
+                    solutionFile = application.solutionPath
                     platform = ios.platform
                 }
 
