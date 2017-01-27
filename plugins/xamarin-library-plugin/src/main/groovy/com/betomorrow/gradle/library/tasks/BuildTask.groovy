@@ -11,17 +11,16 @@ class BuildTask extends DefaultTask {
     protected XBuild xBuild = new XBuild()
     protected SolutionLoader solutionLoader = new SolutionLoader()
 
-    String solution
+    String solutionFile
     String configuration
 
     @TaskAction
      void build() {
-        SolutionDescriptor sd = solutionLoader.load(solution)
+        SolutionDescriptor sd = solutionLoader.load(solutionFile)
 
         sd.getProjects(configuration).forEach {
-            xBuild.build(configuration, it.path)
+            xBuild.buildCrossLibrary(configuration, it.path)
         }
-
     }
 
 }

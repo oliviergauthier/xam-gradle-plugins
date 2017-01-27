@@ -11,13 +11,13 @@ library {
     configuration project.ext.configuration // default Release
     solution project.ext.solution // default first solution file
 }
-
+//
 //nunit {
 //    version 2.6
 //    solution project.ext.solution // default first solution file
 //    projects "CrossLib.Test"
 //}
-
+//
 //nuspec {
 //
 //    configuration project.ext.configuration // default Release

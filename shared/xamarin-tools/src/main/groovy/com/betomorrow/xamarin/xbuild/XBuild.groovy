@@ -33,4 +33,8 @@ class XBuild {
         cmd.setProjectPath(solutionPath)
         commandRunner.run(cmd)
     }
+
+    void buildCrossLibrary(String configuration, String solutionPath) {
+
+    }
 }

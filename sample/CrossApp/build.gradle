@@ -70,9 +70,9 @@ task "checkAndroidAppSize" << {
 
 afterEvaluate {
     // Preprocess Resources
-    getTasksByName("processAndroidResources").dependsOn "updateAndroidManifest"
-    getTasksByName("processAndroidResources").dependsOn "copyResources"
-    getTasksByName("processIosResources").dependsOn "copyResources"
+    getTasksByName("buildAndroid").dependsOn "updateAndroidManifest"
+    getTasksByName("buildAndroid").dependsOn "copyResources"
+    getTasksByName("buildIos").dependsOn "copyResources"
 
     // Verify
     getTasksByName("checkAndroid").dependsOn "checkAndroidAppSize"

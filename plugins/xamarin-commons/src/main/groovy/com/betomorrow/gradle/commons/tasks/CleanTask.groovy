@@ -22,7 +22,7 @@ class CleanTask extends DefaultTask {
     String projectFile
 
     @TaskAction
-    def clean() {
+    clean() {
         if (solutionFile != null) {
             SolutionDescriptor sd = solutionLoader.load(solutionFile)
             sd.getProjects().forEach { p ->
