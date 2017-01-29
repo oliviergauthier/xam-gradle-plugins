@@ -6,12 +6,21 @@ class NuspecPluginExtension {
 
     private Project project
 
+    String output
+
     String packageId
     String version
     String authors
     String owners
+    String licenseUrl
+    String projectUrl
+    String iconUrl
+    Boolean requireLicenseAcceptance
     String description
-    String output
+    String releaseNotes
+    String copyright
+    String tags
+
 
     NuspecPluginExtension(Project project) {
         this.project = project
@@ -19,14 +28,6 @@ class NuspecPluginExtension {
 
     String getOutput() {
         return "nuspec.template"
-    }
-
-    String getPackageId() {
-        return "CrossLib.Sample"
-    }
-
-    String getVersion() {
-        return "1.0.1"
     }
 
 }

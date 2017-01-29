@@ -4,7 +4,7 @@ import com.betomorrow.gradle.commons.tasks.Groups
 import com.betomorrow.gradle.nugetpackage.extensions.AssembliesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.DependenciesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.NuspecPluginExtension
-import com.betomorrow.gradle.nugetpackage.tasks.GenerateNuspec
+import com.betomorrow.gradle.nugetpackage.tasks.GenerateNuspecTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -27,13 +27,23 @@ class NugetPackagePlugin implements Plugin<Project>{
 
                 NuspecPluginExtension nuspec = extensions.getByName("nuspec")
 
-                task("generateNuspec", description: "generate nuspec file", group: Groups.BUILD, 'type': GenerateNuspec) {
+                task("generateNuspec", description: "generate nuspec file", group: Groups.BUILD, 'type': GenerateNuspecTask) {
                     packageId = nuspec.packageId
                     version = nuspec.version
                     authors =  nuspec.authors
                     owners = nuspec.owners
+                    licenseUrl = nuspec.licenseUrl
+                    projectUrl = nuspec.projectUrl
+                    iconUrl = nuspec.iconUrl
+                    requireLicenseAcceptance = nuspec.requireLicenseAcceptance
                     description = nuspec.description
+                    releaseNotes = nuspec.releaseNotes
+                    copyright = nuspec.copyright
+                    tags = nuspec.tags
+
                     output = nuspec.output
+                    dependencies = nuspec.dependencies.dependencies
+
                 }
 
             }

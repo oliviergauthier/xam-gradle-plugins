@@ -4,6 +4,12 @@ class DependencySet implements Set<Dependency> {
 
     @Delegate Set<Dependency> dependencies = new HashSet<>()
 
+    DependencySet() {}
+
+    DependencySet(List<Dependency> deps) {
+        dependencies.addAll(deps)
+    }
+
     void add(String packageId, String version) {
         dependencies.add(new Dependency(id : packageId, version : version))
     }

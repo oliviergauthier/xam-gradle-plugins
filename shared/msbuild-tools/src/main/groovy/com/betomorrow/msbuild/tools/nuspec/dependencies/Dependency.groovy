@@ -1,5 +1,8 @@
 package com.betomorrow.msbuild.tools.nuspec.dependencies
 
+import groovy.transform.Canonical
+
+@Canonical
 class Dependency {
 
     String group
@@ -28,30 +31,4 @@ class Dependency {
         }
     }
 
-
-    @Override
-     String toString() {
-        return group + ":" + id + ":" + version
-    }
-
-    boolean equals(o) {
-        if (this.is(o)) return true
-        if (getClass() != o.class) return false
-
-        Dependency that = (Dependency) o
-
-        if (group != that.group) return false
-        if (id != that.id) return false
-        if (version != that.version) return false
-
-        return true
-    }
-
-    int hashCode() {
-        int result
-        result = (group != null ? group.hashCode() : 0)
-        result = 31 * result + (id != null ? id.hashCode() : 0)
-        result = 31 * result + (version != null ? version.hashCode() : 0)
-        return result
-    }
 }
