@@ -6,6 +6,7 @@ class XamarinLibraryExtension {
 
     String solution
     String configuration
+    boolean dryRun
 
     String getConfiguration() {
         if (configuration != null) {

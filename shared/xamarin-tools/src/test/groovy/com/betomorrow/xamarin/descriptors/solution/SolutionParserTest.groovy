@@ -7,7 +7,7 @@ import java.nio.file.Path
 
 class SolutionParserTest {
 
-    Path SAMPLE_SOLUTION = FileUtils.getResourcePath('Sample.sln')
+    Path SAMPLE_SOLUTION = FileUtils.getResourcePath('CrossApp/CrossApp.sln')
 
     @Test
      void testLoadSolutionFile() {

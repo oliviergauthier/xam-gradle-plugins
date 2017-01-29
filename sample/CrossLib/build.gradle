@@ -1,13 +1,25 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.betomorrow.gradle:xamarin-library-plugin:1.0-SNAPSHOT'
+    }
+}
+
 apply plugin : 'xamarin-library-plugin'
 
 ext {
     version = "1.0.0"
     name = "Xam.ACME.CrossLib"
     configuration = 'Release'
-    solution = 'CrossApp.sln'
+    solution = 'CrossLib.sln'
 }
 
 library {
+    dryRun = true
+
     configuration project.ext.configuration // default Release
     solution project.ext.solution // default first solution file
 }

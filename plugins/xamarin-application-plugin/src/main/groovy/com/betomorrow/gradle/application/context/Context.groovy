@@ -29,12 +29,6 @@ class Context {
         return instance
     }
 
-    static void configure(ApplicationContext newContext) {
-        defaultContext = newContext
-        dryRunContext = newContext
-        instance = newContext
-    }
-
     static void configure(boolean dryRun) {
         if (dryRun) {
             instance = dryRunContext

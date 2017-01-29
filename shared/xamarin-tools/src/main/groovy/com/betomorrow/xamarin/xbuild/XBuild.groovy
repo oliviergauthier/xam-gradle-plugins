@@ -35,6 +35,10 @@ class XBuild {
     }
 
     void buildCrossLibrary(String configuration, String solutionPath) {
-
+        XBuildCmd cmd = new XBuildCmd()
+        cmd.setConfiguration(configuration)
+        cmd.setTarget(XBuildTargets.Build)
+        cmd.setProjectPath(solutionPath)
+        commandRunner.run(cmd)
     }
 }
