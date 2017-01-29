@@ -1,8 +1,5 @@
 package com.betomorrow.gradle.nugetpackage.extensions
 
-/**
- * Created by olivier on 26/02/16.
- */
 class AssemblyTarget {
 
     private String _dest

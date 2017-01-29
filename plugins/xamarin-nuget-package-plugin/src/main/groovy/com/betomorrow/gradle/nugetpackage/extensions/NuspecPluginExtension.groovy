@@ -2,13 +2,12 @@ package com.betomorrow.gradle.nugetpackage.extensions
 
 import org.gradle.api.Project
 
-/**
- * Created by olivier on 22/02/16.
- */
 class NuspecPluginExtension {
 
     private Project project
 
+    String packageId
+    String version
     String authors
     String owners
     String description
@@ -16,6 +15,18 @@ class NuspecPluginExtension {
 
     NuspecPluginExtension(Project project) {
         this.project = project
+    }
+
+    String getOutput() {
+        return "nuspec.template"
+    }
+
+    String getPackageId() {
+        return "CrossLib.Sample"
+    }
+
+    String getVersion() {
+        return "1.0.1"
     }
 
 }

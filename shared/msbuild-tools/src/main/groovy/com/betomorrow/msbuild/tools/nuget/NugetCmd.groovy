@@ -4,7 +4,7 @@ import com.betomorrow.msbuild.tools.commands.CommandRunner
 
 class NugetCmd implements CommandRunner.Cmd{
 
-    String nugetPath = 'nuget'
+    String nugetPath = 'nugetpackage'
     String action
     String packageId
     String packageVersion

@@ -68,8 +68,13 @@ class NuSpec {
         updateMetadata(packageNode, "copyright", copyright)
         updateMetadata(packageNode, "tags", tags)
 
-        dependencySet.forEach { updateDependency(packageNode, it) }
-        assemblySet.forEach { updateAssembly(packageNode, it) }
+        if (dependencySet != null) {
+            dependencySet.forEach { updateDependency(packageNode, it) }
+        }
+
+        if (assemblySet != null) {
+            assemblySet.forEach { updateAssembly(packageNode, it) }
+        }
 
         println(XmlUtil.serialize(content))
 

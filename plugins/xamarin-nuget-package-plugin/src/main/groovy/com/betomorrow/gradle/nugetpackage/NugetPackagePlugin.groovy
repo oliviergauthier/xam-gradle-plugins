@@ -1,14 +1,13 @@
 package com.betomorrow.gradle.nugetpackage
 
+import com.betomorrow.gradle.commons.tasks.Groups
 import com.betomorrow.gradle.nugetpackage.extensions.AssembliesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.DependenciesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.NuspecPluginExtension
+import com.betomorrow.gradle.nugetpackage.tasks.GenerateNuspec
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-/**
- * Created by olivier on 22/02/16.
- */
 class NugetPackagePlugin implements Plugin<Project>{
 
     /**
@@ -18,12 +17,27 @@ class NugetPackagePlugin implements Plugin<Project>{
     @Override
     void apply(Project project) {
 
-        project.extensions.create("nuspec", NuspecPluginExtension, project)
-        project.nuspec.extensions.create("dependencies", DependenciesPluginExtension, project)
-        project.nuspec.extensions.create("assemblies", AssembliesPluginExtension, project)
+        project.with {
 
-        // Set default output
-        // Set default packageId
+            extensions.create("nuspec", NuspecPluginExtension, project)
+            nuspec.extensions.create("dependencies", DependenciesPluginExtension, project)
+            nuspec.extensions.create("assemblies", AssembliesPluginExtension, project)
+
+            afterEvaluate {
+
+                NuspecPluginExtension nuspec = extensions.getByName("nuspec")
+
+                task("generateNuspec", description: "generate nuspec file", group: Groups.BUILD, 'type': GenerateNuspec) {
+                    packageId = nuspec.packageId
+                    version = nuspec.version
+                    authors =  nuspec.authors
+                    owners = nuspec.owners
+                    description = nuspec.description
+                    output = nuspec.output
+                }
+
+            }
+        }
     }
 
 }
