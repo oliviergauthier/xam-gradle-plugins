@@ -2,7 +2,6 @@ package com.betomorrow.gradle.application.tasks
 
 import com.betomorrow.ios.plist.InfoPlist
 import com.betomorrow.ios.plist.InfoPlistWriter
-import com.betomorrow.msbuild.tools.commands.CommandRunner
 import com.betomorrow.msbuild.tools.files.FileCopier
 import com.betomorrow.xamarin.xbuild.XBuild
 import org.gradle.api.Project
@@ -64,7 +63,10 @@ class BuildIOSAppTaskTest extends Specification {
         task.build()
 
         then:
-        1 * xBuild.buildIosApp('Release', 'iPhone', 'bin/iPhone/Release',
+        1 * xBuild.buildIosApp(
+                'Release',
+                'iPhone',
+                'bin/iPhone/Release',
                 project.file("CrossApp/CrossApp.sln").toString())
     }
 
