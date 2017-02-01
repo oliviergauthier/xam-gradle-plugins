@@ -2,10 +2,12 @@ package com.betomorrow.msbuild.tools.nuspec.assemblies
 
 class AssemblySet implements Set<Assembly> {
 
-    @Delegate Set<Assembly> assemblies = new HashSet<>()
+    @Delegate List<Assembly> assemblies = new ArrayList<>()
 
     AssemblySet(List<Assembly> assemblies) {
-        this.assemblies.addAll(assemblies)
+        if (assemblies != null) {
+            this.assemblies.addAll(assemblies)
+        }
     }
 
 }
