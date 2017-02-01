@@ -6,7 +6,7 @@ import org.gradle.api.Project
 class AssembliesPluginExtension {
     private Project project
 
-    List<Dependency> assemblies = []
+    List<AssemblyTarget> assemblies = []
 
     AssembliesPluginExtension(Project project) {
         this.project = project

@@ -39,15 +39,15 @@ nuspec {
         target {
             dest "lib/MonoAndroid10"
             includes "Xam.ACME.CrossLib.dll",
-                    "Xam.ACME.CrossLib.Droid.dll",
-                    "Xam.ACME.CrossLib.Binding.Droid.dll"
+                     "Xam.ACME.CrossLib.Droid.dll",
+                     "Xam.ACME.CrossLib.Binding.Droid.dll"
         }
 
         target {
             dest "lib/Xamarin.iOS10"
             includes "Xam.ACME.CrossLib.dll",
-                    "Xam.ACME.CrossLib.IOS.dll",
-                    "Xam.ACME.CrossLib.Binding.IOS.dll"
+                     "Xam.ACME.CrossLib.IOS.dll",
+                     "Xam.ACME.CrossLib.Binding.IOS.dll"
         }
     }
 }

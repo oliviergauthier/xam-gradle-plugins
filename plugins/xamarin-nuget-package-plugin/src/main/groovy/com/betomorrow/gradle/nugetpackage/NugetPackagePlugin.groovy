@@ -43,7 +43,7 @@ class NugetPackagePlugin implements Plugin<Project>{
 
                     output = nuspec.output
                     dependencies = nuspec.dependencies.dependencies
-
+                    assemblies = nuspec.assemblies.assemblies
                 }
 
             }

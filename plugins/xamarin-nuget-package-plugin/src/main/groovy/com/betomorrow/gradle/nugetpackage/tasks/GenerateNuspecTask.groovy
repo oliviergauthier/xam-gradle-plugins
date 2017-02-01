@@ -1,7 +1,8 @@
 package com.betomorrow.gradle.nugetpackage.tasks
 
+import com.betomorrow.gradle.nugetpackage.extensions.AssemblyTarget
 import com.betomorrow.msbuild.tools.nuspec.NuSpec
-import com.betomorrow.msbuild.tools.nuspec.assemblies.AssemblySet
+import com.betomorrow.msbuild.tools.nuspec.assemblies.Assembly
 import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
 import com.betomorrow.msbuild.tools.nuspec.dependencies.DependencySet
 import org.gradle.api.DefaultTask
@@ -25,7 +26,7 @@ class GenerateNuspecTask extends DefaultTask {
     String tags
 
     List<Dependency> dependencies
-    AssemblySet assemblies
+    List<AssemblyTarget> assemblies
 
     @TaskAction
      void generateNuspec() {
@@ -46,7 +47,12 @@ class GenerateNuspecTask extends DefaultTask {
         nuSpec.copyright = copyright
         nuSpec.tags = tags
         nuSpec.dependencySet = new DependencySet(dependencies)
-        nuSpec.assemblySet = assemblies
+
+        assemblies.each { target ->
+            target.includes.each {
+                nuSpec.assemblySet.add(new Assembly(it, target.dest))
+            }
+        }
 
         nuSpec.process()
     }

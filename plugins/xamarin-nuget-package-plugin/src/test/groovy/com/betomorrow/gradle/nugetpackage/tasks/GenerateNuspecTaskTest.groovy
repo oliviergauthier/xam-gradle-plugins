@@ -1,5 +1,6 @@
 package com.betomorrow.gradle.nugetpackage.tasks
 
+import com.betomorrow.gradle.nugetpackage.extensions.AssemblyTarget
 import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
@@ -7,39 +8,12 @@ import spock.lang.Specification
 
 class GenerateNuspecTaskTest extends Specification {
 
-
     Project project
     GenerateNuspecTask task
 
     def "setup"() {
         project = ProjectBuilder.builder().build()
         project.apply plugin: 'xamarin-nuget-package-plugin'
-        project.nuspec {
-            assemblies {
-                target {
-                    dest "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10"
-                    includes "Xam.ACME.CrossLib.dll"
-                }
-
-                target {
-                    dest "lib/MonoAndroid10"
-                    includes "Xam.ACME.CrossLib.dll",
-                            "Xam.ACME.CrossLib.Droid.dll",
-                            "Xam.ACME.CrossLib.Binding.Droid.dll"
-                }
-
-                target {
-                    dest "lib/Xamarin.iOS10"
-                    includes "Xam.ACME.CrossLib.dll",
-                            "Xam.ACME.CrossLib.IOS.dll",
-                            "Xam.ACME.CrossLib.Binding.IOS.dll"
-                }
-            }
-
-
-
-        }
-
     }
 
     def "should contains info"() {
@@ -94,6 +68,44 @@ class GenerateNuspecTaskTest extends Specification {
         then:
         assert task.dependencies.contains(new Dependency("Xamarin.Forms:[1.4.3,)"))
         assert task.dependencies.contains(new Dependency("net40:Xam.ACME.Commons:[1.0.0,)"))
+    }
+
+    def "should contains assemblies"() {
+        given:
+        project.nuspec {
+            assemblies {
+                target {
+                    dest "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10"
+                    includes "Xam.ACME.CrossLib.dll"
+                }
+
+                target {
+                    dest "lib/MonoAndroid10"
+                    includes "Xam.ACME.CrossLib.dll",
+                            "Xam.ACME.CrossLib.Droid.dll",
+                            "Xam.ACME.CrossLib.Binding.Droid.dll"
+                }
+
+                target {
+                    dest "lib/Xamarin.iOS10"
+                    includes "Xam.ACME.CrossLib.dll",
+                            "Xam.ACME.CrossLib.IOS.dll",
+                            "Xam.ACME.CrossLib.Binding.IOS.dll"
+                }
+            }
+        }
+
+        when:
+        project.evaluate();
+        task = project.tasks.generateNuspec
+
+        then:
+        assert task.assemblies.contains(new AssemblyTarget("lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10",
+                ["Xam.ACME.CrossLib.dll"]))
+        assert task.assemblies.contains(new AssemblyTarget("lib/MonoAndroid10",
+                [ "Xam.ACME.CrossLib.dll", "Xam.ACME.CrossLib.Droid.dll", "Xam.ACME.CrossLib.Binding.Droid.dll"]))
+        assert task.assemblies.contains(new AssemblyTarget("lib/Xamarin.iOS10",
+                [ "Xam.ACME.CrossLib.dll", "Xam.ACME.CrossLib.IOS.dll", "Xam.ACME.CrossLib.Binding.IOS.dll"]))
     }
 
 }

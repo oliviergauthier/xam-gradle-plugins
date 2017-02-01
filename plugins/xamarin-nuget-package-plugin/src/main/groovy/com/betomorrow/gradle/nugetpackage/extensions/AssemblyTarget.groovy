@@ -1,5 +1,8 @@
 package com.betomorrow.gradle.nugetpackage.extensions
 
+import groovy.transform.Canonical
+
+@Canonical
 class AssemblyTarget {
 
     private String _dest
@@ -9,8 +12,8 @@ class AssemblyTarget {
     }
 
     AssemblyTarget(dest, includes) {
-        this.dest = dest
-        this.includes = includes
+        this._dest = dest
+        this._includes = includes
     }
 
     def dest(String destination) {
