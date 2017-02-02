@@ -7,6 +7,7 @@ import com.betomorrow.gradle.application.extensions.XamarinIosApplicationExtensi
 import com.betomorrow.gradle.application.tasks.BuildAndroidAppTask
 import com.betomorrow.gradle.application.tasks.BuildIOSAppTask
 import com.betomorrow.gradle.commons.tasks.CleanTask
+import com.betomorrow.gradle.commons.tasks.GlobalVariables
 import com.betomorrow.gradle.commons.tasks.Groups
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -16,6 +17,8 @@ class XamarinApplicationPlugin implements Plugin<Project> {
     @Override
     void apply(Project project) {
         project.with {
+
+            GlobalVariables.initVariables(project)
 
             extensions.create("application", XamarinApplicationExtension, project)
             application.extensions.create("android", XamarinAndroidApplicationExtension, project)

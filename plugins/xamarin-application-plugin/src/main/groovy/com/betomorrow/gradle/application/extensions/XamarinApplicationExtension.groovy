@@ -4,16 +4,12 @@ import org.gradle.api.Project
 
 class XamarinApplicationExtension {
 
-    private static String DEFAULT_CONFIGURATION = 'Release'
-
     private Project project
 
     String appName
     String appVersion
     String storeVersion
     String packageName
-    String configuration
-    String solution
     boolean dryRun
 
     XamarinApplicationExtension(Project project) {
@@ -21,18 +17,16 @@ class XamarinApplicationExtension {
     }
 
     String getConfiguration() {
-        if (configuration != null) {
-            return configuration
-        }
-        return DEFAULT_CONFIGURATION
+       return project.configuration
+    }
+
+    String getSolution() {
+        return project.solution
     }
 
     String getSolutionPath() {
-        def p = project.file(solution)
+        def p = project.file(project.solution)
         return p.absolutePath
     }
-
-
-
 
 }

@@ -1,6 +1,7 @@
 package com.betomorrow.gradle.library
 
 import com.betomorrow.gradle.commons.tasks.CleanTask
+import com.betomorrow.gradle.commons.tasks.GlobalVariables
 import com.betomorrow.gradle.commons.tasks.Groups
 import com.betomorrow.gradle.library.context.Context
 import com.betomorrow.gradle.library.extensions.XamarinLibraryExtension
@@ -14,7 +15,9 @@ class XamarinLibraryPlugin implements Plugin<Project> {
     void apply(Project project) {
         project.with {
 
-            extensions.create("library", XamarinLibraryExtension)
+            GlobalVariables.initVariables(project)
+
+            extensions.create("library", XamarinLibraryExtension, project)
 
             afterEvaluate {
 

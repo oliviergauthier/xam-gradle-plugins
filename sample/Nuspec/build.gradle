@@ -13,8 +13,6 @@ apply plugin : 'xamarin-nuget-package-plugin'
 ext {
     version = "1.0.0"
     name = "Xam.ACME.CrossLib"
-    configuration = 'Release'
-    solution = 'CrossLib.sln'
 }
 
 nuspec {

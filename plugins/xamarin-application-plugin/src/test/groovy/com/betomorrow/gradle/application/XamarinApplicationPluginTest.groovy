@@ -16,17 +16,15 @@ class XamarinApplicationPluginTest {
     @Before
      void setUp() {
         project = ProjectBuilder.builder().withProjectDir( new File('src/test/resources')).build()
+
+        project.apply plugin: 'xamarin-application-plugin'
+
+        project.solution = 'CrossApp/CrossApp.sln' // first solution file in current folder
     }
 
 
     @Test
      void testApplyCreatesBuildAndroidTasksWithResolvedValues() {
-        project.apply plugin: 'xamarin-application-plugin'
-
-        project.application {
-            solution 'CrossApp/CrossApp.sln' // first solution file in current folder
-        }
-
         project.evaluate()
 
         BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid
@@ -43,12 +41,6 @@ class XamarinApplicationPluginTest {
 
     @Test
      void testApplyCreatesBuildIOSTasksWithResolvedValues() {
-        project.apply plugin: 'xamarin-application-plugin'
-
-        project.application {
-            solution 'CrossApp/CrossApp.sln' // first solution file in current folder
-        }
-
         project.evaluate()
 
         BuildIOSAppTask buildIOSTask = project.tasks.buildIOS
@@ -66,12 +58,7 @@ class XamarinApplicationPluginTest {
 
     @Test
      void testApplyCreatesBuildAndroidTaskWithOverridedValues() {
-        project.apply plugin: 'xamarin-application-plugin'
-
         project.application {
-
-            configuration 'Release'
-            solution 'CrossApp/CrossApp.sln' // first solution file in current folder
 
             appName 'CrossApp' // auto resolved (common part of all projects names in solution)
             appVersion '2.6' // if empty use the one defined in manifest
@@ -100,12 +87,7 @@ class XamarinApplicationPluginTest {
 
     @Test
      void testApplyCreatesBuildIOSTaskWithOverridedValues() {
-        project.apply plugin: 'xamarin-application-plugin'
-
         project.application {
-
-            configuration 'Release'
-            solution 'CrossApp/CrossApp.sln' // first solution file in current folder
 
             appName 'CrossApp' // auto resolved (common part of all projects names in solution)
             appVersion '2.6' // if empty use the one defined in manifest
@@ -137,14 +119,9 @@ class XamarinApplicationPluginTest {
 
     @Test
      void testDryRun() {
-        project.apply plugin: 'xamarin-application-plugin'
-
         project.application {
 
             dryRun = true
-
-            configuration 'Release'
-            solution 'CrossApp/CrossApp.sln' // first solution file in current folder
 
             appName 'CrossApp' // auto resolved (common part of all projects names in solution)
             appVersion '2.6' // if empty use the one defined in csproj

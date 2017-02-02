@@ -16,11 +16,11 @@ ext {
     env = "alpha"
 }
 
+project.configuration = 'Release'
+project.solution = 'CrossApp.sln'
+
 application {
     dryRun = true
-
-    configuration 'Release'
-    solution 'CrossApp.sln'
 
     appName project.appName
     appVersion project.appVersion

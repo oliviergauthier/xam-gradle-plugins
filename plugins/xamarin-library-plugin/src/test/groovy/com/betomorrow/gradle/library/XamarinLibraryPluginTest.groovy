@@ -14,9 +14,10 @@ class XamarinLibraryPluginTest extends Specification {
         project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/')).build()
         project.apply plugin: 'xamarin-library-plugin'
 
+        project.solution = 'CrossLib/CrossLib.sln'
+        project.configuration = 'Debug'
+
         project.library {
-            solution 'CrossLib/CrossLib.sln'
-            configuration 'Debug'
         }
 
         project.evaluate()
@@ -39,8 +40,9 @@ class XamarinLibraryPluginTest extends Specification {
         project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/')).build()
         project.apply plugin: 'xamarin-library-plugin'
 
+        project.solution = 'CrossLib/CrossLib.sln'
+
         project.library {
-            solution 'CrossLib/CrossLib.sln'
         }
 
         project.evaluate()

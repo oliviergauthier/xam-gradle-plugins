@@ -1,5 +1,6 @@
 package com.betomorrow.gradle.nugetpackage
 
+import com.betomorrow.gradle.commons.tasks.GlobalVariables
 import com.betomorrow.gradle.commons.tasks.Groups
 import com.betomorrow.gradle.nugetpackage.extensions.AssembliesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.DependenciesPluginExtension
@@ -18,6 +19,8 @@ class NugetPackagePlugin implements Plugin<Project>{
     void apply(Project project) {
 
         project.with {
+
+            GlobalVariables.initVariables(project)
 
             extensions.create("nuspec", NuspecPluginExtension, project)
             nuspec.extensions.create("dependencies", DependenciesPluginExtension, project)
@@ -45,7 +48,6 @@ class NugetPackagePlugin implements Plugin<Project>{
                     dependencies = nuspec.dependencies.dependencies
                     assemblies = nuspec.assemblies.assemblies
                 }
-
             }
         }
     }

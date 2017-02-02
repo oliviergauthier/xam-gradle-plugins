@@ -24,8 +24,10 @@ class BuildAndroidAppTaskTest extends Specification {
         project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/')).build()
         project.apply plugin: 'xamarin-application-plugin'
 
+        project.solution = 'CrossApp/CrossApp.sln'
+
         project.application {
-            solution 'CrossApp/CrossApp.sln'
+
         }
 
         project.evaluate()
