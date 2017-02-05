@@ -23,13 +23,16 @@ class XamarinIosApplicationExtension {
     String projectFile
     String platform
 
-    private @Lazy ProjectDescriptor project = solution.getProject(getAppName())
-    private @Lazy SolutionDescriptor solution = solutionLoader.load(applicationExtension.solutionPath)
+    private @Lazy ProjectDescriptor pd = sd.getProject(getAppName())
+    private @Lazy SolutionDescriptor sd = solutionLoader.load(project.file(applicationExtension.solution))
     private @Lazy InfoPlist readInfoPlist = infoPlistReader.read(getInfoPlist())
 
     private XamarinApplicationExtension applicationExtension
 
+    private Project project
+
     XamarinIosApplicationExtension(Project project) {
+        this.project = project
         applicationExtension = project.extensions.getByType(XamarinApplicationExtension)
     }
 
@@ -41,13 +44,13 @@ class XamarinIosApplicationExtension {
 
         // 2. try to find an appName.IOS in solution file
         String defaultAppName = applicationExtension.appName + IOS_SUFFIX
-        if (solution.containsProject(defaultAppName)) {
+        if (sd.containsProject(defaultAppName)) {
             return  defaultAppName
         }
 
         // 3. try to find a single ios project
-        if (solution.hasSingleIosProject()) {
-            return solution.firstIosProject.name
+        if (sd.hasSingleIosProject()) {
+            return sd.firstIosProject.name
         }
 
         throw new IllegalArgumentException("Can't resolve android project, please specify it with appName")
@@ -61,7 +64,7 @@ class XamarinIosApplicationExtension {
         }
 
         // 2. returns projectFile of android appName
-        return project.path
+        return pd.path
     }
 
     String getOutput() {
@@ -81,8 +84,8 @@ class XamarinIosApplicationExtension {
         }
 
         // 2. return manifest of projectFile
-        def infoPlistPath = FileUtils.toUnixPath(project.infoPlist)
-        return project.path.parent.resolve(infoPlistPath).toString()
+        def infoPlistPath = FileUtils.toUnixPath(pd.infoPlist)
+        return pd.path.parent.resolve(infoPlistPath).toString()
     }
 
 

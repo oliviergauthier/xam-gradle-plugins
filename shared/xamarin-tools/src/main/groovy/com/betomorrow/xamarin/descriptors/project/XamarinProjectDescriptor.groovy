@@ -1,5 +1,6 @@
 package com.betomorrow.xamarin.descriptors.project
 
+import com.betomorrow.ios.plist.DefaultInfoPlistReader
 import com.betomorrow.msbuild.tools.files.FileUtils
 import com.betomorrow.android.manifest.DefaultAndroidManifestReader
 import groovy.transform.InheritConstructors
@@ -52,7 +53,8 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
             def packageName = new DefaultAndroidManifestReader().read(androidManifestPath).packageName
             path.parent.resolve(getOutputDir(configuration, platform)).resolve("${packageName}.apk")
         } else if (isIosApplication()) {
-            path.parent.resolve(getOutputDir(configuration, platform)).resolve("${assemblyName}.ipa")
+            def bundleIdentifier = new DefaultInfoPlistReader().read(infoPlistPath).bundleIdentifier
+            path.parent.resolve(getOutputDir(configuration, platform)).resolve("${bundleIdentifier}.ipa")
         }
     }
 

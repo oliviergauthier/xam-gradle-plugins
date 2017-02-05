@@ -15,8 +15,8 @@ class XamarinAndroidApplicationExtension {
     protected AndroidManifestReader manifestReader = new DefaultAndroidManifestReader()
     protected String DROID_SUFFIX = ".Droid"
 
-    @Lazy ProjectDescriptor project = solution.getProject(getAppName())
-    @Lazy SolutionDescriptor solution = solutionLoader.load(applicationExtension.solutionPath)
+    @Lazy SolutionDescriptor sd = solutionLoader.load(project.file(applicationExtension.solution))
+    @Lazy ProjectDescriptor pd = sd.getProject(getAppName())
     @Lazy AndroidManifest readManifest = manifestReader.read(getManifest())
 
     String appName
@@ -24,9 +24,12 @@ class XamarinAndroidApplicationExtension {
     String manifest
     String projectFile
 
+    private Project project
+
     private XamarinApplicationExtension applicationExtension
 
     XamarinAndroidApplicationExtension(Project project) {
+        this.project = project
         applicationExtension = project.extensions.getByType(XamarinApplicationExtension)
     }
 
@@ -38,13 +41,13 @@ class XamarinAndroidApplicationExtension {
 
         // 2. try to find an appName.Droid in solution file
         String defaultAppName = applicationExtension.appName + DROID_SUFFIX
-        if (solution.containsProject(defaultAppName)) {
+        if (sd.containsProject(defaultAppName)) {
             return  defaultAppName
         }
 
         // 3. try to find a single android project
-        if (solution.hasSingleAndroidProject()) {
-            return solution.firstAndroidProject.name
+        if (sd.hasSingleAndroidProject()) {
+            return sd.firstAndroidProject.name
         }
 
         throw new IllegalArgumentException("Can't resolve android project, please specify it with appName")
@@ -58,7 +61,7 @@ class XamarinAndroidApplicationExtension {
         }
 
         // 2. returns projectFile of android appName
-        return project.path
+        return pd.path
     }
 
     String getOutput() {
@@ -78,8 +81,8 @@ class XamarinAndroidApplicationExtension {
         }
 
         // 2. return manifest of projectFile
-        def manifestRelativePath = FileUtils.toUnixPath(project.androidManifest)
-        return project.path.parent.resolve(manifestRelativePath).toString()
+        def manifestRelativePath = FileUtils.toUnixPath(pd.androidManifest)
+        return pd.path.parent.resolve(manifestRelativePath).toString()
     }
 
 

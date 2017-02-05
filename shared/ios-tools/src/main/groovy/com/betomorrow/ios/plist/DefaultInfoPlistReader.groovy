@@ -1,5 +1,7 @@
 package com.betomorrow.ios.plist
 
+import java.nio.file.Path
+
 class DefaultInfoPlistReader implements InfoPlistReader {
 
     private PlistXmlParser parser = new PlistXmlParser()
@@ -17,4 +19,8 @@ class DefaultInfoPlistReader implements InfoPlistReader {
         return infoPlist
     }
 
+    @Override
+    InfoPlist read(Path source) {
+        return read(source.toAbsolutePath().toString())
+    }
 }

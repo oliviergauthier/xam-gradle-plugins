@@ -24,9 +24,4 @@ class XamarinApplicationExtension {
         return project.solution
     }
 
-    String getSolutionPath() {
-        def p = project.file(project.solution)
-        return p.absolutePath
-    }
-
 }
