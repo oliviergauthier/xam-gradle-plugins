@@ -33,6 +33,16 @@ class XamarinProjectDescriptorTest {
     }
 
     @Test
+    void testBuildIpaReturnsRightValue() {
+        assert iosProject.getBuildIpa('Release', 'iPhone')
+    }
+
+    @Test
+    void testIpaPackageNameReturnsRightValue() {
+        assert 'com.acme.CrossApp' == iosProject.getIpaPackageName('Release', 'iPhone')
+    }
+
+    @Test
     void testGetAndroidManifestReturnsManifestValue() {
         assert 'Properties/AndroidManifest.xml' == androidProject.getAndroidManifest()
     }
@@ -59,7 +69,7 @@ class XamarinProjectDescriptorTest {
 
     @Test
     void testGetOutputPathReturnsIpaPath() {
-        assert SAMPLE_IOS.parent.resolve('bin/iPhone/Release/CrossApp.iOS.ipa') == iosProject.getOutputPath('Release', 'iPhone')
+        assert SAMPLE_IOS.parent.resolve('bin/iPhone/Release/com.acme.CrossApp.ipa') == iosProject.getOutputPath('Release', 'iPhone')
     }
 
     @Test

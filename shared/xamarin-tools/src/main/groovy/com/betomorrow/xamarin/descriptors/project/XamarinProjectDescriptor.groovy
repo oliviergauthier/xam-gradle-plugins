@@ -1,8 +1,8 @@
 package com.betomorrow.xamarin.descriptors.project
 
+import com.betomorrow.android.manifest.DefaultAndroidManifestReader
 import com.betomorrow.ios.plist.DefaultInfoPlistReader
 import com.betomorrow.msbuild.tools.files.FileUtils
-import com.betomorrow.android.manifest.DefaultAndroidManifestReader
 import groovy.transform.InheritConstructors
 
 import java.nio.file.Path
@@ -38,6 +38,18 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
         return "Info.plist"
     }
 
+    String getIpaPackageName(String configuration, String platform = null) {
+        return getPropertyGroup(configuration, platform).IpaPackageName
+    }
+
+    boolean getBuildIpa(String configuration, String platform) {
+        try {
+            return getPropertyGroup(configuration, platform).BuildIpa
+        } catch (Exception e) {
+            return false
+        }
+    }
+
     // Commons
 
     String getOutputDir(String configuration, String platform = null) {
@@ -53,9 +65,17 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
             def packageName = new DefaultAndroidManifestReader().read(androidManifestPath).packageName
             path.parent.resolve(getOutputDir(configuration, platform)).resolve("${packageName}.apk")
         } else if (isIosApplication()) {
-            def bundleIdentifier = new DefaultInfoPlistReader().read(infoPlistPath).bundleIdentifier
-            path.parent.resolve(getOutputDir(configuration, platform)).resolve("${bundleIdentifier}.ipa")
+            def packageName = getIpaPackageName(configuration, platform)
+            path.parent.resolve(getOutputDir(configuration, platform)).resolve("${packageName}.ipa")
         }
+    }
+
+    def getPropertyGroup(String configuration, String platform) {
+        def pattern = platform == null ? ~/.*${configuration}.*/ : ~/.*'\s*${configuration}\s*\|\s*${platform}\s*'.*/
+        def nodes = content.PropertyGroup.findAll{
+            it.@Condition =~ pattern
+        }
+        return nodes[0]
     }
 
 }
