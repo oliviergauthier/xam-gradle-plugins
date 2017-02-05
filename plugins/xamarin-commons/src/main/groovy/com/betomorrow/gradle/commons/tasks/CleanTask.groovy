@@ -24,7 +24,7 @@ class CleanTask extends DefaultTask {
     @TaskAction
     clean() {
         if (solutionFile != null) {
-            SolutionDescriptor sd = solutionLoader.load(solutionFile)
+            SolutionDescriptor sd = solutionLoader.load(project.file(solutionFile))
             sd.getProjects().forEach { p ->
                 cleanProject(p)
             }

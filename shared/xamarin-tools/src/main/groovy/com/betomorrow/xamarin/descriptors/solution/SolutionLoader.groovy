@@ -25,5 +25,9 @@ class SolutionLoader {
         return load(Paths.get(path))
     }
 
+    SolutionDescriptor load(File file) {
+        return load(file.toPath())
+    }
+
 
 }

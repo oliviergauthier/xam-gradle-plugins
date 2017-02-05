@@ -22,8 +22,6 @@ class DefaultInfoPlistWriter implements InfoPlistWriter {
             root.getValueNode("CFBundleShortVersionString").value = plist.bundleShortVersion
         }
 
-       println  XmlUtil.serialize(root)
-
         new FileOutputStream(destination).withStream { out ->
             XmlUtil.serialize(root, out)
         }

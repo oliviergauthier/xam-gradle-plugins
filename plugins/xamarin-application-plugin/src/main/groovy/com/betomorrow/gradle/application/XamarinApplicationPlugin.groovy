@@ -12,6 +12,11 @@ import com.betomorrow.gradle.commons.tasks.Groups
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
+// TODO : Clean tasks doesn't works
+// -> java.io.FileNotFoundException: /Users/ogauthier/projects/xam-gradle-plugins/sample/CrossLib/CrossApp/CrossApp.csproj (No such file or directory)
+// TODO : Handle missing solution file error
+// TODO : Handle verbose mode
+// TODO : Handle put version in several AssemblyInfo.cs and Solution File
 class XamarinApplicationPlugin implements Plugin<Project> {
 
     @Override

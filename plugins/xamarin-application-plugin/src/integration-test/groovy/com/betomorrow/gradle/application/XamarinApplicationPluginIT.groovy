@@ -6,13 +6,38 @@ import org.junit.Test
 
 class XamarinApplicationPluginIT {
 
+
     @Test
-    void testRunRealScript() {
+    void testCleanScript() {
+        File sampleDir = new File("../../sample/CrossApp")
+        BuildResult result = GradleRunner.create()
+                .withProjectDir(sampleDir)
+                .withDebug(true)
+                .withArguments("clean", "--stacktrace")
+                .build()
+
+        println(result.getOutput())
+    }
+
+    @Test
+    void testBuildAndroidScript() {
         File sampleDir = new File("../../sample/CrossApp")
         BuildResult result = GradleRunner.create()
                 .withProjectDir(sampleDir)
                 .withDebug(true)
                 .withArguments("buildIos", "--stacktrace")
+                .build()
+
+        println(result.getOutput())
+    }
+
+    @Test
+    void testBuildIosScript() {
+        File sampleDir = new File("../../sample/CrossApp")
+        BuildResult result = GradleRunner.create()
+                .withProjectDir(sampleDir)
+                .withDebug(true)
+                .withArguments("buildAndroid", "--stacktrace")
                 .build()
 
         println(result.getOutput())

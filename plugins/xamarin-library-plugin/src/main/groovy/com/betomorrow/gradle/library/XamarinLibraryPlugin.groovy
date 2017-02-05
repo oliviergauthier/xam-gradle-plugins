@@ -9,6 +9,10 @@ import com.betomorrow.gradle.library.tasks.BuildTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
+
+// TODO : Handle missing solution file error
+// TODO : Handle verbose mode
+// TODO : Handle put version in several AssemblyInfo.cs and Solution File
 class XamarinLibraryPlugin implements Plugin<Project> {
 
     @Override
