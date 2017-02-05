@@ -13,7 +13,7 @@ class DefaultAndroidManifestWriter implements AndroidManifestWriter {
         def content = parser.parse(destination)
 
         if (!isNullOrEmpty(manifest.packageName)) {
-            content.@package = manifest.packageName
+            content.attributes()['package'] = manifest.packageName
         }
 
         if (!isNullOrEmpty(manifest.versionName)) {

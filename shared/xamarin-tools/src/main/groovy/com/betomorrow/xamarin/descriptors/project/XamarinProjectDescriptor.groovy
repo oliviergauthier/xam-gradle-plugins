@@ -1,7 +1,6 @@
 package com.betomorrow.xamarin.descriptors.project
 
 import com.betomorrow.android.manifest.DefaultAndroidManifestReader
-import com.betomorrow.ios.plist.DefaultInfoPlistReader
 import com.betomorrow.msbuild.tools.files.FileUtils
 import groovy.transform.InheritConstructors
 
