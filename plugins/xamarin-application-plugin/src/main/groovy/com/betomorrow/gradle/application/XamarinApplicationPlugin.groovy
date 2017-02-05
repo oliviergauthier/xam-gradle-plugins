@@ -12,8 +12,6 @@ import com.betomorrow.gradle.commons.tasks.Groups
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
-// TODO : Copy IpaPackageName instead of bundleId
-// TODO : Check or Add BuildIpa property
 // TODO : Handle missing solution file error
 // TODO : Handle verbose mode
 // TODO : Handle put version in several AssemblyInfo.cs and Solution File

@@ -8,10 +8,11 @@ import java.nio.file.StandardCopyOption
 class DefaultFileCopier implements FileCopier {
 
     void replace(String src, String dst) {
-        Files.copy(Paths.get(src), Paths.get(dst), StandardCopyOption.REPLACE_EXISTING)
+        replace(Paths.get(src), Paths.get(dst))
     }
 
     void replace(Path src, Path dst) {
+        println "Copy $src.fileName to $dst"
         Files.createDirectories(dst.parent)
         Files.copy(src, dst, StandardCopyOption.REPLACE_EXISTING)
     }

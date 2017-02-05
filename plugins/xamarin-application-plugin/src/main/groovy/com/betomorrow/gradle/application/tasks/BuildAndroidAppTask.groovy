@@ -59,8 +59,7 @@ class BuildAndroidAppTask extends DefaultTask {
     }
 
     private void copyBuiltAssemblyToOutput() {
-        def outputPath = project.file(output).toPath()
-        fileCopier.replace(getProjectDescriptor().getOutputPath(configuration), outputPath)
+        fileCopier.replace(getProjectDescriptor().getOutputPath(configuration).toString(), output)
     }
 
 }

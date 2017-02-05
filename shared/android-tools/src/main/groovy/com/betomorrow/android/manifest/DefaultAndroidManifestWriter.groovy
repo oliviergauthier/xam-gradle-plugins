@@ -7,6 +7,10 @@ class DefaultAndroidManifestWriter implements AndroidManifestWriter {
 
     void write(AndroidManifest manifest, String destination) {
 
+        println "Update Android Manifest, set version=${manifest.versionName}, versionCode=${manifest.versionCode}, " +
+                "package=${manifest.packageName}"
+
+
         def ns = new Namespace("http://schemas.android.com/apk/res/android", "android")
 
         XmlParser parser = new XmlParser()

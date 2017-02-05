@@ -8,6 +8,10 @@ class DefaultInfoPlistWriter implements InfoPlistWriter {
 
     @Override
     void write(InfoPlist plist, String destination) {
+
+        println "Update Info.plist, set bundleShortVersion=${plist.bundleShortVersion}, bundleVersion=${plist.bundleVersion}, " +
+                "package=${plist.bundleIdentifier}"
+
         def root = parser.parse(destination)
 
         if (!isNullOrEmpty(plist.bundleIdentifier)) {
