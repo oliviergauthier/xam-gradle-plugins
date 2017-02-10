@@ -2,13 +2,19 @@ package com.betomorrow.gradle.nugetpackage.tasks
 
 import com.betomorrow.gradle.nugetpackage.extensions.AssemblyTarget
 import com.betomorrow.msbuild.tools.nuspec.NuSpec
+import com.betomorrow.msbuild.tools.nuspec.NuSpecWriter
+import com.betomorrow.msbuild.tools.nuspec.XmlNuSpecWriter
 import com.betomorrow.msbuild.tools.nuspec.assemblies.Assembly
 import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
 import com.betomorrow.msbuild.tools.nuspec.dependencies.DependencySet
+import groovy.transform.PackageScope
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
 class GenerateNuspecTask extends DefaultTask {
+
+    @PackageScope
+    NuSpecWriter writer = new XmlNuSpecWriter()
 
     String output
 
@@ -50,10 +56,14 @@ class GenerateNuspecTask extends DefaultTask {
 
         assemblies.each { target ->
             target.includes.each {
-                nuSpec.assemblySet.add(new Assembly(it, target.dest))
+                nuSpec.assemblySet.add(new Assembly(resolveAssembly(it), target.dest))
             }
         }
 
-        nuSpec.process()
+        writer.write(nuSpec)
+    }
+
+    String resolveAssembly(String name) {
+        return name
     }
 }

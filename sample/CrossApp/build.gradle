@@ -20,7 +20,7 @@ project.configuration = 'Release'
 project.solution = 'CrossApp.sln'
 
 application {
-    // dryRun = true
+    dryRun = true
 
     appName project.appName
     appVersion project.appVersion

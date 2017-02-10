@@ -1,6 +1,8 @@
 package com.betomorrow.gradle.nugetpackage.tasks
 
-import com.betomorrow.gradle.nugetpackage.extensions.AssemblyTarget
+import com.betomorrow.msbuild.tools.nuspec.NuSpec
+import com.betomorrow.msbuild.tools.nuspec.NuSpecWriter
+import com.betomorrow.msbuild.tools.nuspec.assemblies.Assembly
 import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
@@ -11,9 +13,14 @@ class GenerateNuspecTaskTest extends Specification {
     Project project
     GenerateNuspecTask task
 
+    NuSpecWriter writer = Mock()
+
     def "setup"() {
         project = ProjectBuilder.builder().build()
         project.apply plugin: 'xamarin-nuget-package-plugin'
+
+        project.solution = 'CrossLib/CrossLib.sln'
+        project.configuration = 'Release'
     }
 
     def "should contains info"() {
@@ -100,12 +107,74 @@ class GenerateNuspecTaskTest extends Specification {
         task = project.tasks.generateNuspec
 
         then:
-        assert task.assemblies.contains(new AssemblyTarget("lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10",
-                ["Xam.ACME.CrossLib.dll"]))
-        assert task.assemblies.contains(new AssemblyTarget("lib/MonoAndroid10",
-                [ "Xam.ACME.CrossLib.dll", "Xam.ACME.CrossLib.Droid.dll", "Xam.ACME.CrossLib.Binding.Droid.dll"]))
-        assert task.assemblies.contains(new AssemblyTarget("lib/Xamarin.iOS10",
-                [ "Xam.ACME.CrossLib.dll", "Xam.ACME.CrossLib.IOS.dll", "Xam.ACME.CrossLib.Binding.IOS.dll"]))
+        HashMap<String, List<String>> assemblies = [:]
+        task.assemblies.forEach{
+            assemblies[it.dest] = it.includes
+        }
+
+        assert assemblies['lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10']
+                .containsAll(["Xam.ACME.CrossLib.dll"])
+
+        assert assemblies['lib/MonoAndroid10']
+                .containsAll( [ "Xam.ACME.CrossLib.dll",
+                                "Xam.ACME.CrossLib.Droid.dll",
+                                "Xam.ACME.CrossLib.Binding.Droid.dll"])
+
+        assert assemblies['lib/Xamarin.iOS10']
+                .containsAll( [ "Xam.ACME.CrossLib.dll",
+                                "Xam.ACME.CrossLib.IOS.dll",
+                                "Xam.ACME.CrossLib.Binding.IOS.dll"])
+
+    }
+
+    def "should resolve assemblies by project names"() {
+        given:
+        NuSpec nuSpecData
+        project.nuspec {
+            assemblies {
+                target {
+                    dest "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10"
+                    includes "CrossLib"
+                }
+
+                target {
+                    dest "lib/MonoAndroid10"
+                    includes "CrossLib.Abstractions",
+                             "CrossLib.Droid"
+                }
+
+                target {
+                    dest "lib/Xamarin.iOS10"
+                    includes "CrossLib.Abstractions",
+                             "CrossLib.IOS"
+                }
+            }
+        }
+
+        when:
+        project.evaluate()
+        task = project.tasks.generateNuspec
+        task.writer = writer
+        task.generateNuspec()
+
+        then:
+        1 * writer.write(_) >> { arguments -> nuSpecData = arguments[0] }
+
+        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib/bin/Release/bin/Release/CrossLib.dll',
+                'lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10'))
+
+        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.dll',
+                'lib/MonoAndroid10'))
+
+        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.Drois/bin/Release/CrossLib.Droid.dll',
+                'lib/MonoAndroid10'))
+
+        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.dll',
+                'lib/Xamarin.iOS10'))
+
+        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.Drois/bin/Release/CrossLib.IOS.dll',
+                'lib/Xamarin.iOS10'))
+
     }
 
 }
