@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><package>
+  <metadata>
+    <authors>John Doe</authors>
+    <owners>com.acme</owners>
+    <description>Sample for nuspec package plugin</description>
+    <dependencies>
+      <group>
+        <dependency id="Xam.ACME.Commons" version="[1.0.0,)"/>
+        <dependency id="Xamarin.Forms" version="[1.4.3,)"/>
+      </group>
+      <group targetFramework="net40">
+        <dependency id="Xam.ACME.Commons" version="[1.0.0,)"/>
+        <dependency id="Xamarin.Forms" version="[1.4.3,)"/>
+      </group>
+    </dependencies>
+  </metadata>
+</package>

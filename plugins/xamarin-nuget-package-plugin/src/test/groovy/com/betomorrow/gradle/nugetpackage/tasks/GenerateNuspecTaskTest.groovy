@@ -16,15 +16,16 @@ class GenerateNuspecTaskTest extends Specification {
     NuSpecWriter writer = Mock()
 
     def "setup"() {
-        project = ProjectBuilder.builder().build()
+        project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/CrossLib')).build()
         project.apply plugin: 'xamarin-nuget-package-plugin'
 
-        project.solution = 'CrossLib/CrossLib.sln'
+        project.solution = 'CrossLib.sln'
         project.configuration = 'Release'
     }
 
     def "should contains info"() {
         given:
+        NuSpec nuSpecData
         project.nuspec {
             packageId "aPackageId"
             version "aVersion"
@@ -43,24 +44,28 @@ class GenerateNuspecTaskTest extends Specification {
         when:
         project.evaluate();
         task = project.tasks.generateNuspec
+        task.writer = writer
+        task.generateNuspec()
 
         then:
-        assert task.owners == "some owners"
-        assert task.packageId == "aPackageId"
-        assert task.version == "aVersion"
-        assert task.authors == "some authors"
-        assert task.licenseUrl == "the license url"
-        assert task.projectUrl == "the project url"
-        assert task.iconUrl == "the icon url"
-        assert task.requireLicenseAcceptance == true
-        assert task.description == "a description"
-        assert task.releaseNotes == "the release notes"
-        assert task.copyright == "the copyright"
-        assert task.tags == "some tags"
+        1 * writer.write(_) >> { arguments -> nuSpecData = arguments[0] }
+        assert nuSpecData.owners == "some owners"
+        assert nuSpecData.packageId == "aPackageId"
+        assert nuSpecData.version == "aVersion"
+        assert nuSpecData.authors == "some authors"
+        assert nuSpecData.licenseUrl == "the license url"
+        assert nuSpecData.projectUrl == "the project url"
+        assert nuSpecData.iconUrl == "the icon url"
+        assert nuSpecData.requireLicenseAcceptance == true
+        assert nuSpecData.description == "a description"
+        assert nuSpecData.releaseNotes == "the release notes"
+        assert nuSpecData.copyright == "the copyright"
+        assert nuSpecData.tags == "some tags"
     }
 
     def "should contains dependencies"() {
         given:
+        NuSpec nuSpecData
         project.nuspec {
             dependencies {
                 dependency "Xamarin.Forms:[1.4.3,)"
@@ -71,14 +76,19 @@ class GenerateNuspecTaskTest extends Specification {
         when:
         project.evaluate();
         task = project.tasks.generateNuspec
+        task.writer = writer
+        task.generateNuspec()
 
         then:
-        assert task.dependencies.contains(new Dependency("Xamarin.Forms:[1.4.3,)"))
-        assert task.dependencies.contains(new Dependency("net40:Xam.ACME.Commons:[1.0.0,)"))
+        1 * writer.write(_) >> { arguments -> nuSpecData = arguments[0] }
+
+        assert nuSpecData.dependencySet.contains(new Dependency("Xamarin.Forms:[1.4.3,)"))
+        assert nuSpecData.dependencySet.contains(new Dependency("net40:Xam.ACME.Commons:[1.0.0,)"))
     }
 
     def "should contains assemblies"() {
         given:
+        NuSpec nuSpecData
         project.nuspec {
             assemblies {
                 target {
@@ -105,8 +115,34 @@ class GenerateNuspecTaskTest extends Specification {
         when:
         project.evaluate();
         task = project.tasks.generateNuspec
+        task.writer = writer
+        task.generateNuspec()
 
         then:
+        1 * writer.write(_) >> { arguments -> nuSpecData = arguments[0] }
+
+        assert nuSpecData.assemblySet.contains(new Assembly('Xam.ACME.CrossLib.dll',
+                'lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10'))
+
+        assert nuSpecData.assemblySet.contains(new Assembly('Xam.ACME.CrossLib.dll',
+                'lib/MonoAndroid10'))
+
+        assert nuSpecData.assemblySet.contains(new Assembly('Xam.ACME.CrossLib.Droid.dll',
+                'lib/MonoAndroid10'))
+
+        assert nuSpecData.assemblySet.contains(new Assembly('Xam.ACME.CrossLib.Binding.Droid.dll',
+                'lib/MonoAndroid10'))
+
+        assert nuSpecData.assemblySet.contains(new Assembly('Xam.ACME.CrossLib.dll',
+                'lib/Xamarin.iOS10'))
+
+        assert nuSpecData.assemblySet.contains(new Assembly('Xam.ACME.CrossLib.IOS.dll',
+                'lib/Xamarin.iOS10'))
+
+        assert nuSpecData.assemblySet.contains(new Assembly('Xam.ACME.CrossLib.Binding.IOS.dll',
+                'lib/Xamarin.iOS10'))
+
+
         HashMap<String, List<String>> assemblies = [:]
         task.assemblies.forEach{
             assemblies[it.dest] = it.includes
@@ -160,19 +196,19 @@ class GenerateNuspecTaskTest extends Specification {
         then:
         1 * writer.write(_) >> { arguments -> nuSpecData = arguments[0] }
 
-        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib/bin/Release/bin/Release/CrossLib.dll',
+        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib/bin/Release/CrossLib.dll',
                 'lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10'))
 
         assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.dll',
                 'lib/MonoAndroid10'))
 
-        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.Drois/bin/Release/CrossLib.Droid.dll',
+        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.Droid/bin/Release/CrossLib.Droid.dll',
                 'lib/MonoAndroid10'))
 
         assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.dll',
                 'lib/Xamarin.iOS10'))
 
-        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.Drois/bin/Release/CrossLib.IOS.dll',
+        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.IOS/bin/Release/CrossLib.IOS.dll',
                 'lib/Xamarin.iOS10'))
 
     }

@@ -3,6 +3,7 @@ package com.betomorrow.gradle.application.tasks
 import com.betomorrow.android.manifest.AndroidManifest
 import com.betomorrow.android.manifest.AndroidManifestWriter
 import com.betomorrow.gradle.application.context.Context
+import com.betomorrow.msbuild.tools.commands.SystemCommandRunner
 import com.betomorrow.msbuild.tools.files.FileCopier
 import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
 import com.betomorrow.xamarin.xbuild.XBuild
@@ -59,7 +60,7 @@ class BuildAndroidAppTask extends DefaultTask {
     }
 
     private void copyBuiltAssemblyToOutput() {
-        fileCopier.replace(getProjectDescriptor().getOutputPath(configuration).toString(), output)
+        fileCopier.replace(getProjectDescriptor().getApplicationOutputPath(configuration).toString(), output)
     }
 
 }

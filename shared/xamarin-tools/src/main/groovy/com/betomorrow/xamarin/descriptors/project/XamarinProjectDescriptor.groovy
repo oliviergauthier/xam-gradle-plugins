@@ -59,13 +59,17 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
         return FileUtils.toUnixPath(nodes[0].OutputPath.toString())
     }
 
-    Path getOutputPath(String configuration, String platform = null) {
+    Path getLibraryOutputPath(String configuration, String platform = null) {
+        return path.parent.resolve(getOutputDir(configuration, platform)).resolve("${assemblyName}.dll")
+    }
+
+    Path getApplicationOutputPath(String configuration, String platform = null) {
         if (isAndroidApplication()) {
             def packageName = new DefaultAndroidManifestReader().read(androidManifestPath).packageName
-            path.parent.resolve(getOutputDir(configuration, platform)).resolve("${packageName}.apk")
-        } else if (isIosApplication()) {
+            return path.parent.resolve(getOutputDir(configuration, platform)).resolve("${packageName}.apk")
+        } else {
             def packageName = getIpaPackageName(configuration, platform)
-            path.parent.resolve(getOutputDir(configuration, platform)).resolve("${packageName}.ipa")
+            return path.parent.resolve(getOutputDir(configuration, platform)).resolve("${packageName}.ipa")
         }
     }
 

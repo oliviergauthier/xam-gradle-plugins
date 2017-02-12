@@ -7,14 +7,20 @@ import com.betomorrow.msbuild.tools.nuspec.XmlNuSpecWriter
 import com.betomorrow.msbuild.tools.nuspec.assemblies.Assembly
 import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
 import com.betomorrow.msbuild.tools.nuspec.dependencies.DependencySet
+import com.betomorrow.xamarin.descriptors.project.ProjectDescriptor
+import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
+import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
+import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
 import groovy.transform.PackageScope
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
+import java.nio.file.Path
+
 class GenerateNuspecTask extends DefaultTask {
 
-    @PackageScope
-    NuSpecWriter writer = new XmlNuSpecWriter()
+    protected NuSpecWriter writer = new XmlNuSpecWriter()
+    protected SolutionLoader loader = new SolutionLoader()
 
     String output
 
@@ -54,16 +60,22 @@ class GenerateNuspecTask extends DefaultTask {
         nuSpec.tags = tags
         nuSpec.dependencySet = new DependencySet(dependencies)
 
+        def solution = loader.load(project.file(project.solution))
+
         assemblies.each { target ->
             target.includes.each {
-                nuSpec.assemblySet.add(new Assembly(resolveAssembly(it), target.dest))
+                nuSpec.assemblySet.add(new Assembly(resolveAssembly(solution, it), target.dest))
             }
         }
 
         writer.write(nuSpec)
     }
 
-    String resolveAssembly(String name) {
-        return name
+    String resolveAssembly(SolutionDescriptor solution, String name) {
+        XamarinProjectDescriptor pd = solution.getProject(name)
+        if (pd == null) {
+            return name
+        }
+        return project.file(".").toPath().relativize(pd.getLibraryOutputPath("Release", "AnyCPU")).toString()
     }
 }
