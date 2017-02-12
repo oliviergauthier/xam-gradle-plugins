@@ -71,11 +71,12 @@ class GenerateNuspecTask extends DefaultTask {
         writer.write(nuSpec)
     }
 
-    String resolveAssembly(SolutionDescriptor solution, String name) {
+    private String resolveAssembly(SolutionDescriptor solution, String name) {
         XamarinProjectDescriptor pd = solution.getProject(name)
         if (pd == null) {
             return name
         }
         return project.file(".").toPath().relativize(pd.getLibraryOutputPath("Release", "AnyCPU")).toString()
     }
+
 }

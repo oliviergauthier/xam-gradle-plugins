@@ -6,8 +6,7 @@ class NuspecPluginExtension {
 
     private Project project
 
-    String output
-
+    // Generate Nuspec
     String packageId
     String version
     String authors
@@ -21,6 +20,15 @@ class NuspecPluginExtension {
     String copyright
     String tags
 
+    // Package
+    String packageName
+    String suffix
+
+    // Install / Deploy
+    String localRepository
+    String remoteRepository
+    String apiKey
+
 
     NuspecPluginExtension(Project project) {
         this.project = project
@@ -28,6 +36,13 @@ class NuspecPluginExtension {
 
     String getOutput() {
         return "nuspec.template"
+    }
+
+    String getPackageName() {
+        if (packageName) {
+            return packageName
+        }
+        return packageId
     }
 
 }

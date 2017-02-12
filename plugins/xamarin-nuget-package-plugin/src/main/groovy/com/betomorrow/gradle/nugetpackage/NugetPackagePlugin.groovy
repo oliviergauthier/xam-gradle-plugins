@@ -6,6 +6,8 @@ import com.betomorrow.gradle.nugetpackage.extensions.AssembliesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.DependenciesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.NuspecPluginExtension
 import com.betomorrow.gradle.nugetpackage.tasks.GenerateNuspecTask
+import com.betomorrow.gradle.nugetpackage.tasks.PushPackageTask
+import com.betomorrow.gradle.nugetpackage.tasks.PackageLibraryTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -28,6 +30,8 @@ class NugetPackagePlugin implements Plugin<Project>{
 
             afterEvaluate {
 
+                String nuspecPath = "default.nuspec"
+
                 NuspecPluginExtension nuspec = extensions.getByName("nuspec")
 
                 task("generateNuspec", description: "generate nuspec file", group: Groups.BUILD, 'type': GenerateNuspecTask) {
@@ -44,9 +48,26 @@ class NugetPackagePlugin implements Plugin<Project>{
                     copyright = nuspec.copyright
                     tags = nuspec.tags
 
-                    output = nuspec.output
+                    output = nuspecPath
                     dependencies = nuspec.dependencies.dependencies
                     assemblies = nuspec.assemblies.assemblies
+                }
+
+                task("package", description: "Package lib with Nuget", group:Groups.PACKAGE, 'type': PackageLibraryTask) {
+                    nuspecPath = nuspecPath
+                    suffix = nuspec.suffix
+                    output = nuspec.output
+                }
+
+                task("install", description: "Install package locally", group:Groups.DEPLOY, 'type' : PushPackageTask) {
+                    packagePath = nuspec.output
+                    source = nuspec.localRepository
+                }
+
+                task("deploy", description: "Deploy package on remote server", group:Groups.DEPLOY, 'type' : PushPackageTask) {
+                    packagePath = nuspec.output
+                    source = nuspec.remoteRepository
+                    apiKey = nuspec.apiKey
                 }
             }
         }
