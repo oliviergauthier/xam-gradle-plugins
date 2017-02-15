@@ -13,6 +13,8 @@ import org.gradle.api.Project
 
 class NugetPackagePlugin implements Plugin<Project>{
 
+    private static final String NUSPEC_PATH = "default.nuspec"
+
     /**
      * http://stackoverflow.com/questions/28999106/define-nested-extension-containers-in-gradle
      * http://mrhaki.blogspot.fr/2013/05/gradle-goodness-extending-dsl.html
@@ -30,8 +32,6 @@ class NugetPackagePlugin implements Plugin<Project>{
 
             afterEvaluate {
 
-                String nuspecPath = "default.nuspec"
-
                 NuspecPluginExtension nuspec = extensions.getByName("nuspec")
 
                 task("generateNuspec", description: "generate nuspec file", group: Groups.BUILD, 'type': GenerateNuspecTask) {
@@ -48,13 +48,13 @@ class NugetPackagePlugin implements Plugin<Project>{
                     copyright = nuspec.copyright
                     tags = nuspec.tags
 
-                    output = nuspecPath
+                    output = NUSPEC_PATH
                     dependencies = nuspec.dependencies.dependencies
                     assemblies = nuspec.assemblies.assemblies
                 }
 
                 task("package", description: "Package lib with Nuget", group:Groups.PACKAGE, 'type': PackageLibraryTask) {
-                    nuspecPath = nuspecPath
+                    nuspecPath = NUSPEC_PATH
                     suffix = nuspec.suffix
                     output = nuspec.output
                 }
