@@ -27,7 +27,7 @@ class XamarinLibraryPlugin implements Plugin<Project> {
 
                 XamarinLibraryExtension library = extensions.getByName("library")
 
-                Context.configure(library.dryRun)
+                Context.configure(project.hasProperty('dryRun') && project.dryRun)
 
                 task("clean", description: "clean library", group: Groups.BUILD, 'type': CleanTask) {
                     solutionFile = library.solution

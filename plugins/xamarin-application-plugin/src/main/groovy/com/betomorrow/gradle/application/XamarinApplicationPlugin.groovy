@@ -33,7 +33,7 @@ class XamarinApplicationPlugin implements Plugin<Project> {
                 XamarinAndroidApplicationExtension android = application.extensions.getByName("android")
                 XamarinIosApplicationExtension ios = application.extensions.getByName("ios")
 
-                Context.configure(application.dryRun)
+                Context.configure(project.hasProperty('dryRun') && project.dryRun)
 
                 task("clean", description: "clean application", group: Groups.BUILD, 'type': CleanTask) {
                     solutionFile = application.solution

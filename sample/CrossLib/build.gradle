@@ -17,9 +17,7 @@ ext {
     // solution = 'CrossLib.sln'
 }
 
-library {
-    dryRun = true
-}
+
 
 //nunit {
 //    version 2.6

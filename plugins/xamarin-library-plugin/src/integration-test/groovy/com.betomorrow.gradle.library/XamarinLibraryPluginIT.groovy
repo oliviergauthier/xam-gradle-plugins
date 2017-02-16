@@ -12,7 +12,7 @@ class XamarinLibraryPluginIT {
         BuildResult result = GradleRunner.create()
                 .withProjectDir(sampleDir)
                 .withDebug(true)
-                .withArguments("build", "--stacktrace")
+                .withArguments("build", "--stacktrace", "-PdryRun=true")
                 .build()
 
         println(result.getOutput())
