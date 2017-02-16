@@ -15,7 +15,8 @@ class PushPackageTask extends DefaultTask {
 
     @TaskAction
     void pushPackage() {
-        nuget.push(packagePath, source, apiKey)
+        def repository = source ?: "${System.getProperty('user.home')}/.nuget"
+        nuget.push(packagePath, repository, apiKey)
     }
 
 }

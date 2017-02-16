@@ -56,4 +56,5 @@ class PackageLibraryTaskTest extends Specification {
         then:
         1 * nuget.pack("default.nuspec", null)
     }
+
 }
