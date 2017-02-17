@@ -1,14 +1,16 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.betomorrow.gradle:xamarin-library-plugin:1.0-SNAPSHOT'
-    }
-}
+//buildscript {
+//    repositories {
+//        mavenLocal()
+//        mavenCentral()
+//    }
+//    dependencies {
+//        classpath 'com.betomorrow.gradle:xamarin-library-plugin:1.0-SNAPSHOT'
+//    }
+//}
 
-apply plugin : 'xamarin-library-plugin'
+plugins {
+    id 'xamarin-library-plugin'
+}
 
 ext {
     version = "1.0.0"

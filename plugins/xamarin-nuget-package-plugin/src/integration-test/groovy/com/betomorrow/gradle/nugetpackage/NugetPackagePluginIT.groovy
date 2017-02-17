@@ -13,6 +13,7 @@ class NugetPackagePluginIT {
         BuildResult result = GradleRunner.create()
                 .withProjectDir(sampleDir)
                 .withDebug(true)
+                .withPluginClasspath()
                 .withArguments("generateNuspec", "--stacktrace")
                 .build()
 

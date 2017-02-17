@@ -1,6 +1,7 @@
 subprojects {
 
     apply plugin: 'groovy'
+    apply plugin: 'java-gradle-plugin'
     apply plugin: 'maven'
 
     repositories {
@@ -12,6 +13,7 @@ subprojects {
         integrationTestCompile.extendsFrom testCompile
         integrationTestRuntime.extendsFrom testRuntime
     }
+
     sourceSets {
         integrationTest {
             groovy {
@@ -28,6 +30,12 @@ subprojects {
         classpath = sourceSets.integrationTest.runtimeClasspath
         outputs.upToDateWhen { false }
     }
+
+    gradlePlugin {
+        testSourceSets sourceSets.integrationTest
+    }
+
+    check.dependsOn integrationTest
 
     dependencies {
         compile localGroovy()

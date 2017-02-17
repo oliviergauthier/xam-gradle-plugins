@@ -1,14 +1,16 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.betomorrow.gradle:xamarin-nuget-package-plugin:1.0-SNAPSHOT'
-    }
-}
+//buildscript {
+//    repositories {
+//        mavenLocal()
+//        mavenCentral()
+//    }
+//    dependencies {
+//        classpath 'com.betomorrow.gradle:xamarin-nuget-package-plugin:1.0-SNAPSHOT'
+//    }
+//}
 
-apply plugin : 'xamarin-nuget-package-plugin'
+plugins {
+    id 'xamarin-nuget-package-plugin'
+}
 
 ext {
     version = "1.0.0"
