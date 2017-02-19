@@ -42,11 +42,11 @@ class DefaultNuget implements Nuget {
     }
 
     void pack(String packagePath, String suffix) {
-        runner.run(new NugetCmd(action: 'pack', ))
+        runner.run(new NugetPackCmd(nuspecPath: packagePath, suffix: suffix))
     }
 
     void push(String packagePath, String source, String apiKey) {
-        throw new UnsupportedOperationException()
+        runner.run(new NugetPushCmd(packagePath: packagePath, source: source, apiKey: apiKey))
     }
 
 }
