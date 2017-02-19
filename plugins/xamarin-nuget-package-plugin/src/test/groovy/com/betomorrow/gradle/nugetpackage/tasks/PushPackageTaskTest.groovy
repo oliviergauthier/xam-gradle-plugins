@@ -15,7 +15,8 @@ class PushPackageTaskTest extends Specification {
     def "setup"() {
         nuget = Mock()
 
-        project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/CrossLib')).build()
+        project = ProjectBuilder.builder()
+                .withProjectDir(new File('src/test/resources/CrossLib')).build()
         project.apply plugin: 'xamarin-nuget-package-plugin'
 
         project.solution = 'CrossLib.sln'
