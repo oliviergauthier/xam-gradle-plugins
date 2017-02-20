@@ -1,6 +1,7 @@
 package com.betomorrow.gradle.application
 
-import com.betomorrow.gradle.application.context.Context
+
+import com.betomorrow.gradle.application.context.PluginContext
 import com.betomorrow.gradle.application.extensions.XamarinAndroidApplicationExtension
 import com.betomorrow.gradle.application.extensions.XamarinApplicationExtension
 import com.betomorrow.gradle.application.extensions.XamarinIosApplicationExtension
@@ -29,11 +30,11 @@ class XamarinApplicationPlugin implements Plugin<Project> {
 
             afterEvaluate {
 
+                PluginContext.configure(project)
+
                 XamarinApplicationExtension application = extensions.getByName("application")
                 XamarinAndroidApplicationExtension android = application.extensions.getByName("android")
                 XamarinIosApplicationExtension ios = application.extensions.getByName("ios")
-
-                Context.configure(project.hasProperty('dryRun') && project.dryRun)
 
                 task("clean", description: "clean application", group: Groups.BUILD, 'type': CleanTask) {
                     solutionFile = application.solution

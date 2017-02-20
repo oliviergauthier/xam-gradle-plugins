@@ -3,7 +3,7 @@ package com.betomorrow.gradle.library
 import com.betomorrow.gradle.commons.tasks.CleanTask
 import com.betomorrow.gradle.commons.tasks.GlobalVariables
 import com.betomorrow.gradle.commons.tasks.Groups
-import com.betomorrow.gradle.library.context.Context
+import com.betomorrow.gradle.library.context.PluginContext
 import com.betomorrow.gradle.library.extensions.XamarinLibraryExtension
 import com.betomorrow.gradle.library.tasks.BuildTask
 import org.gradle.api.Plugin
@@ -25,9 +25,9 @@ class XamarinLibraryPlugin implements Plugin<Project> {
 
             afterEvaluate {
 
-                XamarinLibraryExtension library = extensions.getByName("library")
+                PluginContext.configure(project)
 
-                Context.configure(project.hasProperty('dryRun') && project.dryRun)
+                XamarinLibraryExtension library = extensions.getByName("library")
 
                 task("clean", description: "clean library", group: Groups.BUILD, 'type': CleanTask) {
                     solutionFile = library.solution

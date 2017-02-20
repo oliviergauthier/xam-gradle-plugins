@@ -2,7 +2,7 @@ package com.betomorrow.gradle.nugetpackage
 
 import com.betomorrow.gradle.commons.tasks.GlobalVariables
 import com.betomorrow.gradle.commons.tasks.Groups
-import com.betomorrow.gradle.nugetpackage.context.Context
+import com.betomorrow.gradle.nugetpackage.context.PluginContext
 import com.betomorrow.gradle.nugetpackage.extensions.AssembliesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.DependenciesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.NuspecPluginExtension
@@ -33,7 +33,7 @@ class NugetPackagePlugin implements Plugin<Project>{
 
             afterEvaluate {
 
-                Context.configure(project.hasProperty('dryRun') && project.dryRun)
+                PluginContext.configure(project)
 
                 NuspecPluginExtension nuspec = extensions.getByName("nuspec")
 

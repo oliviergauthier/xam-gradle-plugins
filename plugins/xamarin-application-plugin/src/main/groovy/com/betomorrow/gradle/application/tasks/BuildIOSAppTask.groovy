@@ -1,6 +1,6 @@
 package com.betomorrow.gradle.application.tasks
 
-import com.betomorrow.gradle.application.context.Context
+import com.betomorrow.gradle.application.context.PluginContext
 import com.betomorrow.ios.plist.InfoPlist
 import com.betomorrow.ios.plist.InfoPlistWriter
 import com.betomorrow.msbuild.tools.files.FileCopier
@@ -11,9 +11,9 @@ import org.gradle.api.tasks.TaskAction
 
 class BuildIOSAppTask extends DefaultTask {
 
-    protected XBuild xBuild = Context.current.xbuild
-    protected FileCopier fileCopier = Context.current.fileCopier
-    protected InfoPlistWriter infoPlistWriter = Context.current.infoPlistWriter
+    protected XBuild xBuild = PluginContext.current.xbuild
+    protected FileCopier fileCopier = PluginContext.current.fileCopier
+    protected InfoPlistWriter infoPlistWriter = PluginContext.current.infoPlistWriter
 
     String bundleVersion
     String bundleShortVersion

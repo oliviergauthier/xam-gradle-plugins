@@ -2,8 +2,7 @@ package com.betomorrow.gradle.application.tasks
 
 import com.betomorrow.android.manifest.AndroidManifest
 import com.betomorrow.android.manifest.AndroidManifestWriter
-import com.betomorrow.gradle.application.context.Context
-import com.betomorrow.msbuild.tools.commands.SystemCommandRunner
+import com.betomorrow.gradle.application.context.PluginContext
 import com.betomorrow.msbuild.tools.files.FileCopier
 import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
 import com.betomorrow.xamarin.xbuild.XBuild
@@ -12,9 +11,9 @@ import org.gradle.api.tasks.TaskAction
 
 class BuildAndroidAppTask extends DefaultTask {
 
-    protected XBuild xBuild = Context.current.xbuild
-    protected AndroidManifestWriter androidManifestWriter = Context.current.androidManifestWriter
-    protected FileCopier fileCopier = Context.current.fileCopier
+    protected XBuild xBuild = PluginContext.current.xbuild
+    protected AndroidManifestWriter androidManifestWriter = PluginContext.current.androidManifestWriter
+    protected FileCopier fileCopier = PluginContext.current.fileCopier
 
     String appVersion
     String versionCode
