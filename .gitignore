@@ -11,3 +11,10 @@ sample/**/packages
 sample/**/bin/**
 sample/**/obj/**
 *.userprefs
+*.class
+classes
+**/useHome/caches/**
+userHome/caches/*
+*/userHome/caches/*
+caches
+userHome

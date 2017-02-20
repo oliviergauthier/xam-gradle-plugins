@@ -26,7 +26,6 @@ class BuildAndroidAppTask extends DefaultTask {
 
     @TaskAction
     void build() {
-
         updateManifest()
 
         invokeXBuild()
