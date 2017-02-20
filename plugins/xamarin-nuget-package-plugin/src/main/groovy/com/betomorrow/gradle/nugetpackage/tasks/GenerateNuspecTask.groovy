@@ -71,7 +71,7 @@ class GenerateNuspecTask extends DefaultTask {
         writer.write(nuSpec)
     }
 
-    private String resolveAssembly(SolutionDescriptor solution, String name) {
+    String resolveAssembly(SolutionDescriptor solution, String name) {
         XamarinProjectDescriptor pd = solution.getProject(name)
         if (pd == null) {
             return name

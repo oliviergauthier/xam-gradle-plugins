@@ -2,6 +2,7 @@ package com.betomorrow.gradle.nugetpackage
 
 import com.betomorrow.gradle.commons.tasks.GlobalVariables
 import com.betomorrow.gradle.commons.tasks.Groups
+import com.betomorrow.gradle.nugetpackage.context.Context
 import com.betomorrow.gradle.nugetpackage.extensions.AssembliesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.DependenciesPluginExtension
 import com.betomorrow.gradle.nugetpackage.extensions.NuspecPluginExtension
@@ -13,7 +14,7 @@ import org.gradle.api.Project
 
 class NugetPackagePlugin implements Plugin<Project>{
 
-    private static final String NUSPEC_PATH = "default.nuspec"
+    private static final String NUSPEC_PATH = "generated.nuspec"
 
     /**
      * http://stackoverflow.com/questions/28999106/define-nested-extension-containers-in-gradle
@@ -32,6 +33,8 @@ class NugetPackagePlugin implements Plugin<Project>{
 
             afterEvaluate {
 
+                Context.configure(project.hasProperty('dryRun') && project.dryRun)
+
                 NuspecPluginExtension nuspec = extensions.getByName("nuspec")
 
                 task("generateNuspec", description: "generate nuspec file", group: Groups.BUILD, 'type': GenerateNuspecTask) {
@@ -48,13 +51,13 @@ class NugetPackagePlugin implements Plugin<Project>{
                     copyright = nuspec.copyright
                     tags = nuspec.tags
 
-                    output = NUSPEC_PATH
+                    output = project.file(NUSPEC_PATH).absolutePath
                     dependencies = nuspec.dependencies.dependencies
                     assemblies = nuspec.assemblies.assemblies
                 }
 
                 task("package", description: "Package lib with Nuget", group:Groups.PACKAGE, 'type': PackageLibraryTask) {
-                    nuspecPath = NUSPEC_PATH
+                    nuspecPath = project.file(NUSPEC_PATH).absolutePath
                     suffix = nuspec.suffix
                     output = nuspec.output
                 }
