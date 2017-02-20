@@ -12,10 +12,7 @@ plugins {
     id 'xamarin-nuget-package-plugin'
 }
 
-ext {
-    version = "1.0.0"
-    name = "Xam.ACME.CrossLib"
-}
+version = "1.0.0"
 
 nuspec {
 

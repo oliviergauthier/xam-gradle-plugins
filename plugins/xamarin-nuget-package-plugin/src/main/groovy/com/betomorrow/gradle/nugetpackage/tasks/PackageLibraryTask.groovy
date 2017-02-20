@@ -11,7 +11,6 @@ class PackageLibraryTask extends DefaultTask {
 
     String nuspecPath
     String suffix
-    String output
 
     @TaskAction
     void packageLibrary() {

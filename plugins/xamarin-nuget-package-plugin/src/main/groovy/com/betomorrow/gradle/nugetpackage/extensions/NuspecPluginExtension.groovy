@@ -35,7 +35,25 @@ class NuspecPluginExtension {
     }
 
     String getOutput() {
-        return "nuspec.template"
+        return "${getPackageId()}-${getVersion()}.nupkg"
+    }
+
+    String getPackageId() {
+        if (packageId) {
+            return packageId
+        }
+        if (project.hasProperty("name")) {
+            return project.name
+        }
+        return project.name
+    }
+
+    String getVersion() {
+        if (version) {
+            return version
+        }
+
+        return project.version
     }
 
     String getPackageName() {
