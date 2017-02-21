@@ -76,7 +76,7 @@ class GenerateNuspecTask extends DefaultTask {
         if (pd == null) {
             return name
         }
-        return project.file(".").toPath().relativize(pd.getLibraryOutputPath("Release", "AnyCPU")).toString()
+        return project.file(".").toPath().relativize(pd.getLibraryOutputPath("Release")).toString()
     }
 
 }

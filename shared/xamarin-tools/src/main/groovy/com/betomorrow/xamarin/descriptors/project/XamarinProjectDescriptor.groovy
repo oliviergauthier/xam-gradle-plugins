@@ -59,8 +59,8 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
         return FileUtils.toUnixPath(nodes[0].OutputPath.toString())
     }
 
-    Path getLibraryOutputPath(String configuration, String platform = null) {
-        return path.parent.resolve(getOutputDir(configuration, platform)).resolve("${assemblyName}.dll")
+    Path getLibraryOutputPath(String configuration) {
+        return path.parent.resolve(getOutputDir(configuration, 'AnyCPU')).resolve("${assemblyName}.dll")
     }
 
     Path getApplicationOutputPath(String configuration, String platform = null) {

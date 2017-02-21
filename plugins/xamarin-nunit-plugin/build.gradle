@@ -1,0 +1,4 @@
+dependencies {
+    compile project(':shared:xamarin-tools')
+    compile project(':plugins:xamarin-commons')
+}
