@@ -27,7 +27,7 @@ class RunNUnitConsoleTaskTest extends Specification {
     def "test run resolve projects assemblies"() {
         given:
         project.nunit  {
-            projects = ['CrossLib.Test']
+            projects = 'CrossLib.Test'
         }
 
         when:

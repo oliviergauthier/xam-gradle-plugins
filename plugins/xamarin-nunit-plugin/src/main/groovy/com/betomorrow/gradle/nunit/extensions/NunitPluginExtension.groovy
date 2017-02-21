@@ -4,7 +4,7 @@ import org.gradle.api.Project
 
 class NunitPluginExtension {
 
-    List<String> projects
+    def projects
     String format
 
     NunitPluginExtension(Project project) {
@@ -12,7 +12,11 @@ class NunitPluginExtension {
 
     List<String> getProjects() {
         if (projects != null) {
-            return projects
+            if (projects in Collection) {
+                return projects
+            } else {
+                return [projects]
+            }
         }
     }
 
