@@ -5,6 +5,7 @@ import org.gradle.api.Project
 class NunitPluginExtension {
 
     def projects
+    def assemblies
     String format
 
     NunitPluginExtension(Project project) {
@@ -16,6 +17,17 @@ class NunitPluginExtension {
                 return projects
             } else {
                 return [projects]
+            }
+        }
+    }
+
+
+    List<String> getAssemblies() {
+        if (assemblies != null) {
+            if (assemblies in Collection) {
+                return assemblies
+            } else {
+                return [assemblies]
             }
         }
     }

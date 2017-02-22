@@ -27,6 +27,7 @@ class NunitPlugin implements Plugin<Project> {
                 task("test", description : "Run nunit test", group : "verification", type : RunNUnitConsoleTask) {
                     projects = nunit.projects
                     format = nunit.format
+                    assemblies = nunit.assemblies
                 }
 
             }

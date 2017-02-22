@@ -24,7 +24,7 @@ class RunNUnitConsoleTaskTest extends Specification {
         project.configuration = 'Release'
     }
 
-    def "test run resolve projects assemblies"() {
+    def "run should resolve projects assemblies"() {
         given:
         project.nunit  {
             projects = 'CrossLib.Test'
@@ -38,5 +38,38 @@ class RunNUnitConsoleTaskTest extends Specification {
 
         then:
         1 * runner.run([Paths.get('CrossLib.Test/bin/Release/CrossLib.Test.dll').toString()], null)
+    }
+
+    def "run should use given assemblies"() {
+        given:
+        project.nunit  {
+            assemblies = 'CrossLib.Test/bin/Release/CrossLib.Test.dll'
+        }
+
+        when:
+        project.evaluate()
+        task = project.test
+        task.nUnitRunner = runner
+        task.run()
+
+        then:
+        1 * runner.run(['CrossLib.Test/bin/Release/CrossLib.Test.dll'], null)
+    }
+
+    def "run should use TestResults format"() {
+        given:
+        project.nunit  {
+            assemblies = 'CrossLib.Test/bin/Release/CrossLib.Test.dll'
+            format = "nunit2"
+        }
+
+        when:
+        project.evaluate()
+        task = project.test
+        task.nUnitRunner = runner
+        task.run()
+
+        then:
+        1 * runner.run(_, "nunit2")
     }
 }
