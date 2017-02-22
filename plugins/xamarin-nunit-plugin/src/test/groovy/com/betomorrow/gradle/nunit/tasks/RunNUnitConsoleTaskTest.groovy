@@ -1,6 +1,6 @@
 package com.betomorrow.gradle.nunit.tasks
 
-import com.betomorrow.msbuild.tools.nunit.NUnitRunner
+import com.betomorrow.msbuild.tools.nunit.NUnitConsole
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
@@ -12,7 +12,7 @@ class RunNUnitConsoleTaskTest extends Specification {
     Project project
 
     RunNUnitConsoleTask task
-    NUnitRunner runner
+    NUnitConsole runner
 
     def "setup"(){
         runner = Mock()
