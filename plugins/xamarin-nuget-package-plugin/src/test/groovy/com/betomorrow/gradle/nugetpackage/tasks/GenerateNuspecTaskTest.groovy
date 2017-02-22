@@ -8,6 +8,8 @@ import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
 
+import java.nio.file.Paths
+
 class GenerateNuspecTaskTest extends Specification {
 
     Project project
@@ -196,19 +198,19 @@ class GenerateNuspecTaskTest extends Specification {
         then:
         1 * writer.write(_) >> { arguments -> nuSpecData = arguments[0] }
 
-        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib/bin/Release/CrossLib.dll',
+        assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib/bin/Release/CrossLib.dll').toString(),
                 'lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10'))
 
-        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.dll',
+        assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.dll').toString(),
                 'lib/MonoAndroid10'))
 
-        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.Droid/bin/Release/CrossLib.Droid.dll',
+        assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Droid/bin/Release/CrossLib.Droid.dll').toString(),
                 'lib/MonoAndroid10'))
 
-        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.dll',
+        assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.dll').toString(),
                 'lib/Xamarin.iOS10'))
 
-        assert nuSpecData.assemblySet.contains(new Assembly('CrossLib.IOS/bin/Release/CrossLib.IOS.dll',
+        assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.IOS/bin/Release/CrossLib.IOS.dll').toString(),
                 'lib/Xamarin.iOS10'))
 
     }
