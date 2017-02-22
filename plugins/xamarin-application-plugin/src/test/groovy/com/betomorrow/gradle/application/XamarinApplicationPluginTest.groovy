@@ -117,32 +117,4 @@ class XamarinApplicationPluginTest {
         assert buildIOSTask.platform == "iPhoneSimulator"
     }
 
-    @Test
-     void testDryRun() {
-        project.application {
-
-            dryRun = true
-
-            appName 'CrossApp' // auto resolved (common part of all projects names in solution)
-            appVersion '2.6' // if empty use the one defined in csproj
-            storeVersion '1.0' // if empty use the one defined in csproj
-
-            packageName "com.acme.crossapp" // if empty use the one defined in csproj
-
-            android {
-                manifest "path/to/manifest" // auto resolved
-                output "dist/my-${appName}-${appVersion}.apk"  // default value
-                //projectFile "path/to/myapp" // auto resolved
-            }
-
-            ios {
-                output "dist/${appName}-${appVersion}.ipa"  // default value
-            }
-        }
-
-        project.evaluate()
-
-        BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid
-        buildAndroidTask.actions.each { action -> action.execute(buildAndroidTask) }
-    }
 }

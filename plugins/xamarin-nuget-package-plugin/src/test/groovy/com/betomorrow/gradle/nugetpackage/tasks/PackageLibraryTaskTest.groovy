@@ -37,7 +37,7 @@ class PackageLibraryTaskTest extends Specification {
         task.packageLibrary()
 
         then:
-        1 * nuget.pack("default.nuspec", 'nightly')
+        1 * nuget.pack(project.file("generated.nuspec").absolutePath, 'nightly')
     }
 
     def "package don't use suffix by default"() {
@@ -54,7 +54,7 @@ class PackageLibraryTaskTest extends Specification {
         task.packageLibrary()
 
         then:
-        1 * nuget.pack("default.nuspec", null)
+        1 * nuget.pack(project.file("generated.nuspec").absolutePath, null)
     }
 
 }

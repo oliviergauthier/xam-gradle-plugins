@@ -14,9 +14,9 @@ class CleanTaskTest extends Specification {
     CleanTask task
 
     def setup() {
-        Project project = ProjectBuilder.builder().build()
+        Project project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/CrossApp/')).build()
         task = project.task("clean", type:CleanTask) {
-            solutionFile = 'src/test/resources/CrossApp/CrossApp.sln'
+            solutionFile = 'CrossApp.sln'
         }
 
         createFile('CrossApp/bin/Release/CrossApp.dll')

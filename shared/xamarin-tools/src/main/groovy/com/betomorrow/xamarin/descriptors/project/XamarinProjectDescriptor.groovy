@@ -69,6 +69,9 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
             return path.parent.resolve(getOutputDir(configuration, platform)).resolve("${packageName}.apk")
         } else {
             def packageName = getIpaPackageName(configuration, platform)
+            if (!packageName) {
+                throw new Exception("No IpaPackageName defined in csproj")
+            }
             return path.parent.resolve(getOutputDir(configuration, platform)).resolve("${packageName}.ipa")
         }
     }

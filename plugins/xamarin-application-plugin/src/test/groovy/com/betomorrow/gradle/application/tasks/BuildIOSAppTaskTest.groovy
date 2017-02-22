@@ -68,7 +68,7 @@ class BuildIOSAppTaskTest extends Specification {
                 'Release',
                 'iPhone',
                 'bin/iPhone/Release',
-                project.file("CrossApp/CrossApp.sln").toString())
+                'CrossApp/CrossApp.sln')
     }
 
     def "should copy to output"() {

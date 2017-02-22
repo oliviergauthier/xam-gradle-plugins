@@ -56,7 +56,8 @@ class BuildIOSAppTask extends DefaultTask {
     }
 
     private void copyBuiltAssemblyToOutput() {
-        fileCopier.replace(getProjectDescriptor().getApplicationOutputPath(configuration, platform).toString(), output)
+        def dest = getProjectDescriptor().getApplicationOutputPath(configuration, platform).toString()
+        fileCopier.replace(dest, output)
     }
 
     private XamarinProjectDescriptor getProjectDescriptor() {

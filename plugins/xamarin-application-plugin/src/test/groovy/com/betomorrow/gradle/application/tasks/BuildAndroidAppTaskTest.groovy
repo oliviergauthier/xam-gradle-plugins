@@ -85,7 +85,7 @@ class BuildAndroidAppTaskTest extends Specification {
         }
 
         assert Paths.get(capturedSrc) == project.file("CrossApp/Droid/bin/Release/com.acme.crossapp.apk").toPath()
-        assert Paths.get(capturedDst) == project.file("dist/CrossApp.Droid-1.0.apk").toPath()
+        assert Paths.get(capturedDst) == Paths.get("dist/CrossApp.Droid-1.0.apk")
     }
 
     def "should do operations in the right order"() {

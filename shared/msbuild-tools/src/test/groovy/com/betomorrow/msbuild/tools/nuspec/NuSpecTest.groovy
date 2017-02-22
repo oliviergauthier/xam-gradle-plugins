@@ -17,19 +17,20 @@ class NuSpecTest {
     def output
 
     NuSpec nuspec
+    XmlNuSpecWriter writer
 
     @Before
      void setUp() {
         output = testFolder.newFile("out.nuspec")
 
-//        nuspec = new NuSpec()
+        writer = new XmlNuSpecWriter()
         nuspec = new NuSpec(SAMPLE_NUSPEC)
         nuspec.output = output.getAbsolutePath()
     }
 
     @Test
      void testReadAndWriteWithoutModification() {
-        nuspec.process()
+        writer.write(nuspec)
 
         assert new XmlSlurper().parse(SAMPLE_NUSPEC) == new XmlSlurper().parse(output)
     }
@@ -37,7 +38,7 @@ class NuSpecTest {
     @Test
      void testUpdateId() {
         nuspec.packageId = "new packageId"
-        nuspec.process()
+        writer.write(nuspec)
 
         assert field("id") == "new packageId"
     }
@@ -45,7 +46,7 @@ class NuSpecTest {
     @Test
      void testUpdateVersion() {
         nuspec.version = "new version"
-        nuspec.process()
+        writer.write(nuspec)
 
         assert field("version") == "new version"
     }
@@ -54,7 +55,7 @@ class NuSpecTest {
     @Test
      void testUpdateAuthor() {
         nuspec.authors = "new authors"
-        nuspec.process()
+        writer.write(nuspec)
 
         assert field("authors") == "new authors"
     }
@@ -62,7 +63,7 @@ class NuSpecTest {
     @Test
      void testUpdateOwner() {
         nuspec.owners = "new owners"
-        nuspec.process()
+        writer.write(nuspec)
 
         assert field("owners") == "new owners"
     }
@@ -71,7 +72,7 @@ class NuSpecTest {
     @Test
      void testUpdateLicenceUrl() {
         nuspec.licenseUrl = "new licence url"
-        nuspec.process()
+        writer.write(nuspec)
 
         assert field("licenseUrl") == "new licence url"
     }
@@ -79,7 +80,7 @@ class NuSpecTest {
     @Test
      void testUpdateProjectUrl() {
         nuspec.projectUrl = "new project url"
-        nuspec.process()
+        writer.write(nuspec)
 
         assert field("projectUrl") == "new project url"
     }
@@ -87,7 +88,7 @@ class NuSpecTest {
     @Test
      void testUpdateIconUrl() {
         nuspec.iconUrl = "new icon url"
-        nuspec.process()
+        writer.write(nuspec)
 
         assert field("iconUrl") == "new icon url"
     }
@@ -95,7 +96,7 @@ class NuSpecTest {
     @Test
      void testUpdateRequireLicenseAcceptance() {
         nuspec.requireLicenseAcceptance = true
-        nuspec.process()
+        writer.write(nuspec)
 
         assert field("requireLicenseAcceptance") == "true"
     }
@@ -103,7 +104,7 @@ class NuSpecTest {
     @Test
      void testUpdateDescription() {
         nuspec.description = "new description"
-        nuspec.process()
+        writer.write(nuspec)
 
         assert field("description") == "new description"
     }
@@ -111,7 +112,7 @@ class NuSpecTest {
     @Test
      void testUpdateReleaseNote() {
         nuspec.releaseNotes = "new release note"
-        nuspec.process()
+        writer.write(nuspec)
 
         assert field("releaseNotes") == "new release note"
     }
@@ -119,7 +120,7 @@ class NuSpecTest {
     @Test
      void testUpdateCopyright() {
         nuspec.copyright = "new copyright"
-        nuspec.process()
+        writer.write(nuspec)
 
         assert field("copyright") == "new copyright"
     }
@@ -127,7 +128,7 @@ class NuSpecTest {
     @Test
      void testUpdateTags() {
         nuspec.tags = "new tags"
-        nuspec.process()
+        writer.write(nuspec)
 
         assert field("tags") == "new tags"
     }
@@ -135,7 +136,7 @@ class NuSpecTest {
     @Test
      void testUpdateDependency() {
         nuspec.dependencySet.add("SampleDependency:version")
-        nuspec.process()
+        writer.write(nuspec)
 
         assertContainsDependency(new Dependency("SampleDependency:version"))
     }
@@ -143,7 +144,7 @@ class NuSpecTest {
     @Test
      void testAddDependency() {
         nuspec.dependencySet.add("CustomDependency:version")
-        nuspec.process()
+        writer.write(nuspec)
 
         assertContainsDependency(new Dependency("CustomDependency:version"))
     }
@@ -151,7 +152,7 @@ class NuSpecTest {
     @Test
      void testUpdateDependencyWithGroup() {
         nuspec.dependencySet.add("net40:jQuery:version")
-        nuspec.process()
+        writer.write(nuspec)
 
         assertContainsDependency(new Dependency("net40:jQuery:version"))
     }
@@ -159,7 +160,7 @@ class NuSpecTest {
     @Test
      void testAddDependencyWithGroup() {
         nuspec.dependencySet.add("net40:CustomDependency:version")
-        nuspec.process()
+        writer.write(nuspec)
 
         assertContainsDependency(new Dependency("net40:CustomDependency:version"))
     }
@@ -167,7 +168,7 @@ class NuSpecTest {
     @Test
      void testAddAssembly() {
         nuspec.assemblySet.add(new Assembly("build/Release/MyAssembly.dll", "libs/"))
-        nuspec.process()
+        writer.write(nuspec)
 
         assert assemblyNode(new Assembly("build/Release/MyAssembly.dll", "libs/")).size() > 0
     }
@@ -175,7 +176,7 @@ class NuSpecTest {
     @Test
      void testAddAssemblyTwiceDontAddTwoNode() {
         nuspec.assemblySet.add(new Assembly("build/Release/MyAssembly.dll", "libs/"))
-        nuspec.process()
+        writer.write(nuspec)
 
         assert assemblyNode(new Assembly("build/Release/MyAssembly.dll", "libs/")).size() == 1
     }

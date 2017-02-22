@@ -42,7 +42,7 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <BuildIpa>true</BuildIpa>
-    <IpaPackageName>com.acme.CrossApp</IpaPackageName>
+    <IpaPackageName>CrossApp.iOS</IpaPackageName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>full</DebugType>
@@ -75,6 +75,8 @@
     <MtouchUseSGen>true</MtouchUseSGen>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchProfiling>true</MtouchProfiling>
+    <BuildIpa>true</BuildIpa>
+    <IpaPackageName>CrossApp.iOS</IpaPackageName>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
