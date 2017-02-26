@@ -4,21 +4,22 @@ import com.betomorrow.msbuild.tools.commands.CommandRunner
 
 class NunitRunCmd implements CommandRunner.Cmd {
 
-    String nunitConsolePath = 'nunit-console.exe'
+    String nunitConsolePath
 
     List<String> assemblies
 
     String format
     String resultFilename = 'TestResult.xml'
 
-    NunitRunCmd(List<String> assemblies, String format) {
+    NunitRunCmd(String nunitConsolePath, List<String> assemblies, String format) {
+        this.nunitConsolePath = nunitConsolePath
         this.assemblies = assemblies
         this.format = format
     }
 
     @Override
     List<String> build() {
-        List<String> cmd = [nunitConsolePath]
+        List<String> cmd = ["mono", nunitConsolePath]
 
         if (assemblies) {
             cmd.addAll(assemblies)
@@ -30,4 +31,6 @@ class NunitRunCmd implements CommandRunner.Cmd {
 
         return cmd
     }
+
+
 }
