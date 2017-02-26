@@ -1,5 +1,6 @@
 package com.betomorrow.msbuild.tools.nunit
 
+import com.betomorrow.groovy.extensions.UrlExtension
 import com.betomorrow.msbuild.tools.Version
 import com.betomorrow.msbuild.tools.files.FileDownloader
 import com.betomorrow.msbuild.tools.files.ZippedFile
@@ -11,7 +12,7 @@ class NUnitConsole3Downloader {
 
     String download(String version = "3.6.0") {
         def url = getUrl(version)
-        def dst = new File(nugetCacheDir, url.fileNameWithoutExtension)
+        def dst = new File(nugetCacheDir, UrlExtension.getFileNameWithoutExtension(url))
         if (!dst.exists()) {
             def file = downloader.download(url)
             new ZippedFile(file).unzip(dst)

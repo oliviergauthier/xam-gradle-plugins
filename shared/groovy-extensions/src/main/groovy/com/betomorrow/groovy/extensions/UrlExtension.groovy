@@ -1,4 +1,4 @@
-package com.betomorrow.msbuild.tools.files
+package com.betomorrow.groovy.extensions
 
 class UrlExtension {
 
@@ -7,7 +7,7 @@ class UrlExtension {
     }
 
     static String getFileNameWithoutExtension(final URL self) {
-        return new File(self.file).nameWithoutExtension
+        return FileExtension.getNameWithoutExtension(new File(self.file))
     }
 
 }

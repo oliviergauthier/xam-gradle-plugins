@@ -10,6 +10,10 @@ class DefaultNunitConsole implements NUnitConsole {
     protected NUnitConsole3Downloader downloader = new NUnitConsole3Downloader()
     protected CommandRunner runner = new SystemCommandRunner()
 
+    DefaultNunitConsole(CommandRunner runner) {
+        this.runner = runner
+    }
+
     @Override
     void run(List<String> assemblies, String format, String version) {
         def nunitConsolePath = getNunitConsolePath(version)

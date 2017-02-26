@@ -1,5 +1,7 @@
 package com.betomorrow.msbuild.tools.files
 
+import com.betomorrow.groovy.extensions.UrlExtension
+
 import java.nio.file.Files
 
 class FileDownloader {
@@ -16,7 +18,7 @@ class FileDownloader {
     }
 
     File download(URL url) {
-        def file = new File(downloadDir, url.fileName)
+        def file = new File(downloadDir, UrlExtension.getFileName(url))
         file.parentFile.mkdirs()
         def fos = file.newOutputStream()
         fos << url.openStream()

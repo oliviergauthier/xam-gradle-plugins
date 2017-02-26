@@ -1,0 +1,3 @@
+moduleName = extra-module
+moduleVersion = 1.0
+extensionClasses = com.betomorrow.groovy.extensions.UrlExtension, com.betomorrow.groovy.extensions.FileExtension

@@ -1,4 +1,4 @@
-package com.betomorrow.msbuild.tools.files
+package com.betomorrow.groovy.extensions
 
 class FileExtension {
 

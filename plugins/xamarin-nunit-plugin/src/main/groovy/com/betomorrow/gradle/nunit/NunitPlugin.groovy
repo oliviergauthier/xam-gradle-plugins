@@ -16,7 +16,7 @@ class NunitPlugin implements Plugin<Project> {
 
             GlobalVariables.initVariables(project)
 
-            extensions.create("nunit", NunitPluginExtension, project)
+            extensions.create("nunit", NunitPluginExtension)
 
             afterEvaluate {
 

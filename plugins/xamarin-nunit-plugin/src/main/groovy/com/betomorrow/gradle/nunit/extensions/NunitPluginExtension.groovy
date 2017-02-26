@@ -8,7 +8,7 @@ class NunitPluginExtension {
     def assemblies
     String format
 
-    NunitPluginExtension(Project project) {
+    NunitPluginExtension() {
     }
 
     List<String> getProjects() {

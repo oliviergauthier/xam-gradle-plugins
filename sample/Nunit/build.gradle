@@ -1,0 +1,22 @@
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.betomorrow.gradle:xamarin-nunit-plugin:1.0-SNAPSHOT'
+    }
+}
+
+plugins {
+    id 'xamarin-nunit-plugin'
+}
+
+version = "1.0.0"
+
+
+nunit {
+    projects = "CrossLib.Test"
+    format = "nunit2"
+}
+
