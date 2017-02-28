@@ -22,7 +22,7 @@ class NUnitConsole3Downloader {
 
     String getNugetCacheDir() {
         def baseDir = System.getProperty('user.home')
-        return "${baseDir}/.nuget/cache/"
+        return "${baseDir}/.nuget/caches/"
     }
 
     URL getUrl(String version) {

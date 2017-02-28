@@ -1,17 +1,29 @@
 package com.betomorrow.gradle.nunit.context
 
-import com.betomorrow.gradle.commons.context.Context
 import com.betomorrow.msbuild.tools.commands.FakeCommandRunner
 import com.betomorrow.msbuild.tools.commands.SystemCommandRunner
 import com.betomorrow.msbuild.tools.nunit.DefaultNunitConsole
 import com.betomorrow.msbuild.tools.nunit.NUnitConsole
+import org.gradle.api.Project
 
-class PluginContext extends Context<ApplicationContext>{
+class PluginContext {
 
-    static {
-        dryRunContext = [getNunitConsole : { new DefaultNunitConsole(new FakeCommandRunner())}] as ApplicationContext
+    private static ApplicationContext instance
 
-        defaultContext = [getNunitConsole : { new DefaultNunitConsole(new SystemCommandRunner())}] as ApplicationContext
+    static ApplicationContext getCurrent() {
+        return instance
+    }
+
+    static void configure(Project project) {
+        configure(project.hasProperty("dryRun") && project.dryRun)
+    }
+
+    static void configure(boolean dryRun) {
+        if (dryRun) {
+            instance = [getNunitConsole : { new DefaultNunitConsole(new FakeCommandRunner())}] as ApplicationContext
+        } else {
+            instance =  [getNunitConsole : { new DefaultNunitConsole(new SystemCommandRunner())}] as ApplicationContext
+        }
     }
 
     interface ApplicationContext {

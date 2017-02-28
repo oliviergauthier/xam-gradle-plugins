@@ -11,9 +11,9 @@ import org.gradle.api.tasks.TaskAction
 
 class BuildIOSAppTask extends DefaultTask {
 
-    protected XBuild xBuild = PluginContext.current.xbuild
-    protected FileCopier fileCopier = PluginContext.current.fileCopier
-    protected InfoPlistWriter infoPlistWriter = PluginContext.current.infoPlistWriter
+    protected XBuild xBuild = PluginContext.current.getXbuild()
+    protected FileCopier fileCopier = PluginContext.current.getFileCopier()
+    protected InfoPlistWriter infoPlistWriter = PluginContext.current.getInfoPlistWriter()
 
     String bundleVersion
     String bundleShortVersion

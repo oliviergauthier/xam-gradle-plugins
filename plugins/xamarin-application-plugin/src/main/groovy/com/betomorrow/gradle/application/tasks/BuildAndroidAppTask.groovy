@@ -11,9 +11,9 @@ import org.gradle.api.tasks.TaskAction
 
 class BuildAndroidAppTask extends DefaultTask {
 
-    protected XBuild xBuild = PluginContext.current.xbuild
-    protected AndroidManifestWriter androidManifestWriter = PluginContext.current.androidManifestWriter
-    protected FileCopier fileCopier = PluginContext.current.fileCopier
+    protected XBuild xBuild = PluginContext.current.getXbuild()
+    protected AndroidManifestWriter androidManifestWriter = PluginContext.current.getAndroidManifestWriter()
+    protected FileCopier fileCopier = PluginContext.current.getFileCopier()
 
     String appVersion
     String versionCode

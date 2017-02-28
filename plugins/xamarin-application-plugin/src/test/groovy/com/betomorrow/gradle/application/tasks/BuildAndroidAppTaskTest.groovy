@@ -3,7 +3,6 @@ package com.betomorrow.gradle.application.tasks
 import com.betomorrow.android.manifest.AndroidManifest
 import com.betomorrow.android.manifest.AndroidManifestWriter
 import com.betomorrow.msbuild.tools.files.FileCopier
-import com.betomorrow.msbuild.tools.commands.CommandRunner
 import com.betomorrow.xamarin.xbuild.XBuild
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
