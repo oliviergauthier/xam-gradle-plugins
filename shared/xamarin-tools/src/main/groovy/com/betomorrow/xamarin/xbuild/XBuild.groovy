@@ -41,4 +41,12 @@ class XBuild {
         cmd.setProjectPath(solutionPath)
         commandRunner.run(cmd)
     }
+
+    void buildSingleProject(String configuration, String csprojPath) {
+        XBuildCmd cmd = new XBuildCmd()
+        cmd.setConfiguration(configuration)
+        cmd.setTarget(XBuildTargets.Build)
+        cmd.setProjectPath(csprojPath)
+        commandRunner.run(cmd)
+    }
 }

@@ -1,8 +1,10 @@
 package com.betomorrow.gradle.nunit
 
 import com.betomorrow.gradle.commons.tasks.GlobalVariables
+import com.betomorrow.gradle.commons.tasks.Groups
 import com.betomorrow.gradle.nunit.context.PluginContext
 import com.betomorrow.gradle.nunit.extensions.NunitPluginExtension
+import com.betomorrow.gradle.nunit.tasks.CompileTestTask
 import com.betomorrow.gradle.nunit.tasks.RunNUnitConsoleTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -24,10 +26,18 @@ class NunitPlugin implements Plugin<Project> {
 
                 NunitPluginExtension nunit = extensions.getByName("nunit")
 
-                task("test", description : "Run nunit test", group : "verification", type : RunNUnitConsoleTask) {
+                def compileTestTask = task("compileTest", description : "Build tests assemblies", group : Groups.BUILD, type : CompileTestTask) {
+                    projects = nunit.projects
+                }
+
+                def testTask = task("test", description : "Run nunit test", group : Groups.VERIFICATION, type : RunNUnitConsoleTask) {
                     projects = nunit.projects
                     format = nunit.format
                     assemblies = nunit.assemblies
+                }
+
+                if (nunit.projects != null && !nunit.projects.isEmpty()) {
+                    testTask.dependsOn(compileTestTask)
                 }
 
             }
