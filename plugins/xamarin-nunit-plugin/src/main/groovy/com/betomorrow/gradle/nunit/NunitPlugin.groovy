@@ -18,7 +18,7 @@ class NunitPlugin implements Plugin<Project> {
 
             GlobalVariables.initVariables(project)
 
-            extensions.create("nunit", NunitPluginExtension)
+            extensions.create("nunit", NunitPluginExtension, project)
 
             afterEvaluate {
 
@@ -39,7 +39,6 @@ class NunitPlugin implements Plugin<Project> {
                 if (nunit.projects != null && !nunit.projects.isEmpty()) {
                     testTask.dependsOn(compileTestTask)
                 }
-
             }
         }
 
