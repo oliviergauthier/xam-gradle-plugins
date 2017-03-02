@@ -19,7 +19,7 @@ class NunitConsole3DownloaderIT extends Specification {
         then:
         println(runnerPath)
         def expected = System.getProperty("user.home") + File.separator +
-                ".nuget" + File.separator + "cache"+ File.separator + "NUnit.Console-3.6.0"
+                ".nuget" + File.separator + "caches"+ File.separator + "NUnit.Console-3.6.0"
         assert runnerPath == expected
     }
 }
