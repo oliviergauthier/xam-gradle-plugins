@@ -3,6 +3,8 @@ package com.betomorrow.msbuild.tools.nunit
 import com.betomorrow.msbuild.tools.commands.CommandRunner
 import spock.lang.Specification
 
+import java.nio.file.Paths
+
 class DefaultNunitConsoleTest extends Specification {
 
     CommandRunner runner
@@ -29,7 +31,7 @@ class DefaultNunitConsoleTest extends Specification {
             cmd = arg[0]
             return 1
         }
-        assert cmd.build() == ['mono', 'sample/path/nunit3-console.exe',
+        assert cmd.build() == ['mono', Paths.get('sample/path/nunit3-console.exe').toString(),
                                'a.dll', 'b.dll', '--result:TestResult.xml;format=nunit2']
 
     }

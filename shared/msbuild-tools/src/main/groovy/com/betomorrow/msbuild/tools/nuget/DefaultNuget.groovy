@@ -18,10 +18,6 @@ class DefaultNuget implements Nuget {
         runner.run(new NugetCmd(action : 'install', packageId : packageId, version : version))
     }
 
-    void restore() {
-        runner.run(new NugetCmd(action : 'restore'))
-    }
-
     void update(String packageId, String version) {
         runner.run(new NugetCmd(action : 'install', packageId : packageId, version : version))
     }
@@ -47,6 +43,10 @@ class DefaultNuget implements Nuget {
 
     void push(String packagePath, String source, String apiKey) {
         runner.run(new NugetPushCmd(packagePath: packagePath, source: source, apiKey: apiKey))
+    }
+
+    void restore() {
+        runner.run(new NugetRestoreCmd())
     }
 
 }

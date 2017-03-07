@@ -58,7 +58,6 @@ class CleanTask extends DefaultTask {
                 Files.delete(dir)
                 return FileVisitResult.CONTINUE
             }
-
         })
     }
 
