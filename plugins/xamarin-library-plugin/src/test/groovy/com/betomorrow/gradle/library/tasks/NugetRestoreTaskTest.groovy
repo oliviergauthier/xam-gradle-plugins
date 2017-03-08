@@ -16,13 +16,11 @@ class NugetRestoreTaskTest extends Specification {
     def "setup"() {
         nuget = Mock()
 
-        project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/CrossApp/')).build()
+        project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/CrossLib/')).build()
         project.apply plugin: 'xamarin-library-plugin'
     }
 
     def "restore should call nuget"(){
-        given:
-
         when:
         project.evaluate()
         task = project.tasks.nugetRestore

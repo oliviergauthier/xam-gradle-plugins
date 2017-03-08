@@ -1,27 +1,14 @@
 package com.betomorrow.gradle.application.extensions
 
-import org.gradle.api.Project
+import com.betomorrow.gradle.commons.extensions.AbstractXamarinExtension
+import groovy.transform.InheritConstructors
 
-class XamarinApplicationExtension {
-
-    private Project project
+@InheritConstructors
+class XamarinApplicationExtension extends AbstractXamarinExtension {
 
     String appName
     String appVersion
     String storeVersion
     String packageName
-    boolean dryRun
-
-    XamarinApplicationExtension(Project project) {
-        this.project = project
-    }
-
-    String getConfiguration() {
-       return project.configuration
-    }
-
-    String getSolution() {
-        return project.solution
-    }
 
 }
