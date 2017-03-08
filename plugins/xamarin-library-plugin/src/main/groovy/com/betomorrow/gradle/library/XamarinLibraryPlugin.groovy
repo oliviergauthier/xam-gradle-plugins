@@ -6,6 +6,7 @@ import com.betomorrow.gradle.commons.tasks.Groups
 import com.betomorrow.gradle.library.context.PluginContext
 import com.betomorrow.gradle.library.extensions.XamarinLibraryExtension
 import com.betomorrow.gradle.library.tasks.BuildTask
+import com.betomorrow.gradle.library.tasks.NugetRestoreTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -33,7 +34,9 @@ class XamarinLibraryPlugin implements Plugin<Project> {
                     solutionFile = library.solution
                 }
 
-                task("build", description: "build library", group: Groups.BUILD, 'type': BuildTask) {
+                task("nugetRestore", description: "restore nuget packages", group: Groups.BUILD, 'type' : NugetRestoreTask){}
+
+                task("build", description: "build library", dependsOn: ["nugetRestore"],  group: Groups.BUILD, 'type': BuildTask) {
                     solutionFile = library.solution
                     configuration = library.configuration
                 }

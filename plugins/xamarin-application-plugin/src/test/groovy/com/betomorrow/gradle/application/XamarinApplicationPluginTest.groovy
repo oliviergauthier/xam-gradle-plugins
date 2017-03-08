@@ -6,58 +6,54 @@ import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import org.junit.Before
 import org.junit.Test
+import spock.lang.Specification
 
 import java.nio.file.Paths
 
-class XamarinApplicationPluginTest {
+class XamarinApplicationPluginTest extends Specification {
 
     Project project
 
-    @Before
-     void setUp() {
-        project = ProjectBuilder.builder().withProjectDir( new File('src/test/resources')).build()
-
+    def "setup"() {
+        project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/CrossApp/')).build()
         project.apply plugin: 'xamarin-application-plugin'
-
-        project.solution = 'CrossApp/CrossApp.sln' // first solution file in current folder
     }
 
-
-    @Test
-     void testApplyCreatesBuildAndroidTasksWithResolvedValues() {
+    def "test apply creates buildAndroid tasks with resolved values"() {
+        when:
         project.evaluate()
-
         BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid
 
-        assert buildAndroidTask.configuration == 'Release'
-        assert buildAndroidTask.appVersion == "1.0"
-        assert buildAndroidTask.versionCode == "2.6"
-        assert buildAndroidTask.packageName ==  "com.acme.crossapp"
-        assert buildAndroidTask.output == "dist/CrossApp.Droid-1.0.apk"
-        assert Paths.get(buildAndroidTask.projectFile) == project.file("CrossApp/Droid/CrossApp.Droid.csproj").toPath()
-        assert Paths.get(buildAndroidTask.manifest) == project.file("CrossApp/Droid/Properties/AndroidManifest.xml").toPath()
+        then:
+        buildAndroidTask.configuration == 'Release'
+        buildAndroidTask.appVersion == "1.0"
+        buildAndroidTask.versionCode == "2.6"
+        buildAndroidTask.packageName == "com.acme.crossapp"
+        buildAndroidTask.output == "dist/CrossApp.Droid-1.0.apk"
+        Paths.get(buildAndroidTask.projectFile) == project.file("Droid/CrossApp.Droid.csproj").toPath()
+        Paths.get(buildAndroidTask.manifest) == project.file("Droid/Properties/AndroidManifest.xml").toPath()
 
     }
 
-    @Test
-     void testApplyCreatesBuildIOSTasksWithResolvedValues() {
+    def "test apply creates buildIOS task with resolved values"() {
+        when:
         project.evaluate()
-
         BuildIOSAppTask buildIOSTask = project.tasks.buildIOS
 
-        assert buildIOSTask.configuration == 'Release'
-        assert buildIOSTask.bundleVersion == "1.0"
-        assert buildIOSTask.bundleShortVersion == "2.6"
-        assert buildIOSTask.bundleIdentifier == "com.sample.crossapp"
-        assert buildIOSTask.output == "dist/CrossApp.iOS-1.0.ipa"
-        assert Paths.get(buildIOSTask.projectFile) == project.file("CrossApp/iOS/CrossApp.iOS.csproj").toPath()
-        assert Paths.get(buildIOSTask.infoPlist) == project.file("CrossApp/iOS/Info.plist").toPath()
-        assert buildIOSTask.platform == "iPhone"
-
+        then:
+        buildIOSTask.configuration == 'Release'
+        buildIOSTask.bundleVersion == "1.0"
+        buildIOSTask.bundleShortVersion == "2.6"
+        buildIOSTask.bundleIdentifier == "com.sample.crossapp"
+        buildIOSTask.output == "dist/CrossApp.iOS-1.0.ipa"
+        Paths.get(buildIOSTask.projectFile) == project.file("iOS/CrossApp.iOS.csproj").toPath()
+        Paths.get(buildIOSTask.infoPlist) == project.file("iOS/Info.plist").toPath()
+        buildIOSTask.platform == "iPhone"
     }
 
-    @Test
-     void testApplyCreatesBuildAndroidTaskWithOverridedValues() {
+
+    def "test apply creates buildAndroid task with overrided values"() {
+        when:
         project.application {
 
             appName 'CrossApp' // auto resolved (common part of all projects names in solution)
@@ -75,18 +71,20 @@ class XamarinApplicationPluginTest {
 
         project.evaluate()
 
+        then:
         BuildAndroidAppTask buildAndroidTask = project.tasks.buildAndroid
-        assert buildAndroidTask.configuration == 'Release'
-        assert buildAndroidTask.appVersion == "2.6"
-        assert buildAndroidTask.versionCode == "1.0"
-        assert buildAndroidTask.packageName ==  "com.acme.crossapp"
-        assert buildAndroidTask.output == "dist/my-CrossApp.Droid-2.6.apk"
-        assert buildAndroidTask.projectFile == "path/to/myapp"
-        assert buildAndroidTask.manifest == "path/to/manifest"
+        buildAndroidTask.configuration == 'Release'
+        buildAndroidTask.appVersion == "2.6"
+        buildAndroidTask.versionCode == "1.0"
+        buildAndroidTask.packageName == "com.acme.crossapp"
+        buildAndroidTask.output == "dist/my-CrossApp.Droid-2.6.apk"
+        buildAndroidTask.projectFile == "path/to/myapp"
+        buildAndroidTask.manifest == "path/to/manifest"
     }
 
-    @Test
-     void testApplyCreatesBuildIOSTaskWithOverridedValues() {
+
+    def "test apply creates buildIOS task with overrided values"() {
+        when:
         project.application {
 
             appName 'CrossApp' // auto resolved (common part of all projects names in solution)
@@ -105,16 +103,17 @@ class XamarinApplicationPluginTest {
 
         project.evaluate()
 
+        then:
         BuildIOSAppTask buildIOSTask = project.tasks.buildIOS
 
-        assert buildIOSTask.configuration == 'Release'
-        assert buildIOSTask.bundleVersion == "2.6"
-        assert buildIOSTask.bundleShortVersion == "1.0"
-        assert buildIOSTask.bundleIdentifier == "com.acme.crossapp"
-        assert buildIOSTask.output == "dist/my-CrossApp.iOS-2.6.ipa"
-        assert buildIOSTask.projectFile == "path/to/myapp"
-        assert buildIOSTask.infoPlist == "path/to/Info.plist"
-        assert buildIOSTask.platform == "iPhoneSimulator"
+        buildIOSTask.configuration == 'Release'
+        buildIOSTask.bundleVersion == "2.6"
+        buildIOSTask.bundleShortVersion == "1.0"
+        buildIOSTask.bundleIdentifier == "com.acme.crossapp"
+        buildIOSTask.output == "dist/my-CrossApp.iOS-2.6.ipa"
+        buildIOSTask.projectFile == "path/to/myapp"
+        buildIOSTask.infoPlist == "path/to/Info.plist"
+        buildIOSTask.platform == "iPhoneSimulator"
     }
 
 }

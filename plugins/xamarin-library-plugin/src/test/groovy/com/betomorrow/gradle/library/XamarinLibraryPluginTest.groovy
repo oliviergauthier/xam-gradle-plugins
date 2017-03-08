@@ -10,7 +10,7 @@ class XamarinLibraryPluginTest extends Specification {
 
     Project project
 
-    void setup() {
+    def "setup"() {
         project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/')).build()
         project.apply plugin: 'xamarin-library-plugin'
 
@@ -24,8 +24,6 @@ class XamarinLibraryPluginTest extends Specification {
     }
 
     def "should create build task"() {
-        given:
-
         when:
         def task = project.tasks.build
 
@@ -59,8 +57,6 @@ class XamarinLibraryPluginTest extends Specification {
     }
 
     def "should create clean task"() {
-        given:
-
         when:
         def task = project.tasks.clean
 

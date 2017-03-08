@@ -7,6 +7,7 @@ import com.betomorrow.gradle.application.extensions.XamarinApplicationExtension
 import com.betomorrow.gradle.application.extensions.XamarinIosApplicationExtension
 import com.betomorrow.gradle.application.tasks.BuildAndroidAppTask
 import com.betomorrow.gradle.application.tasks.BuildIOSAppTask
+import com.betomorrow.gradle.application.tasks.NugetRestoreTask
 import com.betomorrow.gradle.commons.tasks.CleanTask
 import com.betomorrow.gradle.commons.tasks.GlobalVariables
 import com.betomorrow.gradle.commons.tasks.Groups
@@ -40,7 +41,9 @@ class XamarinApplicationPlugin implements Plugin<Project> {
                     solutionFile = application.solution
                 }
 
-                task("buildAndroid", description: "build android application", group: Groups.BUILD, type: BuildAndroidAppTask) {
+                task("nugetRestore", description: "restore nuget packages", group: Groups.BUILD, 'type' : NugetRestoreTask){}
+
+                task("buildAndroid", description: "build android application", dependsOn: ["nugetRestore"], group: Groups.BUILD, type: BuildAndroidAppTask) {
                     appVersion = android.appVersion
                     versionCode = android.storeVersion
                     packageName = android.packageName
@@ -50,7 +53,7 @@ class XamarinApplicationPlugin implements Plugin<Project> {
                     configuration = application.configuration
                 }
 
-                task("buildIOS", description: "build ios application", group: Groups.BUILD, type: BuildIOSAppTask) {
+                task("buildIOS", description: "build ios application", dependsOn: ["nugetRestore"], group: Groups.BUILD, type: BuildIOSAppTask) {
                     bundleVersion = ios.bundleVersion
                     bundleShortVersion = ios.bundleShortVersion
                     bundleIdentifier = ios.bundleIdentifier
