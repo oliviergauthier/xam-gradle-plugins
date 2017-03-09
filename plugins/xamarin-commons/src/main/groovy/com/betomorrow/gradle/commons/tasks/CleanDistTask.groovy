@@ -1,8 +1,6 @@
 package com.betomorrow.gradle.commons.tasks
 
 import com.betomorrow.xamarin.descriptors.project.ProjectDescriptor
-import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
-import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
@@ -12,33 +10,14 @@ import java.nio.file.Path
 import java.nio.file.SimpleFileVisitor
 import java.nio.file.attribute.BasicFileAttributes
 
-class CleanTask extends DefaultTask {
+class CleanDistTask extends DefaultTask {
 
-    protected SolutionLoader solutionLoader = new SolutionLoader()
-
-    protected List<String> buildDirectories = ["obj", "bin"]
-
-    String solutionFile
-    String projectFile
+    protected List<String> buildDirectories = ["dist"]
 
     @TaskAction
-    clean() {
-        if (solutionFile != null) {
-            SolutionDescriptor sd = solutionLoader.load(project.file(solutionFile))
-            sd.getProjects().forEach { p ->
-                cleanProject(p)
-            }
-        }
-
-        if (projectFile != null) {
-            ProjectDescriptor p = new ProjectDescriptor(null, projectFile)
-            cleanProject(p)
-        }
-    }
-
-    void cleanProject(ProjectDescriptor p) {
-        buildDirectories.forEach { d ->
-            deleteDirectory(p.path.parent.resolve(d))
+    cleanDist() {
+        buildDirectories.each {
+            deleteDirectory(project.file(it).toPath())
         }
     }
 
@@ -59,5 +38,4 @@ class CleanTask extends DefaultTask {
             })
         }
     }
-
 }

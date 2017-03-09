@@ -1,5 +1,6 @@
 package com.betomorrow.gradle.library
 
+import com.betomorrow.gradle.commons.tasks.CleanDistTask
 import com.betomorrow.gradle.commons.tasks.CleanTask
 import com.betomorrow.gradle.commons.tasks.GlobalVariables
 import com.betomorrow.gradle.commons.tasks.Groups
@@ -33,6 +34,9 @@ class XamarinLibraryPlugin implements Plugin<Project> {
                 task("clean", description: "clean library", group: Groups.BUILD, 'type': CleanTask) {
                     solutionFile = library.solution
                 }
+                task("cleanDist", description: "clean dist directory", group: Groups.BUILD, 'type': CleanDistTask) {}
+
+                task("cleanAll", description: "clean all dist and library", group: Groups.BUILD, dependsOn: ['clean', 'cleanDist']) {}
 
                 task("nugetRestore", description: "restore nuget packages", group: Groups.BUILD, 'type' : NugetRestoreTask){}
 

@@ -15,11 +15,11 @@ class NugetPushCmd implements CommandRunner.Cmd {
         List<String> cmd = [nugetPath, 'push', packagePath]
 
         if (source) {
-            cmd.add("-source ${source}")
+            cmd.addAll(["-source", source])
         }
 
         if (apiKey) {
-            cmd.add("-apikey ${apiKey}")
+            cmd.addAll(["-apikey", apiKey])
         }
 
         return cmd

@@ -8,12 +8,19 @@ class SystemCommandRunner implements CommandRunner {
     int run(CommandRunner.Cmd cmd) {
         println "Execute command : ${cmd.build().join(" ")}"
 
+        StringBuilder out = new StringBuilder()
+        StringBuilder err = new StringBuilder()
+
         def process = new ProcessBuilder(cmd.build() as String[])
                 .directory(workingDirectory)
-                .inheritIO()
                 .start()
 
+        process.consumeProcessOutput(out, err)
+
         process.waitFor()
+
+        System.out << out
+        System.err << err
 
         return process.exitValue()
     }

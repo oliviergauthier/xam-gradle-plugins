@@ -8,6 +8,7 @@ import com.betomorrow.gradle.application.extensions.XamarinIosApplicationExtensi
 import com.betomorrow.gradle.application.tasks.BuildAndroidAppTask
 import com.betomorrow.gradle.application.tasks.BuildIOSAppTask
 import com.betomorrow.gradle.application.tasks.NugetRestoreTask
+import com.betomorrow.gradle.commons.tasks.CleanDistTask
 import com.betomorrow.gradle.commons.tasks.CleanTask
 import com.betomorrow.gradle.commons.tasks.GlobalVariables
 import com.betomorrow.gradle.commons.tasks.Groups
@@ -40,6 +41,10 @@ class XamarinApplicationPlugin implements Plugin<Project> {
                 task("clean", description: "clean application", group: Groups.BUILD, 'type': CleanTask) {
                     solutionFile = application.solution
                 }
+
+                task("cleanDist", description: "clean dist directory", group: Groups.BUILD, 'type': CleanDistTask) {}
+
+                task("cleanAll", description: "clean all dist and library", group: Groups.BUILD, dependsOn: ['clean', 'cleanDist']) {}
 
                 task("nugetRestore", description: "restore nuget packages", group: Groups.BUILD, 'type' : NugetRestoreTask){}
 
