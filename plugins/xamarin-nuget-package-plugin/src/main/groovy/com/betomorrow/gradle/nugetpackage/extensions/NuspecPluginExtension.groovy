@@ -35,7 +35,11 @@ class NuspecPluginExtension {
     }
 
     String getOutput() {
-        return "${getPackageId()}-${getVersion()}.nupkg"
+        String baseName = "${getPackageId()}.${getVersion()}"
+        if (suffix) {
+            baseName = "${baseName}-${suffix}"
+        }
+        return "${baseName}.nupkg"
     }
 
     String getPackageId() {

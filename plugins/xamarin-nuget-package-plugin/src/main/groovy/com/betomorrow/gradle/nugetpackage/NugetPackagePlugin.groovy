@@ -56,17 +56,17 @@ class NugetPackagePlugin implements Plugin<Project>{
                     assemblies = nuspec.assemblies.assemblies
                 }
 
-                task("package", description: "Package lib with Nuget", group:Groups.PACKAGE, 'type': PackageLibraryTask) {
+                task("package", description: "Package lib with Nuget", dependsOn: ['generateNuspec'], group:Groups.PACKAGE, 'type': PackageLibraryTask) {
                     nuspecPath = project.file(NUSPEC_PATH).absolutePath
                     suffix = nuspec.suffix
                 }
 
-                task("install", description: "Install package locally", group:Groups.DEPLOY, 'type' : PushPackageTask) {
+                task("install", description: "Install package locally", dependsOn: ['package'], group:Groups.DEPLOY, 'type' : PushPackageTask) {
                     packagePath = nuspec.output
                     source = nuspec.localRepository
                 }
 
-                task("deploy", description: "Deploy package on remote server", group:Groups.DEPLOY, 'type' : PushPackageTask) {
+                task("deploy", description: "Deploy package on remote server", dependsOn: ['package'], group:Groups.DEPLOY, 'type' : PushPackageTask) {
                     packagePath = nuspec.output
                     source = nuspec.remoteRepository
                     apiKey = nuspec.apiKey
