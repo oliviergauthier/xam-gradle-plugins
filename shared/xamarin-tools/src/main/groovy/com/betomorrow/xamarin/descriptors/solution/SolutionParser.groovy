@@ -28,7 +28,7 @@ class SolutionParser {
                 def projectName = matcher.group(1)
                 def projectPath = matcher.group(2).replace('\\', '/')
                 def projectHash = matcher.group(3)
-                def configurations = findConfifurations(projectHash, content)
+                def configurations = findConfigurations(projectHash, content)
                 solutions.add(new SolutionProject(projectName, projectPath, configurations))
             }
         }
@@ -86,7 +86,7 @@ class SolutionParser {
         return lines
     }
 
-    private Collection<BuildConfiguration> findConfifurations(String projectHash, String content) {
+    private Collection<BuildConfiguration> findConfigurations(String projectHash, String content) {
         Set<BuildConfiguration> result = new HashSet<>()
         def lines = findConfigurationLines(projectHash, content)
         lines.forEach {
