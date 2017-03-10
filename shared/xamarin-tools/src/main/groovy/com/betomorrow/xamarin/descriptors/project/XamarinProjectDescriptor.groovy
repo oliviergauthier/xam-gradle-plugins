@@ -5,6 +5,7 @@ import com.betomorrow.msbuild.tools.files.FileUtils
 import groovy.transform.InheritConstructors
 
 import java.nio.file.Path
+import java.nio.file.Paths
 
 @InheritConstructors
 class XamarinProjectDescriptor extends ProjectDescriptor {
@@ -82,6 +83,10 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
             it.@Condition =~ pattern
         }
         return nodes[0]
+    }
+
+    Path getAssemblyInfoPath() {
+        return path.parent.resolve("Properties").resolve("AssemblyInfo.cs")
     }
 
 }
