@@ -59,6 +59,8 @@ class NugetPackagePlugin implements Plugin<Project>{
                 task("package", description: "Package lib with Nuget", dependsOn: ['generateNuspec'], group:Groups.PACKAGE, 'type': PackageLibraryTask) {
                     nuspecPath = project.file(NUSPEC_PATH).absolutePath
                     suffix = nuspec.suffix
+                    packageName = nuspec.generatedPackageName
+                    output = nuspec.output
                 }
 
                 task("install", description: "Install package locally", dependsOn: ['package'], group:Groups.DEPLOY, 'type' : PushPackageTask) {

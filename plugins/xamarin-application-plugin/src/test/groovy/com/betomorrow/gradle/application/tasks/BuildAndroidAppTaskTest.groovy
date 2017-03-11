@@ -78,7 +78,7 @@ class BuildAndroidAppTaskTest extends Specification {
         task.build()
 
         then:
-        1 * fileCopier.replace(_,_) >> { src, dst ->
+        1 * fileCopier.copy(_,_) >> { src, dst ->
             capturedSrc = src
             capturedDst = dst
         }
@@ -98,7 +98,7 @@ class BuildAndroidAppTaskTest extends Specification {
         1 * xbuild.buildAndroidApp(_,_)
 
         then:
-        1 * fileCopier.replace(_,_)
+        1 * fileCopier.copy(_,_)
     }
 
 }

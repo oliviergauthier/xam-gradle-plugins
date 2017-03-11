@@ -9,11 +9,11 @@ import java.nio.file.Path
 class DefaultAssemblyInfoUpdater implements AssemblyInfoUpdater {
 
     @Override
-    AssemblyInfoUpdater.AssemblyInfoUpdaterTask from(Path path) {
+    AssemblyInfoUpdaterTask from(Path path) {
         return new Updater(path)
     }
 
-    private class Updater implements AssemblyInfoUpdater.AssemblyInfoUpdaterTask {
+    private class Updater implements AssemblyInfoUpdaterTask {
 
         protected AssemblyInfoReader reader = new AssemblyInfoReader()
         protected AssemblyInfoWriter writer = new AssemblyInfoWriter()
@@ -26,7 +26,7 @@ class DefaultAssemblyInfoUpdater implements AssemblyInfoUpdater {
         }
 
         @Override
-        AssemblyInfoUpdater.AssemblyInfoUpdaterTask withVersion(String version) {
+        AssemblyInfoUpdaterTask withVersion(String version) {
             this.version = version
             return this
         }

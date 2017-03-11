@@ -2,6 +2,9 @@ package com.betomorrow.gradle.nugetpackage.extensions
 
 import org.gradle.api.Project
 
+import java.nio.file.Path
+import java.nio.file.Paths
+
 class NuspecPluginExtension {
 
     private Project project
@@ -35,12 +38,17 @@ class NuspecPluginExtension {
     }
 
     String getOutput() {
+        return Paths.get('dist').resolve(getGeneratedPackageName()).toString()
+    }
+
+    String getGeneratedPackageName() {
         String baseName = "${getPackageId()}.${getVersion()}"
         if (suffix) {
             baseName = "${baseName}-${suffix}"
         }
         return "${baseName}.nupkg"
     }
+
 
     String getPackageId() {
         if (packageId) {

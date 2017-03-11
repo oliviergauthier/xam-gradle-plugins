@@ -6,11 +6,11 @@ interface AssemblyInfoUpdater {
 
     AssemblyInfoUpdaterTask from(Path path)
 
-    static interface AssemblyInfoUpdaterTask {
-
-        AssemblyInfoUpdaterTask withVersion(String version)
-
-        void update()
-    }
 }
 
+interface AssemblyInfoUpdaterTask {
+
+    AssemblyInfoUpdaterTask withVersion(String version)
+
+    void update()
+}

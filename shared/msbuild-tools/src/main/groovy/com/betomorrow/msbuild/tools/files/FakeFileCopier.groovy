@@ -5,13 +5,22 @@ import java.nio.file.Path
 class FakeFileCopier implements FileCopier {
 
     @Override
-    void replace(String src, String dst) {
+    void copy(String src, String dst) {
         println "Copy $src to ${FileUtils.toUnixPath(dst)}"
     }
 
     @Override
-    void replace(Path src, Path dst) {
+    void copy(Path src, Path dst) {
         println "Copy $src to $dst"
     }
 
+    @Override
+    void move(Path src, Path dst) {
+         println "move ${src} to ${dst}"
+    }
+
+    @Override
+    void moveTo(Path src, Path directory) {
+        println "move ${src} to ${directory}"
+    }
 }

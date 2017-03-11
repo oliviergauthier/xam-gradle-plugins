@@ -80,7 +80,7 @@ class BuildIOSAppTaskTest extends Specification {
         task.build()
 
         then:
-        1 * fileCopier.replace(_,_) >> { src, dst ->
+        1 * fileCopier.copy(_,_) >> { src, dst ->
             capturedSrc = src
             capturedDst = dst
         }
@@ -100,7 +100,7 @@ class BuildIOSAppTaskTest extends Specification {
         1 * xBuild.buildIosApp(_,_,_,_)
 
         then:
-        1 * fileCopier.replace(_,_)
+        1 * fileCopier.copy(_,_)
     }
 
 }

@@ -24,7 +24,7 @@ class BuildTask extends DefaultTask {
 
         SolutionDescriptor sd = loader.load(project.file(solutionFile))
         sd.projects.each {
-            assemblyInfoUpdater.from(it.assemblyInfoPath).withVersion("1.0").update()
+            assemblyInfoUpdater.from(it.assemblyInfoPath).withVersion(version).update()
         }
 
         xBuild.buildCrossLibrary(configuration, solutionFile)

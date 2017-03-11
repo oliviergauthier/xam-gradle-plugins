@@ -39,7 +39,7 @@ class BuildIOSAppTask extends DefaultTask {
 
     private void updatePlistInfo() {
         if (infoPlist != getInfoPlistPathFromDescriptor()) {
-            fileCopier.replace(infoPlist, getInfoPlistPathFromDescriptor())
+            fileCopier.copy(infoPlist, getInfoPlistPathFromDescriptor())
         }
 
         def infPlist = new InfoPlist()
@@ -57,7 +57,7 @@ class BuildIOSAppTask extends DefaultTask {
 
     private void copyBuiltAssemblyToOutput() {
         def dest = getProjectDescriptor().getApplicationOutputPath(configuration, platform).toString()
-        fileCopier.replace(dest, output)
+        fileCopier.copy(dest, output)
     }
 
     private XamarinProjectDescriptor getProjectDescriptor() {

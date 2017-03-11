@@ -1,6 +1,7 @@
 package com.betomorrow.gradle.library.tasks
 
 import com.betomorrow.xamarin.assemblyInfo.AssemblyInfoUpdater
+import com.betomorrow.xamarin.assemblyInfo.AssemblyInfoUpdaterTask
 import com.betomorrow.xamarin.xbuild.XBuild
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
@@ -10,7 +11,7 @@ class BuildTaskTest extends Specification {
 
     XBuild xBuild = Mock()
     AssemblyInfoUpdater assemblyInfoUpdater = Mock()
-    AssemblyInfoUpdater.AssemblyInfoUpdaterTask updater = Mock()
+    AssemblyInfoUpdaterTask updater = Mock()
 
     Project project
     BuildTask task
@@ -19,6 +20,7 @@ class BuildTaskTest extends Specification {
         project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/CrossLib')).build()
         project.apply plugin: 'xamarin-library-plugin'
 
+        project.version = "1.0.0"
         project.evaluate()
 
         task = project.tasks.build
@@ -28,19 +30,23 @@ class BuildTaskTest extends Specification {
 
     def "should run xbuild"() {
         given:
+        def projects = []
 
         when:
         task.build()
 
         then:
-        5 * assemblyInfoUpdater.from(_) << { p ->
+        5 * assemblyInfoUpdater.from(_) >> { p ->
+            projects.add(p)
             return updater
         }
-        5 * updater.withVersion(_) << { v ->
+        5 * updater.withVersion("1.0.0") >> { v ->
             return updater
         }
 
-        1 * xBuild.buildCrossLibrary('Release', "CrossLib/CrossLib.sln")
+        5 * updater.update()
+
+        1 * xBuild.buildCrossLibrary('Release', "CrossLib.sln")
     }
 
 

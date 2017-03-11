@@ -41,6 +41,7 @@ class XamarinLibraryPlugin implements Plugin<Project> {
                 task("nugetRestore", description: "restore nuget packages", group: Groups.BUILD, 'type' : NugetRestoreTask){}
 
                 task("build", description: "build library", dependsOn: ["nugetRestore"],  group: Groups.BUILD, 'type': BuildTask) {
+                    version = project.version.toString()
                     solutionFile = library.solution
                     configuration = library.configuration
                 }

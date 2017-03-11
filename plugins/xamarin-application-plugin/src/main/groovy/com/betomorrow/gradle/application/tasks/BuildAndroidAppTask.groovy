@@ -42,7 +42,7 @@ class BuildAndroidAppTask extends DefaultTask {
 
     private void updateManifest() {
         if (manifest != getManifestPathFromDescriptor()) {
-            fileCopier.replace(manifest, getManifestPathFromDescriptor())
+            fileCopier.copy(manifest, getManifestPathFromDescriptor())
         }
 
         def androidManifest = new AndroidManifest()
@@ -58,7 +58,7 @@ class BuildAndroidAppTask extends DefaultTask {
     }
 
     private void copyBuiltAssemblyToOutput() {
-        fileCopier.replace(getProjectDescriptor().getApplicationOutputPath(configuration).toString(), output)
+        fileCopier.copy(getProjectDescriptor().getApplicationOutputPath(configuration).toString(), output)
     }
 
 }
