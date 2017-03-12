@@ -5,17 +5,22 @@ import com.betomorrow.gradle.commons.tasks.CleanTask
 import com.betomorrow.gradle.commons.tasks.GlobalVariables
 import com.betomorrow.gradle.commons.tasks.Groups
 import com.betomorrow.gradle.library.context.PluginContext
+import com.betomorrow.gradle.library.extensions.AssembliesPluginExtension
+import com.betomorrow.gradle.library.extensions.DependenciesPluginExtension
+import com.betomorrow.gradle.library.extensions.NuspecPluginExtension
 import com.betomorrow.gradle.library.extensions.XamarinLibraryExtension
 import com.betomorrow.gradle.library.tasks.BuildTask
+import com.betomorrow.gradle.library.tasks.GenerateNuspecTask
 import com.betomorrow.gradle.library.tasks.NugetRestoreTask
+import com.betomorrow.gradle.library.tasks.PackageLibraryTask
+import com.betomorrow.gradle.library.tasks.PushPackageTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
 
-// TODO : Handle missing solution file error
-// TODO : Handle verbose mode
-// TODO : Handle put version in several AssemblyInfo.cs and Solution File
 class XamarinLibraryPlugin implements Plugin<Project> {
+
+    private static final String NUSPEC_PATH = "generated.nuspec"
 
     @Override
     void apply(Project project) {
@@ -25,9 +30,15 @@ class XamarinLibraryPlugin implements Plugin<Project> {
 
             extensions.create("library", XamarinLibraryExtension, project)
 
+            extensions.create("nuspec", NuspecPluginExtension, project)
+            nuspec.extensions.create("dependencies", DependenciesPluginExtension, project)
+            nuspec.extensions.create("assemblies", AssembliesPluginExtension, project)
+
             afterEvaluate {
 
                 PluginContext.configure(project)
+
+                // Library
 
                 XamarinLibraryExtension library = extensions.getByName("library")
 
@@ -46,6 +57,46 @@ class XamarinLibraryPlugin implements Plugin<Project> {
                     configuration = library.configuration
                 }
 
+                // Package
+
+                NuspecPluginExtension nuspec = extensions.getByName("nuspec")
+
+                task("generateNuspec", description: "generate nuspec file", group: Groups.BUILD, 'type': GenerateNuspecTask) {
+                    packageId = nuspec.packageId
+                    version = nuspec.version
+                    authors =  nuspec.authors
+                    owners = nuspec.owners
+                    licenseUrl = nuspec.licenseUrl
+                    projectUrl = nuspec.projectUrl
+                    iconUrl = nuspec.iconUrl
+                    requireLicenseAcceptance = nuspec.requireLicenseAcceptance
+                    description = nuspec.description
+                    releaseNotes = nuspec.releaseNotes
+                    copyright = nuspec.copyright
+                    tags = nuspec.tags
+
+                    output = project.file(NUSPEC_PATH).absolutePath
+                    dependencies = nuspec.dependencies.dependencies
+                    assemblies = nuspec.assemblies.assemblies
+                }
+
+                task("package", description: "Package lib with Nuget", dependsOn: ['build', 'generateNuspec'], group:Groups.PACKAGE, 'type': PackageLibraryTask) {
+                    nuspecPath = project.file(NUSPEC_PATH).absolutePath
+                    suffix = nuspec.suffix
+                    packageName = nuspec.generatedPackageName
+                    output = nuspec.output
+                }
+
+                task("install", description: "Install package locally", dependsOn: ['package'], group:Groups.DEPLOY, 'type' : PushPackageTask) {
+                    packagePath = nuspec.output
+                    source = nuspec.localRepository
+                }
+
+                task("deploy", description: "Deploy package on remote server", dependsOn: ['package'], group:Groups.DEPLOY, 'type' : PushPackageTask) {
+                    packagePath = nuspec.output
+                    source = nuspec.remoteRepository
+                    apiKey = nuspec.apiKey
+                }
             }
         }
     }

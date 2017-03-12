@@ -36,15 +36,15 @@ class BuildTaskTest extends Specification {
         task.build()
 
         then:
-        5 * assemblyInfoUpdater.from(_) >> { p ->
+        4 * assemblyInfoUpdater.from(_) >> { p ->
             projects.add(p)
             return updater
         }
-        5 * updater.withVersion("1.0.0") >> { v ->
+        4 * updater.withVersion("1.0.0") >> { v ->
             return updater
         }
 
-        5 * updater.update()
+        4 * updater.update()
 
         1 * xBuild.buildCrossLibrary('Release', "CrossLib.sln")
     }

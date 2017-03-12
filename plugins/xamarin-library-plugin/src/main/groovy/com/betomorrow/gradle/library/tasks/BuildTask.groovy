@@ -9,6 +9,8 @@ import com.betomorrow.xamarin.xbuild.XBuild
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 
+import java.nio.file.Files
+
 class BuildTask extends DefaultTask {
 
     protected XBuild xBuild = PluginContext.current.xbuild
@@ -24,7 +26,9 @@ class BuildTask extends DefaultTask {
 
         SolutionDescriptor sd = loader.load(project.file(solutionFile))
         sd.projects.each {
-            assemblyInfoUpdater.from(it.assemblyInfoPath).withVersion(version).update()
+            if (Files.exists(it.assemblyInfoPath)) {
+                assemblyInfoUpdater.from(it.assemblyInfoPath).withVersion(version).update()
+            }
         }
 
         xBuild.buildCrossLibrary(configuration, solutionFile)
