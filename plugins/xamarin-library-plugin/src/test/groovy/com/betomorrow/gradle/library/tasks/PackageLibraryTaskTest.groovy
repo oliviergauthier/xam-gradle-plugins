@@ -26,7 +26,6 @@ class PackageLibraryTaskTest extends Specification {
         given:
         project.nuspec {
             packageId = 'Com.Acme.CrossLib'
-            packageName = 'CrossLib'
             suffix = 'nightly'
         }
         project.version = "1.0.0"
@@ -47,7 +46,6 @@ class PackageLibraryTaskTest extends Specification {
         given:
         project.nuspec {
             packageId = 'Com.Acme.CrossLib'
-            packageName = 'CrossLib'
         }
         project.version = "1.0.0"
         project.evaluate()

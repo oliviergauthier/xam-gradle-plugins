@@ -19,11 +19,20 @@ ext {
 
 version = "1.0.0"
 
-nuspec {
+deploy {
+    local {
+        path "fake/directory"
+        format "nuget2"
+    }
 
-    remoteRepository = "http://fake.url"
-    localRepository = "fake/directory"
-    apiKey = "123456789"
+    remote {
+        url = "http://fake.url"
+        apiKey = "12345789"
+    }
+}
+
+
+nuspec {
 
     authors "John Doe"
     owners "com.acme"

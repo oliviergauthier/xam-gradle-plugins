@@ -1,4 +1,4 @@
-package com.betomorrow.gradle.library.extensions
+package com.betomorrow.gradle.library.extensions.nuspec
 
 import org.gradle.api.Project
 
@@ -24,12 +24,6 @@ class NuspecPluginExtension {
 
     // Package
     String suffix
-
-    // Install / Deploy
-    String localRepository
-    String remoteRepository
-    String apiKey
-
 
     NuspecPluginExtension(Project project) {
         this.project = project

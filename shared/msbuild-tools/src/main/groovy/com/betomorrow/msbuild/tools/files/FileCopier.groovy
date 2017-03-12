@@ -8,5 +8,6 @@ interface FileCopier {
     void copy(Path src, Path dst)
     void move(Path src, Path dst)
     void moveTo(Path src, Path directory)
+    void download(URL url, Path dst)
 
 }

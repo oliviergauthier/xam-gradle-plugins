@@ -27,4 +27,14 @@ class DefaultFileCopier implements FileCopier {
     void moveTo(Path src, Path directory) {
         move(src, directory.resolve(src.fileName))
     }
+
+    @Override
+    void download(URL url, Path dst) {
+        println "download ${url} to ${dst.toString()}"
+        File file = dst.toFile()
+        file.parentFile.mkdirs()
+        def ous = file.newOutputStream()
+        ous << url.openStream()
+        ous.close()
+    }
 }

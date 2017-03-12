@@ -1,4 +1,4 @@
-package com.betomorrow.gradle.library.extensions
+package com.betomorrow.gradle.library.extensions.nuspec
 
 import groovy.transform.Canonical
 

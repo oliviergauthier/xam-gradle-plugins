@@ -5,12 +5,16 @@ import com.betomorrow.gradle.commons.tasks.CleanTask
 import com.betomorrow.gradle.commons.tasks.GlobalVariables
 import com.betomorrow.gradle.commons.tasks.Groups
 import com.betomorrow.gradle.library.context.PluginContext
-import com.betomorrow.gradle.library.extensions.AssembliesPluginExtension
-import com.betomorrow.gradle.library.extensions.DependenciesPluginExtension
-import com.betomorrow.gradle.library.extensions.NuspecPluginExtension
+import com.betomorrow.gradle.library.extensions.nuspec.AssembliesPluginExtension
+import com.betomorrow.gradle.library.extensions.nuspec.DependenciesPluginExtension
+import com.betomorrow.gradle.library.extensions.publish.PublishLocalPluginExtension
+import com.betomorrow.gradle.library.extensions.publish.PublishPluginExtension
+import com.betomorrow.gradle.library.extensions.publish.PublishRemoteExtension
+import com.betomorrow.gradle.library.extensions.nuspec.NuspecPluginExtension
 import com.betomorrow.gradle.library.extensions.XamarinLibraryExtension
 import com.betomorrow.gradle.library.tasks.BuildTask
 import com.betomorrow.gradle.library.tasks.GenerateNuspecTask
+import com.betomorrow.gradle.library.tasks.InstallPackageTask
 import com.betomorrow.gradle.library.tasks.NugetRestoreTask
 import com.betomorrow.gradle.library.tasks.PackageLibraryTask
 import com.betomorrow.gradle.library.tasks.PushPackageTask
@@ -34,13 +38,15 @@ class XamarinLibraryPlugin implements Plugin<Project> {
             nuspec.extensions.create("dependencies", DependenciesPluginExtension, project)
             nuspec.extensions.create("assemblies", AssembliesPluginExtension, project)
 
+            extensions.create("publish", PublishPluginExtension)
+            publish.extensions.create("local", PublishLocalPluginExtension)
+            publish.extensions.create("remote", PublishRemoteExtension)
+
             afterEvaluate {
 
                 PluginContext.configure(project)
 
                 // Library
-
-                XamarinLibraryExtension library = extensions.getByName("library")
 
                 task("clean", description: "clean library", group: Groups.BUILD, 'type': CleanTask) {
                     solutionFile = library.solution
@@ -87,15 +93,18 @@ class XamarinLibraryPlugin implements Plugin<Project> {
                     output = nuspec.output
                 }
 
-                task("install", description: "Install package locally", dependsOn: ['package'], group:Groups.DEPLOY, 'type' : PushPackageTask) {
+                // Deploy
+
+                task("install", description: "Install package locally", dependsOn: ['package'], group:Groups.DEPLOY, 'type' : InstallPackageTask) {
                     packagePath = nuspec.output
-                    source = nuspec.localRepository
+                    source = publish.local.path
+                    format = publish.local.format
                 }
 
                 task("deploy", description: "Deploy package on remote server", dependsOn: ['package'], group:Groups.DEPLOY, 'type' : PushPackageTask) {
                     packagePath = nuspec.output
-                    source = nuspec.remoteRepository
-                    apiKey = nuspec.apiKey
+                    source = publish.remote.url
+                    apiKey = publish.remote.apiKey
                 }
             }
         }

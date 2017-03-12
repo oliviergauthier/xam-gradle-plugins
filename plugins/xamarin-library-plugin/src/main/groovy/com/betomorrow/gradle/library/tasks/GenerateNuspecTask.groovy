@@ -1,7 +1,6 @@
 package com.betomorrow.gradle.library.tasks
 
-import AssemblyTarget
-import com.betomorrow.gradle.library.extensions.AssemblyTarget
+import com.betomorrow.gradle.library.extensions.nuspec.AssemblyTarget
 import com.betomorrow.msbuild.tools.nuspec.NuSpec
 import com.betomorrow.msbuild.tools.nuspec.NuSpecWriter
 import com.betomorrow.msbuild.tools.nuspec.XmlNuSpecWriter

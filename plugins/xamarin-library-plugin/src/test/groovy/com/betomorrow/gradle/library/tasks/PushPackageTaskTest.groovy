@@ -3,6 +3,7 @@ package com.betomorrow.gradle.library.tasks
 import com.betomorrow.msbuild.tools.nuget.Nuget
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
+import org.gradle.wrapper.Install
 import spock.lang.Specification
 
 class PushPackageTaskTest extends Specification {
@@ -10,7 +11,8 @@ class PushPackageTaskTest extends Specification {
     Nuget nuget
 
     Project project
-    PushPackageTask task
+    PushPackageTask pushTask
+    InstallPackageTask installTask
 
     def "setup"() {
         nuget = Mock()
@@ -27,17 +29,21 @@ class PushPackageTaskTest extends Specification {
         given:
         project.nuspec {
             packageId = 'Com.Acme.CrossLib'
-            packageName = 'CrossLib'
-            localRepository = "./customRepo"
-            remoteRepository = "http://remote.repository.com"
-            apiKey = "123456789"
         }
+
+        project.publish {
+            remote {
+                url = "http://remote.repository.com"
+                apiKey = "123456789"
+            }
+        }
+
         project.evaluate()
-        task = project.deploy
-        task.nuget = nuget
+        pushTask = project.deploy
+        pushTask.nuget = nuget
 
         when:
-        task.pushPackage()
+        pushTask.pushPackage()
 
         then:
         1 * nuget.push(_, "http://remote.repository.com", "123456789")
@@ -47,37 +53,37 @@ class PushPackageTaskTest extends Specification {
         given:
         project.nuspec {
             packageId = 'Com.Acme.CrossLib'
-            packageName = 'CrossLib'
-            localRepository = "./customRepo"
-            remoteRepository = "http://remote.repository.com"
-            apiKey = "123456789"
+        }
+        project.publish {
+            local {
+                path = "./customRepo"
+            }
         }
         project.evaluate()
-        task = project.install
-        task.nuget = nuget
+        installTask = project.install
+        installTask.nuget = nuget
 
         when:
-        task.pushPackage()
+        installTask.installPackage()
 
         then:
-        1 * nuget.push(_, "./customRepo", null)
+        1 * nuget.install(_, "./customRepo")
     }
 
     def "install should use default local repository"() {
         given:
         project.nuspec {
             packageId = 'Com.Acme.CrossLib'
-            packageName = 'CrossLib'
         }
         project.evaluate()
-        task = project.install
-        task.nuget = nuget
+        installTask = project.install
+        installTask.nuget = nuget
 
         when:
-        task.pushPackage()
+        installTask.installPackage()
 
         then:
-        1 * nuget.push(_, "${System.getProperty('user.home')}/.nuget", null)
+        1 * nuget.install(_, "${System.getProperty('user.home')}${File.separator}.nuget${File.separator}packages")
     }
 
 }

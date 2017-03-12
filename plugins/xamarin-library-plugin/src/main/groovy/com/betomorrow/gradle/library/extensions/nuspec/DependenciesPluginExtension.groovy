@@ -1,4 +1,4 @@
-package com.betomorrow.gradle.library.extensions
+package com.betomorrow.gradle.library.extensions.nuspec
 
 import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
 import org.gradle.api.Project

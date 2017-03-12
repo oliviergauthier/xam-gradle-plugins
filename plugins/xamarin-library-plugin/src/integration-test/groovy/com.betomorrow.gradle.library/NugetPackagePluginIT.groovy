@@ -51,7 +51,7 @@ class NugetPackagePluginIT extends Specification {
     void "test deploy library"() {
         when:
         BuildResult result = runner
-                .withArguments("deploy", "--stacktrace", "-PdryRun=true")
+                .withArguments("publish", "--stacktrace", "-PdryRun=true")
                 .build()
 
         then:

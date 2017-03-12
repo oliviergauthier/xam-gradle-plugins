@@ -1,14 +1,13 @@
 package com.betomorrow.gradle.library
 
 import com.betomorrow.gradle.commons.tasks.CleanTask
-import com.betomorrow.gradle.library.extensions.AssembliesPluginExtension
-import com.betomorrow.gradle.library.extensions.AssemblyTarget
-import com.betomorrow.gradle.library.extensions.DependenciesPluginExtension
+import com.betomorrow.gradle.library.extensions.nuspec.AssembliesPluginExtension
+import com.betomorrow.gradle.library.extensions.nuspec.AssemblyTarget
+import com.betomorrow.gradle.library.extensions.nuspec.DependenciesPluginExtension
 import com.betomorrow.gradle.library.tasks.BuildTask
 import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
-import org.junit.Test
 import spock.lang.Specification
 
 class XamarinLibraryPluginTest extends Specification {

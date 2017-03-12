@@ -23,4 +23,9 @@ class FakeFileCopier implements FileCopier {
     void moveTo(Path src, Path directory) {
         println "move ${src} to ${directory}"
     }
+
+    @Override
+    void download(URL url, Path dst) {
+        println "download ${url} to ${dst.toString()}"
+    }
 }
