@@ -12,7 +12,6 @@ class PushPackageTaskTest extends Specification {
 
     Project project
     PushPackageTask pushTask
-    InstallPackageTask installTask
 
     def "setup"() {
         nuget = Mock()
@@ -49,41 +48,5 @@ class PushPackageTaskTest extends Specification {
         1 * nuget.push(_, "http://remote.repository.com", "123456789")
     }
 
-    def "install should use local repository"() {
-        given:
-        project.nuspec {
-            packageId = 'Com.Acme.CrossLib'
-        }
-        project.publish {
-            local {
-                path = "./customRepo"
-            }
-        }
-        project.evaluate()
-        installTask = project.install
-        installTask.nuget = nuget
-
-        when:
-        installTask.installPackage()
-
-        then:
-        1 * nuget.install(_, "./customRepo")
-    }
-
-    def "install should use default local repository"() {
-        given:
-        project.nuspec {
-            packageId = 'Com.Acme.CrossLib'
-        }
-        project.evaluate()
-        installTask = project.install
-        installTask.nuget = nuget
-
-        when:
-        installTask.installPackage()
-
-        then:
-        1 * nuget.install(_, "${System.getProperty('user.home')}${File.separator}.nuget${File.separator}packages")
-    }
 
 }

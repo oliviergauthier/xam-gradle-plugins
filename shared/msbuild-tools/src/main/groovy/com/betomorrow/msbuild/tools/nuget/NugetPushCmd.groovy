@@ -9,7 +9,7 @@ class NugetPushCmd implements CommandRunner.Cmd {
     String apiKey
     String source
 
-    NugetPushCmd(String nugetPath, String packagePath, String apiKey, String source) {
+    NugetPushCmd(String nugetPath, String packagePath, String source, String apiKey) {
         this.nugetPath = nugetPath
         this.packagePath = packagePath
         this.apiKey = apiKey
