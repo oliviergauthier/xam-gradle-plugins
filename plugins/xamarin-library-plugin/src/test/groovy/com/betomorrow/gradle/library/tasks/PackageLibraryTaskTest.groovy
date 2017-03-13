@@ -9,14 +9,12 @@ import spock.lang.Specification
 class PackageLibraryTaskTest extends Specification {
 
     Nuget nuget
-    FileCopier fileCopier
 
     Project project
     PackageLibraryTask task
 
     def "setup"() {
         nuget = Mock()
-        fileCopier = Mock()
 
         project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/CrossLib')).build()
         project.apply plugin: 'xamarin-library-plugin'
@@ -32,14 +30,12 @@ class PackageLibraryTaskTest extends Specification {
         project.evaluate()
         task = project.package
         task.nuget = nuget
-        task.fileCopier = fileCopier
 
         when:
         task.packageLibrary()
 
         then:
-        1 * nuget.pack(project.file("generated.nuspec").absolutePath, 'nightly')
-        1 * fileCopier.move(project.file("Com.Acme.CrossLib.1.0.0-nightly.nupkg").toPath(), project.file("dist/Com.Acme.CrossLib.1.0.0-nightly.nupkg").toPath())
+        1 * nuget.pack(project.file("generated.nuspec").absolutePath, 'nightly', 'dist')
     }
 
     def "package don't use suffix by default"() {
@@ -51,14 +47,12 @@ class PackageLibraryTaskTest extends Specification {
         project.evaluate()
         task = project.package
         task.nuget = nuget
-        task.fileCopier = fileCopier
 
         when:
         task.packageLibrary()
 
         then:
-        1 * nuget.pack(project.file("generated.nuspec").absolutePath, null)
-        1 * fileCopier.move(project.file("Com.Acme.CrossLib.1.0.0.nupkg").toPath(), project.file("dist/Com.Acme.CrossLib.1.0.0.nupkg").toPath())
+        1 * nuget.pack(project.file("generated.nuspec").absolutePath, null, 'dist')
     }
 
 }

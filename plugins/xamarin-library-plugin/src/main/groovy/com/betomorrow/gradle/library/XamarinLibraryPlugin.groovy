@@ -89,8 +89,7 @@ class XamarinLibraryPlugin implements Plugin<Project> {
                 task("package", description: "Package lib with Nuget", dependsOn: ['build', 'generateNuspec'], group:Groups.PACKAGE, 'type': PackageLibraryTask) {
                     nuspecPath = project.file(NUSPEC_PATH).absolutePath
                     suffix = nuspec.suffix
-                    packageName = nuspec.generatedPackageName
-                    output = nuspec.output
+                    outputDirectory = NuspecPluginExtension.OUTPUT_DIRECTORY
                 }
 
                 // Deploy

@@ -32,8 +32,8 @@ class DefaultNuget implements Nuget {
         execute(new NugetAddCmd(nugetPath, packagePath, source))
     }
 
-    void pack(String packagePath, String suffix) {
-        execute(new NugetPackCmd(nugetPath, packagePath, suffix))
+    void pack(String packagePath, String suffix, String outputDirectory) {
+        execute(new NugetPackCmd(nugetPath, packagePath, suffix, outputDirectory))
     }
 
     void push(String packagePath, String source, String apiKey) {

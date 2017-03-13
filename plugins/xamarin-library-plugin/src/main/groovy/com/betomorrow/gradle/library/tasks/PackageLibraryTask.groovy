@@ -9,18 +9,14 @@ import org.gradle.api.tasks.TaskAction
 class PackageLibraryTask extends DefaultTask {
 
     protected Nuget nuget = PluginContext.current.nuget
-    protected FileCopier fileCopier = PluginContext.current.fileCopier
 
     String nuspecPath
     String suffix
-    String output
-    String packageName
+    String outputDirectory
 
     @TaskAction
     void packageLibrary() {
-        nuget.pack(nuspecPath, suffix)
-
-        fileCopier.move(project.file(packageName).toPath(), project.file(output).toPath())
+        nuget.pack(nuspecPath, suffix, outputDirectory)
     }
 
 }
