@@ -7,8 +7,6 @@ import java.nio.file.Paths
 
 class NuspecItemExtension {
 
-    static final String OUTPUT_DIRECTORY = "dist"
-
     private String name
 
     Project project
@@ -37,7 +35,7 @@ class NuspecItemExtension {
     }
 
     String getOutput() {
-        return Paths.get(OUTPUT_DIRECTORY).resolve(getGeneratedPackageName()).toString()
+        return Paths.get(NuspecPluginExtension.OUTPUT_DIRECTORY).resolve(getGeneratedPackageName()).toString()
     }
 
     String getGeneratedPackageName() {

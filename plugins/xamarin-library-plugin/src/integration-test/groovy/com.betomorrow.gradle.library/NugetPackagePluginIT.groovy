@@ -58,9 +58,9 @@ class NugetPackagePluginIT extends Specification {
         println(result.getOutput())
     }
 
-    void "test list product"() {
+    void "test list tasks"() {
         when:
-        BuildResult result = runner.withArguments("reportPackages", "--stacktrace", "-PdryRun=true").build()
+        BuildResult result = runner.withArguments("tasks", "--stacktrace", "-PdryRun=true").build()
 
         then:
         println(result.getOutput())

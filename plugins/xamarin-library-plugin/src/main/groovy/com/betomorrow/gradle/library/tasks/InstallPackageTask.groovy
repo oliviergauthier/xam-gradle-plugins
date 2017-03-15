@@ -1,7 +1,7 @@
 package com.betomorrow.gradle.library.tasks
 
 import com.betomorrow.gradle.library.context.PluginContext
-import com.betomorrow.gradle.library.extensions.publish.PublishLocalPluginExtension
+
 import com.betomorrow.msbuild.tools.nuget.Nuget
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException

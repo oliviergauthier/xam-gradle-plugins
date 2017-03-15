@@ -5,7 +5,7 @@ import org.gradle.api.Project
 
 class NuspecPluginExtension {
 
-    static final String OUTPUT_DIRECTORY = "dist"
+    public static final String OUTPUT_DIRECTORY = "dist"
 
     private Project project
 
