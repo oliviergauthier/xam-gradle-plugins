@@ -5,19 +5,15 @@ import com.betomorrow.gradle.commons.tasks.CleanTask
 import com.betomorrow.gradle.commons.tasks.GlobalVariables
 import com.betomorrow.gradle.commons.tasks.Groups
 import com.betomorrow.gradle.library.context.PluginContext
-import com.betomorrow.gradle.library.extensions.nuspec.AssembliesPluginExtension
-import com.betomorrow.gradle.library.extensions.nuspec.DependenciesPluginExtension
+import com.betomorrow.gradle.library.extensions.nuspec.AssembliesContainer
+import com.betomorrow.gradle.library.extensions.nuspec.DependenciesContainer
 import com.betomorrow.gradle.library.extensions.publish.PublishLocalPluginExtension
 import com.betomorrow.gradle.library.extensions.publish.PublishPluginExtension
 import com.betomorrow.gradle.library.extensions.publish.PublishRemoteExtension
 import com.betomorrow.gradle.library.extensions.nuspec.NuspecPluginExtension
 import com.betomorrow.gradle.library.extensions.XamarinLibraryExtension
 import com.betomorrow.gradle.library.tasks.BuildTask
-import com.betomorrow.gradle.library.tasks.GenerateNuspecTask
-import com.betomorrow.gradle.library.tasks.InstallPackageTask
 import com.betomorrow.gradle.library.tasks.NugetRestoreTask
-import com.betomorrow.gradle.library.tasks.PackageLibraryTask
-import com.betomorrow.gradle.library.tasks.PushPackageTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -35,8 +31,8 @@ class XamarinLibraryPlugin implements Plugin<Project> {
             extensions.create("library", XamarinLibraryExtension, project)
 
             extensions.create("nuspec", NuspecPluginExtension, project)
-            nuspec.extensions.create("dependencies", DependenciesPluginExtension, project)
-            nuspec.extensions.create("assemblies", AssembliesPluginExtension, project)
+            nuspec.extensions.create("dependencies", DependenciesContainer, project)
+            nuspec.extensions.create("assemblies", AssembliesContainer, project)
 
             extensions.create("publish", PublishPluginExtension)
             publish.extensions.create("local", PublishLocalPluginExtension)
@@ -64,48 +60,58 @@ class XamarinLibraryPlugin implements Plugin<Project> {
                 }
 
                 // Package
+//
+//                NuspecPluginExtension nuspec = extensions.getByName("nuspec")
+//
+//                task("generateNuspec", description: "generate nuspec file", group: Groups.BUILD, 'type': GenerateNuspecTask) {
+//                    packageId = nuspec.packageId
+//                    version = nuspec.version
+//                    authors =  nuspec.authors
+//                    owners = nuspec.owners
+//                    licenseUrl = nuspec.licenseUrl
+//                    projectUrl = nuspec.projectUrl
+//                    iconUrl = nuspec.iconUrl
+//                    requireLicenseAcceptance = nuspec.requireLicenseAcceptance
+//                    description = nuspec.description
+//                    releaseNotes = nuspec.releaseNotes
+//                    copyright = nuspec.copyright
+//                    tags = nuspec.tags
+//
+//                    output = project.file(NUSPEC_PATH).absolutePath
+//                    dependencies = nuspec.dependencies.dependencies
+//                    assemblies = nuspec.assemblies.assemblies
+//                }
+//
+//                task("package", description: "Package lib with Nuget", dependsOn: ['build', 'generateNuspec'], group:Groups.PACKAGE, 'type': PackageLibraryTask) {
+//                    nuspecPath = project.file(NUSPEC_PATH).absolutePath
+//                    suffix = nuspec.suffix
+//                    outputDirectory = NuspecPluginExtension.OUTPUT_DIRECTORY
+//                }
+//
+//                // Deploy
+//
+//                task("install", description: "Install package locally", dependsOn: ['package'], group:Groups.DEPLOY, 'type' : InstallPackageTask) {
+//                    packagePath = nuspec.output
+//                    source = publish.local.path
+//                    format = publish.local.format
+//                }
+//
+//                task("deploy", description: "Deploy package on remote server", dependsOn: ['package'], group:Groups.DEPLOY, 'type' : PushPackageTask) {
+//                    packagePath = nuspec.output
+//                    source = publish.remote.url
+//                    apiKey = publish.remote.apiKey
+//                }
 
-                NuspecPluginExtension nuspec = extensions.getByName("nuspec")
+                project.task('reportPackages') {
+                    def extension = project.extensions.getByName('nuspec')
 
-                task("generateNuspec", description: "generate nuspec file", group: Groups.BUILD, 'type': GenerateNuspecTask) {
-                    packageId = nuspec.packageId
-                    version = nuspec.version
-                    authors =  nuspec.authors
-                    owners = nuspec.owners
-                    licenseUrl = nuspec.licenseUrl
-                    projectUrl = nuspec.projectUrl
-                    iconUrl = nuspec.iconUrl
-                    requireLicenseAcceptance = nuspec.requireLicenseAcceptance
-                    description = nuspec.description
-                    releaseNotes = nuspec.releaseNotes
-                    copyright = nuspec.copyright
-                    tags = nuspec.tags
-
-                    output = project.file(NUSPEC_PATH).absolutePath
-                    dependencies = nuspec.dependencies.dependencies
-                    assemblies = nuspec.assemblies.assemblies
-                }
-
-                task("package", description: "Package lib with Nuget", dependsOn: ['build', 'generateNuspec'], group:Groups.PACKAGE, 'type': PackageLibraryTask) {
-                    nuspecPath = project.file(NUSPEC_PATH).absolutePath
-                    suffix = nuspec.suffix
-                    outputDirectory = NuspecPluginExtension.OUTPUT_DIRECTORY
-                }
-
-                // Deploy
-
-                task("install", description: "Install package locally", dependsOn: ['package'], group:Groups.DEPLOY, 'type' : InstallPackageTask) {
-                    packagePath = nuspec.output
-                    source = publish.local.path
-                    format = publish.local.format
-                }
-
-                task("deploy", description: "Deploy package on remote server", dependsOn: ['package'], group:Groups.DEPLOY, 'type' : PushPackageTask) {
-                    packagePath = nuspec.output
-                    source = publish.remote.url
-                    apiKey = publish.remote.apiKey
+                    extension.packages.all {
+                        println "${it.name}"
+                    }
                 }
             }
         }
+
     }
+
 }

@@ -15,7 +15,7 @@ class NugetPackagePluginIT extends Specification {
         runner = GradleRunner.create()
                 .withProjectDir(sampleDir)
                 .withDebug(true)
-                .withPluginClasspath()
+//                .withPluginClasspath()
     }
 
     void "test generate nuspec"() {
@@ -58,4 +58,11 @@ class NugetPackagePluginIT extends Specification {
         println(result.getOutput())
     }
 
+    void "test list product"() {
+        when:
+        BuildResult result = runner.withArguments("reportPackages", "--stacktrace", "-PdryRun=true").build()
+
+        then:
+        println(result.getOutput())
+    }
 }

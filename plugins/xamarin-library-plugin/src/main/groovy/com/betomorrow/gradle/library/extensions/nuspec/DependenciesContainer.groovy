@@ -3,13 +3,13 @@ package com.betomorrow.gradle.library.extensions.nuspec
 import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
 import org.gradle.api.Project
 
-class DependenciesPluginExtension {
+class DependenciesContainer {
 
     private Project project
 
     List<Dependency> dependencies = []
 
-    DependenciesPluginExtension(Project project) {
+    DependenciesContainer(Project project) {
         this.project = project
     }
 

@@ -2,12 +2,12 @@ package com.betomorrow.gradle.library.extensions.nuspec
 
 import org.gradle.api.Project
 
-class AssembliesPluginExtension {
+class AssembliesContainer {
     private Project project
 
     List<AssemblyTarget> assemblies = []
 
-    AssembliesPluginExtension(Project project) {
+    AssembliesContainer(Project project) {
         this.project = project
     }
 

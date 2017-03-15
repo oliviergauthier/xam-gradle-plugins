@@ -1,9 +1,9 @@
 package com.betomorrow.gradle.library
 
 import com.betomorrow.gradle.commons.tasks.CleanTask
-import com.betomorrow.gradle.library.extensions.nuspec.AssembliesPluginExtension
+import com.betomorrow.gradle.library.extensions.nuspec.AssembliesContainer
 import com.betomorrow.gradle.library.extensions.nuspec.AssemblyTarget
-import com.betomorrow.gradle.library.extensions.nuspec.DependenciesPluginExtension
+import com.betomorrow.gradle.library.extensions.nuspec.DependenciesContainer
 import com.betomorrow.gradle.library.tasks.BuildTask
 import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
 import org.gradle.api.Project
@@ -88,7 +88,7 @@ class XamarinLibraryPluginTest extends Specification {
         }
 
         then:
-        AssembliesPluginExtension ext =  project.nuspec.extensions.findByName('assemblies')
+        AssembliesContainer ext =  project.nuspec.extensions.findByName('assemblies')
         assert ext.assemblies.size() == 3
 
         AssemblyTarget target1 = ext.assemblies.get(0)
@@ -117,7 +117,7 @@ class XamarinLibraryPluginTest extends Specification {
         }
 
         then:
-        DependenciesPluginExtension ext =  project.nuspec.extensions.findByName('dependencies')
+        DependenciesContainer ext =  project.nuspec.extensions.findByName('dependencies')
         assert ext.dependencies.size() == 2
         assert ext.dependencies.get(0) == new Dependency("Xamarin.Forms:[1.4.3,)")
         assert ext.dependencies.get(1) == new Dependency("Xam.ACME.Commons:[1.0.0,)")

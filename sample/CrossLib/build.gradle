@@ -1,16 +1,19 @@
-//buildscript {
-//    repositories {
-//        mavenLocal()
-//        mavenCentral()
-//    }
-//    dependencies {
-//        classpath 'com.betomorrow.gradle:xamarin-library-plugin:1.0-SNAPSHOT'
-//    }
-//}
-
-plugins {
-    id 'xamarin-library-plugin'
+buildscript {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.betomorrow.gradle:xamarin-library-plugin:1.0-SNAPSHOT'
+    }
 }
+
+apply plugin: 'xamarin-library-plugin'
+
+//
+//plugins {
+//    id 'xamarin-library-plugin'
+//}
 
 ext {
     version = "1.0.0"
@@ -18,47 +21,53 @@ ext {
 }
 
 version = "1.0.0"
-
-deploy {
-    local {
-        path "fake/directory"
-        format "nuget2"
-    }
-
-    remote {
-        url = "http://fake.url"
-        apiKey = "12345789"
-    }
-}
+//
+//deploy {
+//    local {
+//        path "fake/directory"
+//        format "nuget2"
+//    }
+//
+//    remote {
+//        url = "http://fake.url"
+//        apiKey = "12345789"
+//    }
+//}
 
 
 nuspec {
 
-    authors "John Doe"
-    owners "com.acme"
-    description "Sample for nuspec package plugin"
+    packages {
+        SampleLib {
 
-    dependencies {
-        dependency "Xamarin.Forms:[1.4.3,)"
-        dependency "Xam.ACME.Commons:[1.0.0,)"
-        dependency "net40:Xamarin.Forms:[1.4.3,)"
-        dependency "net40:Xam.ACME.Commons:[1.0.0,)"
-    }
+            authors = "John Doe"
+            owners = "com.acme"
 
-    assemblies {
-        target {
-            dest "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10"
-            includes "CrossLib.Abstractions", "CrossLib"
-        }
+            description = "Sample for nuspec package plugin"
 
-        target {
-            dest "lib/MonoAndroid10"
-            includes "CrossLib.Abstractions", "CrossLib.Droid"
-        }
+            dependencies {
+                dependency "Xamarin.Forms:[1.4.3,)"
+                dependency "Xam.ACME.Commons:[1.0.0,)"
+                dependency "net40:Xamarin.Forms:[1.4.3,)"
+                dependency "net40:Xam.ACME.Commons:[1.0.0,)"
+            }
 
-        target {
-            dest "lib/Xamarin.iOS10"
-            includes "CrossLib.Abstractions", "CrossLib.IOS"
+            assemblies {
+                target {
+                    dest "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10"
+                    includes "CrossLib.Abstractions", "CrossLib"
+                }
+
+                target {
+                    dest "lib/MonoAndroid10"
+                    includes "CrossLib.Abstractions", "CrossLib.Droid"
+                }
+
+                target {
+                    dest "lib/Xamarin.iOS10"
+                    includes "CrossLib.Abstractions", "CrossLib.IOS"
+                }
+            }
         }
     }
 }
