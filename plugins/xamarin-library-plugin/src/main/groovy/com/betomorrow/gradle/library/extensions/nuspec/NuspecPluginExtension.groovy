@@ -11,6 +11,21 @@ class NuspecPluginExtension {
 
     NamedDomainObjectContainer<NuspecItemExtension> packages
 
+    String version
+    String authors
+    String owners
+    String licenseUrl
+    String projectUrl
+    String iconUrl
+    Boolean requireLicenseAcceptance
+    String description
+    String releaseNotes
+    String copyright
+    String tags
+
+    // Package
+    String suffix
+
     NuspecPluginExtension(Project project) {
         this.project = project
         packages = project.container(NuspecItemExtension)
@@ -22,5 +37,14 @@ class NuspecPluginExtension {
     def packages(Closure closure) {
         packages.configure(closure)
     }
+
+    String getVersion() {
+        if (version) {
+            return version
+        }
+
+        return project.version
+    }
+
 
 }

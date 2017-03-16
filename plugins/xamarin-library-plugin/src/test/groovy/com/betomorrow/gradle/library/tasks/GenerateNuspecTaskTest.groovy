@@ -29,23 +29,73 @@ class GenerateNuspecTaskTest extends Specification {
         given:
         NuSpec nuSpecData
         project.nuspec {
-            packageId "aPackageId"
-            version "aVersion"
-            authors "some authors"
-            owners "some owners"
-            licenseUrl "the license url"
-            projectUrl "the project url"
-            iconUrl "the icon url"
-            requireLicenseAcceptance true
-            description "a description"
-            releaseNotes "the release notes"
-            copyright "the copyright"
-            tags "some tags"
+            packages {
+                SampleLib {
+                    packageId = "aPackageId"
+                    version = "aVersion"
+                    authors = "some authors"
+                    owners = "some owners"
+                    licenseUrl = "the license url"
+                    projectUrl = "the project url"
+                    iconUrl = "the icon url"
+                    requireLicenseAcceptance = true
+                    description = "a description"
+                    releaseNotes = "the release notes"
+                    copyright = "the copyright"
+                    tags = "some tags"
+                }
+            }
         }
 
         when:
         project.evaluate();
-        task = project.tasks.generateNuspec
+        task = project.tasks.generateNuspecSampleLib
+        task.writer = writer
+        task.generateNuspec()
+
+        then:
+        1 * writer.write(_) >> { arguments -> nuSpecData = arguments[0] }
+        assert nuSpecData.owners == "some owners"
+        assert nuSpecData.packageId == "aPackageId"
+        assert nuSpecData.version == "aVersion"
+        assert nuSpecData.authors == "some authors"
+        assert nuSpecData.licenseUrl == "the license url"
+        assert nuSpecData.projectUrl == "the project url"
+        assert nuSpecData.iconUrl == "the icon url"
+        assert nuSpecData.requireLicenseAcceptance == true
+        assert nuSpecData.description == "a description"
+        assert nuSpecData.releaseNotes == "the release notes"
+        assert nuSpecData.copyright == "the copyright"
+        assert nuSpecData.tags == "some tags"
+    }
+
+    def "should inherit info from global config"() {
+        given:
+        NuSpec nuSpecData
+        project.nuspec {
+
+            version = "aVersion"
+            authors = "some authors"
+            owners = "some owners"
+            licenseUrl = "the license url"
+            projectUrl = "the project url"
+            iconUrl = "the icon url"
+            requireLicenseAcceptance = true
+            description = "a description"
+            releaseNotes = "the release notes"
+            copyright = "the copyright"
+            tags = "some tags"
+
+            packages {
+                SampleLib {
+                    packageId = "aPackageId"
+                }
+            }
+        }
+
+        when:
+        project.evaluate();
+        task = project.tasks.generateNuspecSampleLib
         task.writer = writer
         task.generateNuspec()
 
@@ -69,15 +119,19 @@ class GenerateNuspecTaskTest extends Specification {
         given:
         NuSpec nuSpecData
         project.nuspec {
-            dependencies {
-                dependency "Xamarin.Forms:[1.4.3,)"
-                dependency "net40:Xam.ACME.Commons:[1.0.0,)"
+            packages {
+                SampleLib {
+                    dependencies {
+                        dependency "Xamarin.Forms:[1.4.3,)"
+                        dependency "net40:Xam.ACME.Commons:[1.0.0,)"
+                    }
+                }
             }
         }
 
         when:
         project.evaluate();
-        task = project.tasks.generateNuspec
+        task = project.tasks.generateNuspecSampleLib
         task.writer = writer
         task.generateNuspec()
 
@@ -92,31 +146,35 @@ class GenerateNuspecTaskTest extends Specification {
         given:
         NuSpec nuSpecData
         project.nuspec {
-            assemblies {
-                target {
-                    dest "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10"
-                    includes "Xam.ACME.CrossLib.dll"
-                }
+            packages {
+                SampleLib {
+                    assemblies {
+                        target {
+                            dest "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10"
+                            includes "Xam.ACME.CrossLib.dll"
+                        }
 
-                target {
-                    dest "lib/MonoAndroid10"
-                    includes "Xam.ACME.CrossLib.dll",
-                            "Xam.ACME.CrossLib.Droid.dll",
-                            "Xam.ACME.CrossLib.Binding.Droid.dll"
-                }
+                        target {
+                            dest "lib/MonoAndroid10"
+                            includes "Xam.ACME.CrossLib.dll",
+                                    "Xam.ACME.CrossLib.Droid.dll",
+                                    "Xam.ACME.CrossLib.Binding.Droid.dll"
+                        }
 
-                target {
-                    dest "lib/Xamarin.iOS10"
-                    includes "Xam.ACME.CrossLib.dll",
-                            "Xam.ACME.CrossLib.IOS.dll",
-                            "Xam.ACME.CrossLib.Binding.IOS.dll"
+                        target {
+                            dest "lib/Xamarin.iOS10"
+                            includes "Xam.ACME.CrossLib.dll",
+                                    "Xam.ACME.CrossLib.IOS.dll",
+                                    "Xam.ACME.CrossLib.Binding.IOS.dll"
+                        }
+                    }
                 }
             }
         }
 
         when:
         project.evaluate();
-        task = project.tasks.generateNuspec
+        task = project.tasks.generateNuspecSampleLib
         task.writer = writer
         task.generateNuspec()
 
@@ -169,29 +227,33 @@ class GenerateNuspecTaskTest extends Specification {
         given:
         NuSpec nuSpecData
         project.nuspec {
-            assemblies {
-                target {
-                    dest "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10"
-                    includes "CrossLib"
-                }
+            packages {
+                SampleLib {
+                    assemblies {
+                        target {
+                            dest "lib/portable-net45+wp8+wpa81+win8+MonoAndroid10+MonoTouch10+Xamarin.iOS10"
+                            includes "CrossLib"
+                        }
 
-                target {
-                    dest "lib/MonoAndroid10"
-                    includes "CrossLib.Abstractions",
-                             "CrossLib.Droid"
-                }
+                        target {
+                            dest "lib/MonoAndroid10"
+                            includes "CrossLib.Abstractions",
+                                    "CrossLib.Droid"
+                        }
 
-                target {
-                    dest "lib/Xamarin.iOS10"
-                    includes "CrossLib.Abstractions",
-                             "CrossLib.IOS"
+                        target {
+                            dest "lib/Xamarin.iOS10"
+                            includes "CrossLib.Abstractions",
+                                    "CrossLib.IOS"
+                        }
+                    }
                 }
             }
         }
 
         when:
         project.evaluate()
-        task = project.tasks.generateNuspec
+        task = project.tasks.generateNuspecSampleLib
         task.writer = writer
         task.generateNuspec()
 

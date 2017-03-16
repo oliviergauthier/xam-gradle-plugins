@@ -56,14 +56,6 @@ class NuspecItemExtension {
         return project.name
     }
 
-    String getVersion() {
-        if (version) {
-            return version
-        }
-
-        return project.version
-    }
-
     void assemblies(Closure closure) {
         def tmp = (AssembliesContainer)project.configure(new AssembliesContainer(project), closure)
         assemblies = tmp.assemblies

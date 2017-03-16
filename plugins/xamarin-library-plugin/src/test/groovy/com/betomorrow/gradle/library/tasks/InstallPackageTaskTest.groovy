@@ -28,7 +28,11 @@ class InstallPackageTaskTest extends Specification {
     def "install should use local repository"() {
         given:
         project.nuspec {
-            packageId = 'Com.Acme.CrossLib'
+            packages {
+                SampleLib {
+                    packageId = 'Com.Acme.CrossLib'
+                }
+            }
         }
         project.publish {
             local {
@@ -36,7 +40,7 @@ class InstallPackageTaskTest extends Specification {
             }
         }
         project.evaluate()
-        installTask = project.install
+        installTask = project.installSampleLib
         installTask.nuget = nuget
 
         when:
@@ -50,10 +54,14 @@ class InstallPackageTaskTest extends Specification {
     def "install should use default local repository"() {
         given:
         project.nuspec {
-            packageId = 'Com.Acme.CrossLib'
+            packages {
+                SampleLib {
+                    packageId = 'Com.Acme.CrossLib'
+                }
+            }
         }
         project.evaluate()
-        installTask = project.install
+        installTask = project.installSampleLib
         installTask.nuget = nuget
 
         when:
@@ -66,7 +74,11 @@ class InstallPackageTaskTest extends Specification {
     def "install should use given format"(){
         given:
         project.nuspec {
-            packageId = 'Com.Acme.CrossLib'
+            packages {
+                SampleLib {
+                    packageId = 'Com.Acme.CrossLib'
+                }
+            }
         }
 
         project.publish {
@@ -77,7 +89,7 @@ class InstallPackageTaskTest extends Specification {
         }
 
         project.evaluate()
-        installTask = project.install
+        installTask = project.installSampleLib
         installTask.nuget = nuget
 
         when:
@@ -90,7 +102,11 @@ class InstallPackageTaskTest extends Specification {
     def "install should throw exception on unknown format"() {
         given:
         project.nuspec {
-            packageId = 'Com.Acme.CrossLib'
+            packages {
+                SampleLib {
+                    packageId = 'Com.Acme.CrossLib'
+                }
+            }
         }
 
         project.publish {
@@ -100,7 +116,7 @@ class InstallPackageTaskTest extends Specification {
         }
 
         project.evaluate()
-        installTask = project.install
+        installTask = project.installSampleLib
         installTask.nuget = nuget
 
         when:

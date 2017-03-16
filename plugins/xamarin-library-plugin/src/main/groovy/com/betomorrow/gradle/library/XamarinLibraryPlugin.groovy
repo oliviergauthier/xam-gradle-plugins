@@ -69,29 +69,29 @@ class XamarinLibraryPlugin implements Plugin<Project> {
 
                 nuspec.packages.all { p ->
 
-                    def nuspecPath = project.file("${p.name}.nuspec").absolutePath
+                    def targetNuspecPath = project.file("${p.packageId}.nuspec").path
 
                     def generateNuspec = task("generateNuspec${p.name}", 'type': GenerateNuspecTask) {
                         packageId = p.packageId
-                        version = p.version
-                        authors = p.authors
-                        owners = p.owners
-                        licenseUrl = p.licenseUrl
-                        projectUrl = p.projectUrl
-                        iconUrl = p.iconUrl
-                        requireLicenseAcceptance = p.requireLicenseAcceptance
-                        description = p.description
-                        releaseNotes = p.releaseNotes
-                        copyright = p.copyright
-                        tags = p.tags
-                        output = nuspecPath
+                        version = p.version ?: nuspec.version
+                        authors = p.authors ?: nuspec.authors
+                        owners = p.owners ?: nuspec.owners
+                        licenseUrl = p.licenseUrl ?: nuspec.licenseUrl
+                        projectUrl = p.projectUrl ?: nuspec.projectUrl
+                        iconUrl = p.iconUrl ?: nuspec.iconUrl
+                        requireLicenseAcceptance = p.requireLicenseAcceptance ?: nuspec.requireLicenseAcceptance
+                        description = p.description ?: nuspec.description
+                        releaseNotes = p.releaseNotes ?: nuspec.releaseNotes
+                        copyright = p.copyright ?: nuspec.copyright
+                        tags = p.tags ?: nuspec.tags
+                        output = targetNuspecPath
                         dependencies = p.dependencies
                         assemblies = p.assemblies
                     }
                     generateNuspecTasks.add(generateNuspec)
 
                     def packageTask = task("package${p.name}", dependsOn: ['build', "generateNuspec${p.name}"], 'type': PackageLibraryTask) {
-                        nuspecPath = nuspecPath
+                        nuspecPath = targetNuspecPath
                         suffix = p.suffix
                         outputDirectory = NuspecPluginExtension.OUTPUT_DIRECTORY
                     }

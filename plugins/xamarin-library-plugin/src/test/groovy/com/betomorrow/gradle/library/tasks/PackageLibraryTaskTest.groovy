@@ -23,36 +23,44 @@ class PackageLibraryTaskTest extends Specification {
     def "package use right data"() {
         given:
         project.nuspec {
-            packageId = 'Com.Acme.CrossLib'
-            suffix = 'nightly'
+            packages {
+                SampleLib {
+                    packageId = 'Com.Acme.CrossLib'
+                    suffix = 'nightly'
+                }
+            }
         }
         project.version = "1.0.0"
         project.evaluate()
-        task = project.package
+        task = project.packageSampleLib
         task.nuget = nuget
 
         when:
         task.packageLibrary()
 
         then:
-        1 * nuget.pack(project.file("generated.nuspec").absolutePath, 'nightly', 'dist')
+        1 * nuget.pack(project.file("Com.Acme.CrossLib.nuspec").absolutePath, 'nightly', 'dist')
     }
 
     def "package don't use suffix by default"() {
         given:
         project.nuspec {
-            packageId = 'Com.Acme.CrossLib'
+            packages {
+                SampleLib {
+                    packageId = 'Com.Acme.CrossLib'
+                }
+            }
         }
         project.version = "1.0.0"
         project.evaluate()
-        task = project.package
+        task = project.packageSampleLib
         task.nuget = nuget
 
         when:
         task.packageLibrary()
 
         then:
-        1 * nuget.pack(project.file("generated.nuspec").absolutePath, null, 'dist')
+        1 * nuget.pack(project.file("Com.Acme.CrossLib.nuspec").absolutePath, null, 'dist')
     }
 
 }

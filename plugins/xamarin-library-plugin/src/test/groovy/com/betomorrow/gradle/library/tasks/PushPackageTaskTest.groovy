@@ -27,7 +27,11 @@ class PushPackageTaskTest extends Specification {
     def "push should use remote repository and apiKey"() {
         given:
         project.nuspec {
-            packageId = 'Com.Acme.CrossLib'
+            packages {
+                SampleLib {
+                    packageId = 'Com.Acme.CrossLib'
+                }
+            }
         }
 
         project.publish {
@@ -38,7 +42,7 @@ class PushPackageTaskTest extends Specification {
         }
 
         project.evaluate()
-        pushTask = project.deploy
+        pushTask = project.deploySampleLib
         pushTask.nuget = nuget
 
         when:
