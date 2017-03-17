@@ -1,1 +1,0 @@
-#xam-gradle-plugin
