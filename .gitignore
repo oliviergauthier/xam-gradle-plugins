@@ -19,3 +19,4 @@ userHome/caches/*
 caches
 userHome
 sample/Nuspec/generated.nuspec
+.vscode
