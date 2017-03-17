@@ -1,5 +1,6 @@
 package com.betomorrow.gradle.library.extensions.nuspec
 
+import com.betomorrow.gradle.commons.SemVersion
 import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
 
@@ -31,6 +32,7 @@ class NuspecPluginExtension {
         packages = project.container(NuspecItemExtension)
         packages.all {
             it.project = project
+            it.parent = this
         }
     }
 
@@ -39,12 +41,11 @@ class NuspecPluginExtension {
     }
 
     String getVersion() {
-        if (version) {
-            return version
-        }
-
-        return project.version
+        return version ?: SemVersion.parse(project.version).versionNumber
     }
 
+    String getSuffix() {
+        return suffix ?: SemVersion.parse(project.version).suffix
+    }
 
 }

@@ -10,6 +10,8 @@ class NuspecItemExtension {
     private String name
 
     Project project
+    NuspecPluginExtension parent
+
     List<AssemblyTarget> assemblies = []
     List<Dependency> dependencies = []
 
@@ -40,20 +42,62 @@ class NuspecItemExtension {
 
     String getGeneratedPackageName() {
         String baseName = "${getPackageId()}.${getVersion()}"
-        if (suffix) {
-            baseName = "${baseName}-${suffix}"
+        if (getSuffix()) {
+            baseName = "${baseName}-${getSuffix()}"
         }
         return "${baseName}.nupkg"
     }
 
     String getPackageId() {
-        if (packageId) {
-            return packageId
-        }
-        if (project.hasProperty("name")) {
-            return project.name
-        }
-        return project.name
+        return packageId ?: name
+    }
+
+    String getVersion() {
+        return version ?: parent.version
+    }
+
+    String getSuffix() {
+        return suffix ?: parent.suffix
+    }
+
+    String getAuthors() {
+        return authors ?: parent.authors
+    }
+
+    String getOwners() {
+        return owners ?: parent.owners
+    }
+
+    String getLicenseUrl() {
+        return licenseUrl ?: parent.licenseUrl
+    }
+
+    String getProjectUrl() {
+        return projectUrl ?: parent.projectUrl
+    }
+
+    String getIconUrl() {
+        return iconUrl ?: parent.iconUrl
+    }
+
+    Boolean getRequireLicenseAcceptance() {
+        return requireLicenseAcceptance ?: parent.requireLicenseAcceptance
+    }
+
+    String getDescription() {
+        return description ?: parent.description
+    }
+
+    String getReleaseNotes() {
+        return releaseNotes ?: parent.releaseNotes
+    }
+
+    String getCopyright() {
+        return copyright ?: parent.copyright
+    }
+
+    String getTags() {
+        return tags ?: parent.tags
     }
 
     void assemblies(Closure closure) {

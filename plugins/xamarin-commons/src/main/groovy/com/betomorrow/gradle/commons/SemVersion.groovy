@@ -17,6 +17,10 @@ class SemVersion {
         return sv
     }
 
+    static SemVersion parse(Object object) {
+        return parse(object.toString())
+    }
+
 
     String getVersionNumber() {
         return versionNumber
