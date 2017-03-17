@@ -44,8 +44,6 @@ class XmlNuSpecWriter implements NuSpecWriter {
             nuspec.assemblySet.forEach { updateAssembly(packageNode, it) }
         }
 
-        println(XmlUtil.serialize(content))
-
         new FileOutputStream(output).withStream { out ->
             XmlUtil.serialize(content, out)
         }
