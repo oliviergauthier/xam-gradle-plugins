@@ -7,7 +7,7 @@ Set of gradle plugins to build Xamarin mobile application (iOS/Android) and libr
 * **xamarin-test-plugin :** Build and run nunit test
 
 ## Documentations :
-- [Wiki](./wiki)
+- [Wiki](https://github.com/oliviergauthier/xam-gradle-plugins/wiki)
 - SampleApp
 - SampleLib
 
