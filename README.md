@@ -17,8 +17,3 @@ Install in local repository
 gradlew install
 ```
 
-## Deploy
-Deploy on personal repository like nexus (Sonatype)
-```bash
-gradlew publish -Ppassword=<PASSWORD> -Puser=<USERNAME> -Purl=<REPOSITORY_URL>
-```
