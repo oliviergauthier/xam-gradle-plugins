@@ -8,8 +8,8 @@ Set of gradle plugins to build Xamarin mobile application (iOS/Android) and libr
 
 ## Documentations :
 - [Wiki](https://github.com/oliviergauthier/xam-gradle-plugins/wiki)
-- SampleApp
-- SampleLib
+- [SampleApp](https://github.com/oliviergauthier/xam-gradle-plugins-sample-app)
+- [SampleLib](https://github.com/oliviergauthier/xam-gradle-plugins-sample-lib)
 
 ## Install
 Install in local repository 
