@@ -1,5 +1,7 @@
 # Xamarin gradle plugins
 
+[![Build Status](https://travis-ci.org/oliviergauthier/xam-gradle-plugins.svg?branch=master)](https://travis-ci.org/oliviergauthier/xam-gradle-plugins)
+
 Set of gradle plugins to build Xamarin mobile application (iOS/Android) and librairies.
 
 * **xamarin-application-plugin :** Build ios/android Application
