@@ -1,5 +1,40 @@
-group 'com.betomorrow'
-version '1.0-SNAPSHOT'
+subprojects {
+
+    apply plugin: 'maven-publish'
+    apply plugin: 'groovy'
+
+    task sourceJar(type: Jar) {
+        from sourceSets.main.allJava
+    }
+
+    group 'com.betomorrow.gradle'
+    version '1.0-SNAPSHOT'
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                from components.java
+
+                artifact sourceJar {
+                    classifier "sources"
+                }
+            }
+        }
+    }
+
+    publishing {
+        repositories {
+            maven {
+                credentials {
+                    username publishUsername
+                    password publishPassword
+                }
+
+                url publishRepository
+            }
+        }
+    }
+}
 
 task wrapper(type: Wrapper) {
     gradleVersion = '3.4.1'

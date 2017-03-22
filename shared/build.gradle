@@ -1,6 +1,4 @@
 subprojects {
-    apply plugin: 'groovy'
-    apply plugin: 'maven'
 
     repositories {
         mavenCentral()
@@ -23,17 +21,4 @@ subprojects {
         testRuntime "org.objenesis:objenesis:2.4"    // allows mocking of classes without default constructor (together with CGLIB)
     }
 
-
-    version = '1.0-SNAPSHOT'
-    group = 'com.betomorrow.gradle'
-
-    afterEvaluate {
-        install {
-            repositories.mavenInstaller {
-                pom.version = project.version
-                pom.groupId = project.group
-                pom.artifactId = project.name
-            }
-        }
-    }
 }

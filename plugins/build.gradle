@@ -1,8 +1,6 @@
 subprojects {
 
-    apply plugin: 'groovy'
     apply plugin: 'java-gradle-plugin'
-    apply plugin: 'maven-publish'
 
     repositories {
         mavenCentral()
@@ -51,39 +49,9 @@ subprojects {
 
         testRuntime "cglib:cglib-nodep:3.2.4"          // allows mocking of classes (in addition to interfaces)
         testRuntime "org.objenesis:objenesis:2.4"    // allows mocking of classes without default constructor (together with CGLIB)
-
     }
 
-    group = 'com.betomorrow.gradle'
-    version = '1.0-SNAPSHOT'
 
-    task sourceJar(type: Jar) {
-        from sourceSets.main.allJava
-    }
 
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-
-                artifact sourceJar {
-                    classifier "sources"
-                }
-            }
-        }
-    }
-
-    publishing {
-        repositories {
-            maven {
-                credentials {
-                    username publishUsername
-                    password publishPassword
-                }
-
-                url publishRepository
-            }
-        }
-    }
 
 }
