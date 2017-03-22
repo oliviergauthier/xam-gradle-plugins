@@ -1,7 +1,19 @@
+buildscript {
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath 'net.researchgate:gradle-release:2.4.0'
+    }
+}
+
 subprojects {
 
-    apply plugin: 'maven-publish'
     apply plugin: 'groovy'
+    apply plugin: 'maven-publish'
+    apply plugin: 'net.researchgate.release'
 
     task sourceJar(type: Jar) {
         from sourceSets.main.allJava
