@@ -1,12 +1,17 @@
-# Xamarin gradle plugins
+Xamarin gradle plugins
+==========
+
+## Build status
 
 [![Build Status](https://travis-ci.org/oliviergauthier/xam-gradle-plugins.svg?branch=master)](https://travis-ci.org/oliviergauthier/xam-gradle-plugins)
 
-Set of gradle plugins to build Xamarin mobile application (iOS/Android) and librairies.
+## Description
 
-* **xamarin-application-plugin :** Build ios/android Application
-* **xamarin-library-plugin :** Build/Package/Deploy Nuget Library
-* **xamarin-test-plugin :** Build and run nunit test
+Set of [Gradle](https://gradle.org/) plugins to build Xamarin mobile application (iOS/Android) and librairies from cli.
+
+* **[xamarin-application-plugin](https://github.com/oliviergauthier/xam-gradle-plugins/wiki/Application) :** Build ios/android Application
+* **[xamarin-library-plugin](https://github.com/oliviergauthier/xam-gradle-plugins/wiki/Library) :** Build/Package/Deploy Nuget Library
+* **[xamarin-test-plugin](https://github.com/oliviergauthier/xam-gradle-plugins/wiki/NUnit) :** Build and run nunit test
 
 ## Documentations :
 - [Wiki](https://github.com/oliviergauthier/xam-gradle-plugins/wiki)
@@ -16,6 +21,12 @@ Set of gradle plugins to build Xamarin mobile application (iOS/Android) and libr
 ## Install
 Install in local repository 
 ```bash
-gradlew install
+./gradlew install
+```
+
+## Deploy
+Update `gradle.properties` file with your own url, user and password 
+```bash
+./gradlew publish
 ```
 
