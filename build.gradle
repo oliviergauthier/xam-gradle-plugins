@@ -1,17 +1,7 @@
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'org.ajoberstar:gradle-git:1.6.0'
-    }
-}
-
 allprojects {
 
     apply plugin: 'groovy'
     apply plugin: 'maven-publish'
-    apply plugin: 'org.ajoberstar.release-opinion'
 
     task sourceJar(type: Jar) {
         from sourceSets.main.allJava
