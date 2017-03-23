@@ -113,7 +113,7 @@ This plugin provides the ability to build PCL Libraries and Nuget Packages
 
 **Notes :**
 * By default, use first solution file found in project folder
-* in packages.*.assemblies.target.includes, you can specify assembly path or csproj name references in solution. Plugin will resolve assemblies of project
+* In dsl : `packages.*.assemblies.target.includes` , you can specify assembly path or csproj name references in solution. The plugin will resolve assemblies of project
 
 ### Minimum requirement
 
