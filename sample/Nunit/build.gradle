@@ -14,7 +14,6 @@ plugins {
 
 version = "1.0.0"
 
-
 nunit {
     projects = "CrossLib.Test"
     format = "nunit2"

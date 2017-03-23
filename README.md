@@ -241,6 +241,39 @@ deploy {
 
 ```
 
+
+## Xamarin NUnit Plugin 
+
+This plugin provides the ability to build and run NUnit test
+
+**Tasks :**
+- compileTest : build test with xbuild
+- test : run nunit-console
+
+**Notes :**
+* By default, use first solution file found in project folder
+* Download and use NunitConsole3.5
+
+```
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.betomorrow.gradle:xamarin-nunit-plugin:1.0-SNAPSHOT'
+    }
+}
+
+apply plugin: 'xamarin-nunit-plugin'
+
+nunit {
+    assemblies = "path/to/assemblies.Test.dll"  // (optional) array or string, full path of test assemblies
+    projects = "CrossLib.Test"                  // (optional) By default, use "${project.name}.Test"
+    format = "nunit2"                           // Result test format
+}
+
+```
+
 ## Install
 Install in local repository 
 ```bash
