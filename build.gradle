@@ -19,19 +19,19 @@ pluginBundle {
 
     plugins {
         xamarinApplicationPlugin {
-            id = 'xamarin-application-plugin'
+            id = 'com.betomorrow.gradle.application.XamarinApplicationPlugin'
             displayName = 'Xamarin Application Plugin'
             tags = ['xamarin', 'ios', 'android']
         }
 
         xamarinLibraryPlugin {
-            id = 'xamarin-library-plugin'
+            id = 'com.betomorrow.gradle.library.XamarinLibraryPlugin'
             displayName = 'Xamarin Library Plugin'
             tags = ['xamarin', 'nuget', 'pcl']
         }
 
         xamarinNunitPlugin {
-            id = 'xamarin-nunit-plugin'
+            id = 'com.betomorrow.gradle.nunit.NunitPlugin'
             displayName = 'Xamarin Nunit Plugin'
             tags = ['xamarin', 'nunit']
         }
