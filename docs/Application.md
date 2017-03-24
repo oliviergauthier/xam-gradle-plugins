@@ -1,60 +1,29 @@
-Xamarin gradle plugins
-==========
+# Xamarin Application Plugin 
 
-# Build status
+This plugin provides the ability to build iOS and Android Xamarin Applications with Gradle. 
+It can be used to integrate build in Continus Integration System like Jenkins
 
-[![Build Status](https://travis-ci.org/oliviergauthier/xam-gradle-plugins.svg?branch=master)](https://travis-ci.org/oliviergauthier/xam-gradle-plugins)
+# What you can do easily ?
 
-# Description
+**Android Application**
+* Customize versionCode, storeVersion and packageName and apk name
+* Customize AndroidManifest.xml to add API_KEY for example
+* Build application
 
-Set of [Gradle](https://gradle.org/) plugins to build Xamarin mobile application (iOS/Android) and librairies from cli.
-
-* **[xamarin-application-plugin](#xamarin-application-plugin) :** Build ios/android Application
-* **[xamarin-library-plugin](#xamarin-library-plugin) :** Build/Package/Deploy Nuget Library
-* **[xamarin-test-plugin](#xamarin-nunit-plugin) :** Build and run nunit test
-
-# Documentation :
-
-See following projects for working samples
-- [SampleApp](https://github.com/oliviergauthier/xam-gradle-plugins-sample-app)
-- [SampleLib](https://github.com/oliviergauthier/xam-gradle-plugins-sample-lib)
-
-## Xamarin Application Plugin 
-
-This plugin provides the ability to build iOS and Android Xamarin Applications with gradle.
-
-**Android Application:**
-* Update versionCode, storeVersion and packageName in AndroidManifest
-* Build apk
-
-**Ios Application:**
-* Update version, shortVersion and bundleIdentifier in Info.plist
+**Ios Application**
+* Customize Update version, shortVersion and bundleIdentifier in Info.plist
+* Update Info.plist
 * Build ipa
 
 **Tasks :**
 - buildIOS : build iOS application
 - buildAndroid : build Android Application
 
+# Configuration
+
 **Notes :**
 * By default, use first solution file found in project folder
 * By default, use Release configuration
-
-###Minimum requirement
-
-```groovy
-buildscript {
-   repositories {
-       mavenLocal()
-   }
-   dependencies {
-        classpath 'com.betomorrow.gradle:xamarin-application-plugin:1.0-SNAPSHOT'
-   }
-}
-
-apply plugin: 'xamarin-application-plugin'
-```
-
-### Full DSL
 
 ```groovy
 buildscript {
@@ -100,49 +69,3 @@ application {
     }
 }
 ```
-
-
-## Xamarin NUnit Plugin 
-
-This plugin provides the ability to build and run NUnit test
-
-**Tasks :**
-- compileTest : build test with xbuild
-- test : run nunit-console
-
-**Notes :**
-* By default, use first solution file found in project folder
-* Download and use NunitConsole3.5
-
-```
-buildscript {
-    repositories {
-        mavenLocal()
-    }
-    dependencies {
-        classpath 'com.betomorrow.gradle:xamarin-nunit-plugin:1.0-SNAPSHOT'
-    }
-}
-
-apply plugin: 'xamarin-nunit-plugin'
-
-nunit {
-    assemblies = "path/to/assemblies.Test.dll"  // (optional) array or string, full path of test assemblies
-    projects = "CrossLib.Test"                  // (optional) By default, use "${project.name}.Test"
-    format = "nunit2"                           // Result test format
-}
-
-```
-
-## Install
-Install in local repository 
-```bash
-./gradlew install
-```
-
-## Deploy
-Update `gradle.properties` file with your own url, user and password 
-```bash
-./gradlew publish
-```
-
