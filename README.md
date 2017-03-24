@@ -41,7 +41,7 @@ buildscript {
 apply plugin: 'xamarin-application-plugin'
 ```
 
-[More info](docs/Application)
+[More info](/docs/Application)
 
 ## Xamarin Library Plugin 
 
@@ -107,7 +107,7 @@ deploy {
 
 ```
 
-[More info](docs/Library)
+[More info](/docs/Library)
 
 ## Xamarin NUnit Plugin 
 
