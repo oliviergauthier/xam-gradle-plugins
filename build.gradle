@@ -1,3 +1,44 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.gradle.publish:plugin-publish-plugin:0.9.7"
+    }
+}
+
+apply plugin: "com.gradle.plugin-publish"
+
+pluginBundle {
+    website = 'https://github.com/oliviergauthier/xam-gradle-plugins/'
+    vcsUrl = 'https://github.com/oliviergauthier/xam-gradle-plugins/'
+    description = 'Set of plugins to build Xamarin Application and Librairies'
+    tags = ['xamarin', 'nuget', 'nunit', 'ios', 'android']
+
+    plugins {
+        xamarinApplicationPlugin {
+            id = 'xamarin-application-plugin'
+            displayName = 'Xamarin Application Plugin'
+            tags = ['xamarin', 'ios', 'android']
+        }
+
+        xamarinLibraryPlugin {
+            id = 'xamarin-library-plugin'
+            displayName = 'Xamarin Library Plugin'
+            tags = ['xamarin', 'nuget', 'pcl']
+        }
+
+        xamarinNunitPlugin {
+            id = 'xamarin-nunit-plugin'
+            displayName = 'Xamarin Nunit Plugin'
+            tags = ['xamarin', 'nunit']
+        }
+    }
+}
+
+
 allprojects {
 
     apply plugin: 'groovy'
