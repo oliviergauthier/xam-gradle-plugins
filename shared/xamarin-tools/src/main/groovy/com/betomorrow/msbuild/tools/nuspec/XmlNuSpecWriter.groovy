@@ -58,7 +58,7 @@ class XmlNuSpecWriter implements NuSpecWriter {
 
     private static void updateDependency(PackageNode packageNode, Dependency dep) {
         if (dep != null) {
-            packageNode.metadata().dependencies().group(dep.group).dependency(dep.id).@version = dep.version
+            packageNode.metadata().dependencies().group(dep.group).dependency(dep.id).attributes()['version'] = dep.version
         }
     }
 

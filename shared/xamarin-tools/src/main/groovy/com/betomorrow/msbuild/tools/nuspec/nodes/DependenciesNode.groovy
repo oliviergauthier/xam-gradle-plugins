@@ -9,7 +9,7 @@ class DependenciesNode {
     }
 
     DependencyGroupNode group(String targetFramework) {
-        def group = dependenciesNode.group.find { it.@targetFramework == targetFramework }
+        def group = dependenciesNode.group.find { it.attribute('targetFramework') == targetFramework }
         if (group == null) {
             if (targetFramework == null) {
                 return new DependencyGroupNode(dependenciesNode.appendNode("group"))

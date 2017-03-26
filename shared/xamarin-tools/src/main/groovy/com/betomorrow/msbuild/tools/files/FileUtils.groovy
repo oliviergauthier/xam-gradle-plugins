@@ -1,9 +1,10 @@
 package com.betomorrow.msbuild.tools.files
 
+import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.Paths
-import java.util.zip.ZipFile
-import java.util.zip.ZipInputStream
+import java.nio.file.StandardCopyOption
+
 
 class FileUtils {
 
@@ -14,5 +15,15 @@ class FileUtils {
     static String toUnixPath(String path) {
         return path.replace("\\", "/")
     }
+
+    static void copyResource(String resourceName, Path destinationPath) {
+        def resourcePath = getResourcePath(resourceName)
+        Files.copy(resourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING)
+    }
+
+    static void copyResource(String resourceName, File destinationFile) {
+        copyResource(resourceName, destinationFile.toPath())
+    }
+
 
 }

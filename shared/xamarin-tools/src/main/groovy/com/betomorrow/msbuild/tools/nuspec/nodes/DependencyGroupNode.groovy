@@ -9,7 +9,7 @@ class DependencyGroupNode {
     }
 
     Node dependency(String id) {
-        def node = dependencyGroupNode.dependency.find { it.@id == id }
+        def node = dependencyGroupNode.dependency.find { it.attribute('id') == id }
         if (node == null) {
             return dependencyGroupNode.appendNode("dependency", [id:id])
         } else {

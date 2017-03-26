@@ -1,12 +1,15 @@
 package com.betomorrow.ios.plist
 
-class DefaultInfoPlistReaderTest extends GroovyTestCase {
+import org.junit.Test
+
+class DefaultInfoPlistReaderTest {
 
 
     String SAMPLE = ClassLoader.getSystemResource('Info.plist').file
 
     DefaultInfoPlistReader reader = new DefaultInfoPlistReader()
 
+    @Test
     void testReadShouldReturnsCompleteInfoPlist() {
         InfoPlist infoPlist = reader.read(SAMPLE)
 
