@@ -15,5 +15,4 @@ sample/**/obj/**
 classes
 caches
 userHome
-*.nuspec
 .vscode
