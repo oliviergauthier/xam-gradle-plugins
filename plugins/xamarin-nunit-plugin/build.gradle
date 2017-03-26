@@ -2,10 +2,3 @@ dependencies {
     compile project(':shared:xamarin-tools')
 }
 
-sourceSets {
-    main {
-        java {
-            srcDirs(project(':plugins:xamarin-commons').sourceSets.main.groovy)
-        }
-    }
-}
