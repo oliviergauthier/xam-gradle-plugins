@@ -1,3 +1,3 @@
 rootProject.name = 'xamarin-gradle-plugins'
-include 'shared:groovy-extensions','shared:android-tools','shared:xamarin-tools'
+include 'shared:groovy-extensions','shared:xamarin-tools'
 include 'plugins:xamarin-application-plugin', 'plugins:xamarin-library-plugin', 'plugins:xamarin-commons', 'plugins:xamarin-nunit-plugin'
