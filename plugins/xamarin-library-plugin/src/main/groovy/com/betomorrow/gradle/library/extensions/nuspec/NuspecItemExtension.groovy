@@ -1,6 +1,6 @@
 package com.betomorrow.gradle.library.extensions.nuspec
 
-import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
+import com.betomorrow.xamarin.tools.nuspec.dependencies.Dependency
 import org.gradle.api.Project
 
 import java.nio.file.Paths

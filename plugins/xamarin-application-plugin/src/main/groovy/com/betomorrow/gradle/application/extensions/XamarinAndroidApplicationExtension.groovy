@@ -1,9 +1,9 @@
 package com.betomorrow.gradle.application.extensions
 
-import com.betomorrow.android.manifest.AndroidManifest
-import com.betomorrow.android.manifest.AndroidManifestReader
-import com.betomorrow.android.manifest.DefaultAndroidManifestReader
-import com.betomorrow.msbuild.tools.files.FileUtils
+import com.betomorrow.xamarin.android.manifest.AndroidManifest
+import com.betomorrow.xamarin.android.manifest.AndroidManifestReader
+import com.betomorrow.xamarin.android.manifest.DefaultAndroidManifestReader
+import com.betomorrow.xamarin.files.FileUtils
 import com.betomorrow.xamarin.descriptors.project.ProjectDescriptor
 import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
 import com.betomorrow.xamarin.descriptors.solution.SolutionLoader

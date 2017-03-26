@@ -1,9 +1,9 @@
 package com.betomorrow.gradle.application.extensions
 
-import com.betomorrow.ios.plist.DefaultInfoPlistReader
-import com.betomorrow.ios.plist.InfoPlist
-import com.betomorrow.ios.plist.InfoPlistReader
-import com.betomorrow.msbuild.tools.files.FileUtils
+import com.betomorrow.xamarin.ios.plist.DefaultInfoPlistReader
+import com.betomorrow.xamarin.ios.plist.InfoPlist
+import com.betomorrow.xamarin.ios.plist.InfoPlistReader
+import com.betomorrow.xamarin.files.FileUtils
 import com.betomorrow.xamarin.descriptors.project.ProjectDescriptor
 import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
 import com.betomorrow.xamarin.descriptors.solution.SolutionLoader

@@ -2,7 +2,7 @@ package com.betomorrow.gradle.nunit.tasks
 
 import com.betomorrow.gradle.nunit.context.PluginContext
 import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
-import com.betomorrow.xamarin.xbuild.XBuild
+import com.betomorrow.xamarin.tools.xbuild.XBuild
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 

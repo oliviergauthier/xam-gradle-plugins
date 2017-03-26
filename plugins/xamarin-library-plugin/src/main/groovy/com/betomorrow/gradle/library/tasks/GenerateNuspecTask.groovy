@@ -1,12 +1,12 @@
 package com.betomorrow.gradle.library.tasks
 
 import com.betomorrow.gradle.library.extensions.nuspec.AssemblyTarget
-import com.betomorrow.msbuild.tools.nuspec.NuSpec
-import com.betomorrow.msbuild.tools.nuspec.NuSpecWriter
-import com.betomorrow.msbuild.tools.nuspec.XmlNuSpecWriter
-import com.betomorrow.msbuild.tools.nuspec.assemblies.Assembly
-import com.betomorrow.msbuild.tools.nuspec.dependencies.Dependency
-import com.betomorrow.msbuild.tools.nuspec.dependencies.DependencySet
+import com.betomorrow.xamarin.tools.nuspec.NuSpec
+import com.betomorrow.xamarin.tools.nuspec.NuSpecWriter
+import com.betomorrow.xamarin.tools.nuspec.XmlNuSpecWriter
+import com.betomorrow.xamarin.tools.nuspec.assemblies.Assembly
+import com.betomorrow.xamarin.tools.nuspec.dependencies.Dependency
+import com.betomorrow.xamarin.tools.nuspec.dependencies.DependencySet
 import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
 import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
 import com.betomorrow.xamarin.descriptors.solution.SolutionLoader

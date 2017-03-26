@@ -1,10 +1,10 @@
 package com.betomorrow.gradle.nunit.context
 
-import com.betomorrow.msbuild.tools.commands.FakeCommandRunner
-import com.betomorrow.msbuild.tools.commands.SystemCommandRunner
-import com.betomorrow.msbuild.tools.nunit.DefaultNunitConsole
-import com.betomorrow.msbuild.tools.nunit.NUnitConsole
-import com.betomorrow.xamarin.xbuild.XBuild
+import com.betomorrow.xamarin.commands.FakeCommandRunner
+import com.betomorrow.xamarin.commands.SystemCommandRunner
+import com.betomorrow.xamarin.tools.nunit.DefaultNunitConsole
+import com.betomorrow.xamarin.tools.nunit.NUnitConsole
+import com.betomorrow.xamarin.tools.xbuild.XBuild
 import org.gradle.api.Project
 
 class PluginContext {

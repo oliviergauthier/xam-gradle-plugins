@@ -1,6 +1,6 @@
 package com.betomorrow.xamarin.descriptors.solution
 
-import com.betomorrow.msbuild.tools.files.FileUtils
+import com.betomorrow.xamarin.files.FileUtils
 import org.junit.Test
 
 import java.nio.file.Path

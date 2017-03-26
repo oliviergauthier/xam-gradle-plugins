@@ -5,7 +5,7 @@ import com.betomorrow.xamarin.assemblyInfo.AssemblyInfoUpdater
 import com.betomorrow.xamarin.assemblyInfo.DefaultAssemblyInfoUpdater
 import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
 import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
-import com.betomorrow.xamarin.xbuild.XBuild
+import com.betomorrow.xamarin.tools.xbuild.XBuild
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 

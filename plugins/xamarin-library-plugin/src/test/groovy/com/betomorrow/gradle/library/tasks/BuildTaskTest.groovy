@@ -2,7 +2,7 @@ package com.betomorrow.gradle.library.tasks
 
 import com.betomorrow.xamarin.assemblyInfo.AssemblyInfoUpdater
 import com.betomorrow.xamarin.assemblyInfo.AssemblyInfoUpdaterTask
-import com.betomorrow.xamarin.xbuild.XBuild
+import com.betomorrow.xamarin.tools.xbuild.XBuild
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification

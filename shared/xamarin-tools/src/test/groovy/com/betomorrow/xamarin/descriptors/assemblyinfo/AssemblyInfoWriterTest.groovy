@@ -1,12 +1,10 @@
 package com.betomorrow.xamarin.descriptors.assemblyinfo
 
-import com.betomorrow.msbuild.tools.files.FileUtils
+import com.betomorrow.xamarin.files.FileUtils
 import spock.lang.Specification
 
 import java.nio.file.Files
 import java.nio.file.Path
-import java.nio.file.Paths
-import java.nio.file.StandardCopyOption
 
 class AssemblyInfoWriterTest extends Specification {
 

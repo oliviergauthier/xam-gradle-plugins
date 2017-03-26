@@ -1,11 +1,9 @@
 package com.betomorrow.gradle.nunit.tasks
 
-import com.betomorrow.xamarin.xbuild.XBuild
+import com.betomorrow.xamarin.tools.xbuild.XBuild
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification
-
-import java.nio.file.Paths
 
 class CompileTestTaskTest extends Specification {
 

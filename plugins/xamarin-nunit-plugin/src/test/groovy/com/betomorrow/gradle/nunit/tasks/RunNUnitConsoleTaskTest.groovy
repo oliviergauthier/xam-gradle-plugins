@@ -1,6 +1,6 @@
 package com.betomorrow.gradle.nunit.tasks
 
-import com.betomorrow.msbuild.tools.nunit.NUnitConsole
+import com.betomorrow.xamarin.tools.nunit.NUnitConsole
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification

@@ -1,9 +1,9 @@
 package com.betomorrow.gradle.application.tasks
 
-import com.betomorrow.android.manifest.AndroidManifest
-import com.betomorrow.android.manifest.AndroidManifestWriter
-import com.betomorrow.msbuild.tools.files.FileCopier
-import com.betomorrow.xamarin.xbuild.XBuild
+import com.betomorrow.xamarin.android.manifest.AndroidManifest
+import com.betomorrow.xamarin.android.manifest.AndroidManifestWriter
+import com.betomorrow.xamarin.files.FileCopier
+import com.betomorrow.xamarin.tools.xbuild.XBuild
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification

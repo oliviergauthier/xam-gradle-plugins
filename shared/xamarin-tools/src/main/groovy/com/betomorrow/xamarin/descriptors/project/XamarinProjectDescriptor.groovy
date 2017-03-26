@@ -1,11 +1,10 @@
 package com.betomorrow.xamarin.descriptors.project
 
-import com.betomorrow.android.manifest.DefaultAndroidManifestReader
-import com.betomorrow.msbuild.tools.files.FileUtils
+import com.betomorrow.xamarin.android.manifest.DefaultAndroidManifestReader
+import com.betomorrow.xamarin.files.FileUtils
 import groovy.transform.InheritConstructors
 
 import java.nio.file.Path
-import java.nio.file.Paths
 
 @InheritConstructors
 class XamarinProjectDescriptor extends ProjectDescriptor {

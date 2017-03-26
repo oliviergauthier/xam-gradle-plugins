@@ -1,7 +1,6 @@
 package com.betomorrow.gradle.library.tasks
 
-import com.betomorrow.msbuild.tools.files.FileCopier
-import com.betomorrow.msbuild.tools.nuget.Nuget
+import com.betomorrow.xamarin.tools.nuget.Nuget
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
 import spock.lang.Specification

@@ -1,11 +1,11 @@
 package com.betomorrow.gradle.application.tasks
 
-import com.betomorrow.android.manifest.AndroidManifest
-import com.betomorrow.android.manifest.AndroidManifestWriter
+import com.betomorrow.xamarin.android.manifest.AndroidManifest
+import com.betomorrow.xamarin.android.manifest.AndroidManifestWriter
 import com.betomorrow.gradle.application.context.PluginContext
-import com.betomorrow.msbuild.tools.files.FileCopier
+import com.betomorrow.xamarin.files.FileCopier
 import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
-import com.betomorrow.xamarin.xbuild.XBuild
+import com.betomorrow.xamarin.tools.xbuild.XBuild
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
 

@@ -1,6 +1,6 @@
 package com.betomorrow.xamarin.descriptors.assemblyinfo
 
-import com.betomorrow.msbuild.tools.files.FileUtils
+import com.betomorrow.xamarin.files.FileUtils
 import spock.lang.Specification
 
 class AssemblyInfoReaderTest extends Specification {

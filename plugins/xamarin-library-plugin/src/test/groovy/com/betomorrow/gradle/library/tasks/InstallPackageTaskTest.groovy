@@ -1,6 +1,6 @@
 package com.betomorrow.gradle.library.tasks
 
-import com.betomorrow.msbuild.tools.nuget.Nuget
+import com.betomorrow.xamarin.tools.nuget.Nuget
 import org.gradle.api.GradleException
 import org.gradle.api.Project
 import org.gradle.testfixtures.ProjectBuilder
