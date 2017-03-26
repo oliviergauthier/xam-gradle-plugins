@@ -1,3 +1,13 @@
+//configure(projects.findAll { it.name.endsWith("-plugin")}) {
+//    sourceSets {
+//        main {
+//            java {
+//                srcDirs(project(':plugins:xamarin-commons').sourceSets.main.groovy)
+//            }
+//        }
+//    }
+//}
+
 subprojects {
 
     apply plugin: 'java-gradle-plugin'
