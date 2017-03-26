@@ -1,5 +1,4 @@
 dependencies {
     compile project(':shared:xamarin-tools')
-    compile project(':shared:groovy-extensions')
     compile project(':plugins:xamarin-commons')
 }
