@@ -11,6 +11,8 @@ before_cache:
 
 install: ./gradlew assemble --stacktrace
 
+script: ./gradlew check --stacktrace
+
 cache:
   directories:
     - '$HOME/.m2/repository'
