@@ -2,6 +2,7 @@ allprojects {
 
     apply plugin: 'groovy'
     apply plugin: 'maven-publish'
+    apply from: 'https://raw.githubusercontent.com/mendhak/Gradle-Travis-Colored-Output/master/ColoredOutput.gradle'
 
     task sourceJar(type: Jar) {
         from sourceSets.main.allJava
