@@ -1,37 +1,37 @@
 allprojects {
 
     apply plugin: 'groovy'
-    apply plugin: 'maven-publish'
+//    apply plugin: 'maven-publish'
     apply from: 'https://raw.githubusercontent.com/mendhak/Gradle-Travis-Colored-Output/master/ColoredOutput.gradle'
 
-    task sourceJar(type: Jar) {
-        from sourceSets.main.allJava
-    }
-
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                from components.java
-
-                artifact sourceJar {
-                    classifier "sources"
-                }
-            }
-        }
-    }
-
-    publishing {
-        repositories {
-            maven {
-                credentials {
-                    username publishUsername
-                    password publishPassword
-                }
-
-                url publishRepository
-            }
-        }
-    }
+//    task sourceJar(type: Jar) {
+//        from sourceSets.main.allJava
+//    }
+//
+//    publishing {
+//        publications {
+//            mavenJava(MavenPublication) {
+//                from components.java
+//
+//                artifact sourceJar {
+//                    classifier "sources"
+//                }
+//            }
+//        }
+//    }
+//
+//    publishing {
+//        repositories {
+//            maven {
+//                credentials {
+//                    username publishUsername
+//                    password publishPassword
+//                }
+//
+//                url publishRepository
+//            }
+//        }
+//    }
 }
 
 task wrapper(type: Wrapper) {

@@ -1,3 +1,14 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    }
+}
+apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
+
 
 repositories {
     mavenCentral()
@@ -18,4 +29,32 @@ dependencies {
 
     testRuntime "cglib:cglib-nodep:3.2.4"          // allows mocking of classes (in addition to interfaces)
     testRuntime "org.objenesis:objenesis:2.4"    // allows mocking of classes without default constructor (together with CGLIB)
+}
+
+publishing {
+    publications {
+        MyPublication(MavenPublication) {
+            from components.java
+
+            groupId project.group
+            artifactId project.name
+            version project.version
+        }
+    }
+}
+
+bintray {
+    user = project.properties.bintray_user
+    key = project.properties.bintray_api_key
+    pkg {
+        repo = 'gradle'
+        name = 'xamarin-build-tools'
+        licenses = ['MIT']
+        vcsUrl = 'https://github.com/oliviergauthier/xam-gradle-plugins'
+
+        version {
+            name = project.version
+        }
+    }
+    publications = ['MyPublication']
 }
