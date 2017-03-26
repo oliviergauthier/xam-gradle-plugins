@@ -44,8 +44,8 @@ publishing {
 }
 
 bintray {
-    user = project.properties.bintray_user
-    key = project.properties.bintray_api_key
+    user = project.hasProperty('bintray_user') ? project.property('bintray_user') : null
+    key = project.hasProperty('bintray_apikey') ? project.property('bintray_apikey') : null
     pkg {
         repo = 'gradle'
         name = 'xamarin-build-tools'
@@ -57,4 +57,11 @@ bintray {
         }
     }
     publications = ['MyPublication']
+}
+
+task showBintrayProps {
+    doLast {
+        println "Bintray user/password: ${bintray.user}/${bintray.key}"
+        println "Bintray version : ${bintray.pkg.version.name}"
+    }
 }
