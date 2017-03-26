@@ -1,5 +1,6 @@
 package com.betomorrow.xamarin.tools.nuspec
 
+import com.betomorrow.xamarin.files.FileUtils
 import com.betomorrow.xamarin.tools.nuspec.assemblies.Assembly
 import com.betomorrow.xamarin.tools.nuspec.dependencies.Dependency
 import groovy.util.slurpersupport.NodeChild
@@ -13,7 +14,7 @@ class NuSpecTest {
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder()
 
-    def SAMPLE_NUSPEC = ClassLoader.getSystemResource('Sample.nuspec').file
+    def SAMPLE_NUSPEC = FileUtils.getResourcePath('Sample.nuspec').toString()
     def output
 
     NuSpec nuspec
