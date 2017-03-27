@@ -12,11 +12,6 @@ subprojects {
 
     apply plugin: 'java-gradle-plugin'
 
-    repositories {
-        mavenCentral()
-        mavenLocal()
-    }
-
     configurations {
         integrationTestCompile.extendsFrom testCompile
         integrationTestRuntime.extendsFrom testRuntime

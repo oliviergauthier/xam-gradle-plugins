@@ -1,37 +1,67 @@
-allprojects {
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+    }
+}
+
+
+configure(subprojects.findAll { it.name != project(':plugins:xamarin-commons').name}) {
+
+    apply plugin: 'com.jfrog.bintray'
 
     apply plugin: 'groovy'
-//    apply plugin: 'maven-publish'
+    apply plugin: 'maven-publish'
     apply from: 'https://raw.githubusercontent.com/mendhak/Gradle-Travis-Colored-Output/master/ColoredOutput.gradle'
 
-//    task sourceJar(type: Jar) {
-//        from sourceSets.main.allJava
-//    }
-//
-//    publishing {
-//        publications {
-//            mavenJava(MavenPublication) {
-//                from components.java
-//
-//                artifact sourceJar {
-//                    classifier "sources"
-//                }
-//            }
-//        }
-//    }
-//
-//    publishing {
-//        repositories {
-//            maven {
-//                credentials {
-//                    username publishUsername
-//                    password publishPassword
-//                }
-//
-//                url publishRepository
-//            }
-//        }
-//    }
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
+
+    task sourceJar(type: Jar) {
+        classifier "sources"
+        from sourceSets.main.allGroovy
+    }
+
+    publishing {
+        publications {
+            BintrayPublication(MavenPublication) {
+                from components.java
+                artifact sourceJar
+            }
+        }
+    }
+
+    bintray {
+        user = project.hasProperty('bintray_user') ? project.property('bintray_user') : null
+        key = project.hasProperty('bintray_apikey') ? project.property('bintray_apikey') : null
+        pkg {
+            repo = 'gradle'
+            name = 'xamarin-build-tools'
+            licenses = ['MIT']
+            vcsUrl = 'https://github.com/oliviergauthier/xam-gradle-plugins'
+
+            version {
+                name = project.version
+            }
+        }
+        publications = ['BintrayPublication']
+    }
+}
+
+subprojects {
+
+    apply plugin: 'groovy'
+    apply from: 'https://raw.githubusercontent.com/mendhak/Gradle-Travis-Colored-Output/master/ColoredOutput.gradle'
+
+    repositories {
+        mavenCentral()
+        mavenLocal()
+    }
 }
 
 task wrapper(type: Wrapper) {
