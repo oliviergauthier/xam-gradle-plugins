@@ -7,6 +7,7 @@ buildscript {
     }
 }
 
+apply plugin : 'groovy'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
@@ -25,7 +26,6 @@ dependencies {
     testRuntime "cglib:cglib-nodep:3.2.4"          // allows mocking of classes (in addition to interfaces)
     testRuntime "org.objenesis:objenesis:2.4"    // allows mocking of classes without default constructor (together with CGLIB)
 }
-
 
 repositories {
     mavenCentral()

@@ -1,14 +1,3 @@
-subprojects {
-
-    apply plugin: 'groovy'
-    apply from: 'https://raw.githubusercontent.com/mendhak/Gradle-Travis-Colored-Output/master/ColoredOutput.gradle'
-
-    repositories {
-        mavenCentral()
-        mavenLocal()
-    }
-}
-
 task wrapper(type: Wrapper) {
     gradleVersion = '3.4.1'
 }
