@@ -1,0 +1,28 @@
+apply plugin: "com.gradle.plugin-publish"
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+}
+
+pluginBundle {
+
+    website = 'https://github.com/oliviergauthier/xam-gradle-plugins'
+    vcsUrl = 'https://github.com/oliviergauthier/xam-gradle-plugins'
+    tags = ['xamarin', 'forms', 'ios', 'android', 'plugin', 'xbuild', 'mdtool', 'nuget', 'nunit']
+
+    plugins {
+
+        libraryPlugin {
+            id = 'com.betomorrow.xamarin.library'
+            displayName = 'Xamarin Library Plugin'
+            description = 'Plugin to build/package/deploy Xamarin library.'
+        }
+
+    }
+
+}

@@ -1,12 +1,17 @@
 buildscript {
     repositories {
         jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
         classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
+        classpath "com.gradle.publish:plugin-publish-plugin:0.9.7"
     }
 }
 
+apply from: 'plugin-community.gradle'
 apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
@@ -14,6 +19,13 @@ dependencies {
     compile project(':shared:xamarin-build-tools')
 }
 
+sourceSets {
+    main {
+        groovy {
+            srcDirs(project(':plugins:xamarin-commons').sourceSets.main.groovy)
+        }
+    }
+}
 
 repositories {
     mavenCentral()
