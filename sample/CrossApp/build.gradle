@@ -8,8 +8,12 @@
 //    }
 //}
 
+//plugins {
+//    id 'xamarin-application-plugin'
+//}
+
 plugins {
-    id 'xamarin-application-plugin'
+    id 'com.betomorrow.xamarin.application' version '0.2.0'
 }
 
 ext {

@@ -1,16 +1,22 @@
-buildscript {
-    repositories {
-        mavenLocal()
-        mavenCentral()
-    }
-    dependencies {
-        classpath 'com.betomorrow.gradle:xamarin-nunit-plugin:1.0-SNAPSHOT'
-    }
-}
+//buildscript {
+//    repositories {
+//        mavenLocal()
+//        mavenCentral()
+//    }
+//    dependencies {
+//        classpath 'com.betomorrow.gradle:xamarin-nunit-plugin:1.0-SNAPSHOT'
+//    }
+//}
+//
+//plugins {
+//    id 'xamarin-nunit-plugin'
+//}
 
 plugins {
-    id 'xamarin-nunit-plugin'
+    id 'com.betomorrow.xamarin.library' version '0.2.0'
+    id 'com.betomorrow.xamarin.nunit' version '0.2.0'
 }
+
 
 version = "1.0.0"
 
