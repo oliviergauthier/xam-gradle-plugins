@@ -6,13 +6,11 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.7.3'
         classpath "com.gradle.publish:plugin-publish-plugin:0.9.7"
     }
 }
 
 apply from: 'plugin-community.gradle'
-apply plugin: 'com.jfrog.bintray'
 apply plugin: 'maven-publish'
 
 sourceSets {
@@ -46,18 +44,3 @@ publishing {
     }
 }
 
-bintray {
-    user = project.hasProperty('bintray_user') ? project.property('bintray_user') : null
-    key = project.hasProperty('bintray_apikey') ? project.property('bintray_apikey') : null
-    pkg {
-        repo = 'gradle'
-        name = 'xamarin-build-tools'
-        licenses = ['MIT']
-        vcsUrl = 'https://github.com/oliviergauthier/xam-gradle-plugins'
-
-        version {
-            name = project.version
-        }
-    }
-    publications = ['BintrayPublication']
-}

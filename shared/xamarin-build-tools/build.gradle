@@ -53,7 +53,12 @@ bintray {
         repo = 'gradle'
         name = 'xamarin-build-tools'
         licenses = ['MIT']
-        vcsUrl = 'https://github.com/oliviergauthier/xam-gradle-plugins'
+        desc = 'Dependencies for xam-gradle-plugins'
+        vcsUrl = 'https://github.com/oliviergauthier/xam-gradle-plugins.git'
+        githubRepo = 'oliviergauthier/xam-gradle-plugins'
+        githubReleaseNotesFile = 'README.md'
+        websiteUrl = 'https://github.com/oliviergauthier/xam-gradle-plugins'
+        issueTrackerUrl = 'https://github.com/oliviergauthier/xam-gradle-plugins/issues'
 
         version {
             name = project.version
