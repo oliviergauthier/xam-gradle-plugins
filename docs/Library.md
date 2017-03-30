@@ -17,17 +17,6 @@ It can be used to integrate build in Continus Integration System like Jenkins
 * In dsl : `packages.*.assemblies.target.includes` , you can specify assembly path or csproj name references in solution. The plugin will resolve assemblies of project
 
 ```
-buildscript {
-    repositories {
-        mavenLocal()
-    }
-    dependencies {
-        classpath 'com.betomorrow.gradle:xamarin-library-plugin:1.0-SNAPSHOT'
-    }
-}
-
-apply plugin: 'xamarin-library-plugin'
-
 name = "Xam.ACME.CrossLib"
 version = "1.0.0-SNAPSHOT"
 

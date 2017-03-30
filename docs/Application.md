@@ -26,17 +26,6 @@ It can be used to integrate build in Continus Integration System like Jenkins
 * By default, use Release configuration
 
 ```groovy
-buildscript {
-   repositories {
-       mavenLocal()
-   }
-   dependencies {
-        classpath 'com.betomorrow.gradle:xamarin-application-plugin:1.0-SNAPSHOT'
-   }
-}
-
-apply plugin: 'xamarin-application-plugin'
-
 application {
 
     // global settings

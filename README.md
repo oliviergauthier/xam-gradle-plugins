@@ -13,10 +13,6 @@ Set of [Gradle](https://gradle.org/) plugins to build Xamarin mobile application
 * **[xamarin-library-plugin](#xamarin-library-plugin) :** Build/Package/Deploy Nuget Library
 * **[xamarin-test-plugin](#xamarin-nunit-plugin) :** Build and run nunit test
 
-# Install
-Install in your local repository with `./gradlew install` or update `gradle.properties` file with your own data and deploy with `./gradlew publish` 
-
-
 # Quick Start
 
 ## Xamarin Application Plugin 
@@ -28,17 +24,27 @@ This plugin provides the ability to build iOS and Android Xamarin Applications w
 - buildIOS : build iOS application
 - buildAndroid : build Android Application
 
+###### Gradle >= 2.1
 ```groovy
+plugins {
+  id "com.betomorrow.xamarin.application" version "0.2.0"
+}
+```
+
+###### Gradle < 2.1
+```
 buildscript {
-   repositories {
-       mavenLocal()
-   }
-   dependencies {
-        classpath 'com.betomorrow.gradle:xamarin-application-plugin:1.0-SNAPSHOT'
-   }
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "gradle.plugin.com.betomorrow.gradle:xamarin-application-plugin:0.2.0"
+  }
 }
 
-apply plugin: 'xamarin-application-plugin'
+apply plugin: "com.betomorrow.xamarin.application"
 ```
 
 [More info](/docs/Application.md)
@@ -53,17 +59,31 @@ This plugin provides the ability to build PCL Libraries and Nuget Packages
 - install : install package locally
 - deploy : deploy package on nuget server like (NugetServer, Sonatype Nexus, ...)
 
+###### Gradle >= 2.1
 ```groovy
+plugins {
+  id "com.betomorrow.xamarin.library" version "0.2.0"
+}
+```
+
+###### Gradle < 2.1
+```
 buildscript {
-   repositories {
-       mavenLocal()
-   }
-   dependencies {
-        classpath 'com.betomorrow.gradle:xamarin-library-plugin:1.0-SNAPSHOT'
-   }
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "gradle.plugin.com.betomorrow.gradle:xamarin-library-plugin:0.2.0"
+  }
 }
 
-apply plugin: 'xamarin-library-plugin'
+apply plugin: "com.betomorrow.xamarin.library"
+```
+
+###### Configuration
+```groovy
 
 version = "1.0.0-SNAPSHOT"
 
@@ -117,18 +137,31 @@ This plugin provides the ability to build and run NUnit test
 - compileTest : build test with xbuild
 - test : run nunit-console
 
+###### Gradle >= 2.1
+```groovy
+plugins {
+  id "com.betomorrow.xamarin.nunit" version "0.2.0"
+}
+```
+
+###### Gradle < 2.1
 ```
 buildscript {
-    repositories {
-        mavenLocal()
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
     }
-    dependencies {
-        classpath 'com.betomorrow.gradle:xamarin-nunit-plugin:1.0-SNAPSHOT'
-    }
+  }
+  dependencies {
+    classpath "gradle.plugin.com.betomorrow.gradle:xamarin-nunit-plugin:0.2.0"
+  }
 }
 
-apply plugin: 'xamarin-nunit-plugin'
+apply plugin: "com.betomorrow.xamarin.nunit"
+```
 
+###### Configuration
+```
 nunit {
     assemblies = "path/to/assemblies.Test.dll"  // (optional) array or string, full path of test assemblies
     projects = "CrossLib.Test"                  // (optional) By default, use "${project.name}.Test"
