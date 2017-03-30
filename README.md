@@ -19,8 +19,7 @@ Set of [Gradle](https://gradle.org/) plugins to build Xamarin mobile application
 
 This plugin provides the ability to build iOS and Android Xamarin Applications with gradle.
 
-
-**Tasks :**
+###### Tasks
 - buildIOS : build iOS application
 - buildAndroid : build Android Application
 
@@ -53,7 +52,7 @@ apply plugin: "com.betomorrow.xamarin.application"
 
 This plugin provides the ability to build PCL Libraries and Nuget Packages
 
-**Tasks :**
+###### Tasks
 - build : build library with xbuild
 - package : create nuget package
 - install : install package locally
@@ -133,7 +132,7 @@ deploy {
 
 This plugin provides the ability to build and run NUnit test
 
-**Tasks :**
+###### Tasks
 - compileTest : build test with xbuild
 - test : run nunit-console
 
@@ -174,15 +173,4 @@ See following projects for more working samples
 - [SampleApp](https://github.com/oliviergauthier/xam-gradle-plugins-sample-app)
 - [SampleLib](https://github.com/oliviergauthier/xam-gradle-plugins-sample-lib)
 
-## Install
-Install in local repository 
-```bash
-./gradlew install
-```
-
-## Deploy
-Update `gradle.properties` file with your own url, user and password 
-```bash
-./gradlew publish
-```
 
