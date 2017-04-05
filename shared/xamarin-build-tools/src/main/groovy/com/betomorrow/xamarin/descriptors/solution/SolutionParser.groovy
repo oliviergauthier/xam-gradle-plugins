@@ -13,7 +13,7 @@ class SolutionParser {
     private static final String START_TAG = 'Project'
     private static final String END_TAG = 'EndProject'
 
-    Pattern projectPattern = ~/(?m)Project[^=]*=\s"([^"]*)",\s"([^"]*)",\s"([^"]*)"\s*\nEndProject/
+    Pattern projectPattern = ~/(?m)Project[^=]*=\s"([^"]*)",\s"([^"]*)",\s"([^"]*)".*/
     Pattern configurationPattern = ~/(.*)/
 
     List<SolutionProject> parse(Path path) {
@@ -21,14 +21,9 @@ class SolutionParser {
         String content = readFully(path)
         def projectLines = findProjectLines(content)
         projectLines.forEach { it ->
-            Matcher matcher = projectPattern.matcher(it)
-            def matches = matcher.matches()
-            def groupCount = matcher.groupCount()
-            if (groupCount == 3) {
-                def projectName = matcher.group(1)
-                def projectPath = matcher.group(2).replace('\\', '/')
-                def projectHash = matcher.group(3)
+            it.find(projectPattern) { fullMatch, projectName, projectPath, projectHash ->
                 def configurations = findConfigurations(projectHash, content)
+                projectPath = projectPath.replace('\\', '/')
                 solutions.add(new SolutionProject(projectName, projectPath, configurations))
             }
         }

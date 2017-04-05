@@ -31,6 +31,7 @@ class GenerateNuspecTaskTest extends Specification {
         project.nuspec {
             packages {
                 SampleLib {
+                    title = "aTitle"
                     packageId = "aPackageId"
                     version = "aVersion"
                     authors = "some authors"
@@ -55,6 +56,7 @@ class GenerateNuspecTaskTest extends Specification {
 
         then:
         1 * writer.write(_) >> { arguments -> nuSpecData = arguments[0] }
+        assert nuSpecData.title == "aTitle"
         assert nuSpecData.owners == "some owners"
         assert nuSpecData.packageId == "aPackageId"
         assert nuSpecData.version == "aVersion"
@@ -74,6 +76,7 @@ class GenerateNuspecTaskTest extends Specification {
         NuSpec nuSpecData
         project.nuspec {
 
+            title = "aTitle"
             version = "aVersion"
             authors = "some authors"
             owners = "some owners"
@@ -104,6 +107,7 @@ class GenerateNuspecTaskTest extends Specification {
         assert nuSpecData.owners == "some owners"
         assert nuSpecData.packageId == "aPackageId"
         assert nuSpecData.version == "aVersion"
+        assert nuSpecData.title == "aTitle"
         assert nuSpecData.authors == "some authors"
         assert nuSpecData.licenseUrl == "the license url"
         assert nuSpecData.projectUrl == "the project url"

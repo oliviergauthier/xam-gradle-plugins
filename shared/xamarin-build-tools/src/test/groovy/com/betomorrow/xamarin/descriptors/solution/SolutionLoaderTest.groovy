@@ -8,14 +8,14 @@ class SolutionLoaderTest {
     def SAMPLE_SOLUTION = FileUtils.getResourcePath('CrossApp/CrossApp.sln')
 
     @Test
-     void testLoadRealSolution() {
+    void testLoadRealSolution() {
         def descriptor = new SolutionLoader().load(SAMPLE_SOLUTION)
 
         assert descriptor.getProjects().size() == 3
         assert descriptor.getProject('CrossApp') != null
 
         def iosApp = descriptor.getProject('CrossApp.iOS')
-        assert  iosApp != null
+        assert iosApp != null
         assert !iosApp.isAndroidApplication()
         assert iosApp.isIosApplication()
         assert iosApp.getAssemblyName() == 'CrossApp.iOS'
@@ -31,4 +31,5 @@ class SolutionLoaderTest {
         assert androidApp.getApplicationOutputPath('Debug') == SAMPLE_SOLUTION.parent.resolve('Droid/bin/Debug/com.acme.crossapp.alpha.apk')
 
     }
+
 }

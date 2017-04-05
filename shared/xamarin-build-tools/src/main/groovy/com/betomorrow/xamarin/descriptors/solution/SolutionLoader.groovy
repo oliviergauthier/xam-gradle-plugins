@@ -4,6 +4,7 @@ import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
 
 import java.nio.file.Path
 import java.nio.file.Paths
+import java.util.concurrent.ExecutionException
 
 class SolutionLoader {
 
@@ -15,7 +16,11 @@ class SolutionLoader {
 
         Map<String, XamarinProjectDescriptor> descriptors = new HashMap<>()
         slnProjects.each { it ->
-            descriptors.put(it.name, new XamarinProjectDescriptor(it.name, baseDir.resolve(it.path)))
+            try {
+                descriptors.put(it.name, new XamarinProjectDescriptor(it.name, baseDir.resolve(it.path)))
+            } catch (Exception e) {
+
+            }
         }
 
         return new SolutionDescriptor(descriptors)

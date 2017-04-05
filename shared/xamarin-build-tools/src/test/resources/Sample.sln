@@ -2,6 +2,9 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossApp", "CrossApp\CrossApp.csproj", "{94F604E6-17CE-4E29-9AF1-A505B3290F33}"
+	ProjectSection(SolutionItems) = preProject
+		build.gradle = build.gradle
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossApp.iOS", "iOS\CrossApp.iOS.csproj", "{A3FBC094-F83C-47F1-8FFF-D06D20930377}"
 EndProject

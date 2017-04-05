@@ -7,6 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossApp.iOS", "iOS\CrossAp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossApp.Droid", "Droid\CrossApp.Droid.csproj", "{809476B4-0C52-4674-A97A-241C1CCD60BC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solution Items", "Solution Items", "{38AB8CA2-1685-4172-9760-E79FD8A26B62}"
+	ProjectSection(SolutionItems) = preProject
+		build.gradle = build.gradle
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

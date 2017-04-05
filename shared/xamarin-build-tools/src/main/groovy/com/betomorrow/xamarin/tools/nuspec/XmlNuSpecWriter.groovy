@@ -24,6 +24,7 @@ class XmlNuSpecWriter implements NuSpecWriter {
         def output = nuspec.output ?: nuspec.source
 
         updateMetadata(packageNode, "id", nuspec.packageId)
+        updateMetadata(packageNode, "title", nuspec.title)
         updateMetadata(packageNode, "version", nuspec.version)
         updateMetadata(packageNode, "authors", nuspec.authors)
         updateMetadata(packageNode, "owners", nuspec.owners)

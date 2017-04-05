@@ -74,6 +74,7 @@ class XamarinLibraryPlugin implements Plugin<Project> {
 
                     def generateNuspec = task("generateNuspec${p.name}", 'type': GenerateNuspecTask) {
                         packageId = p.packageId
+                        title = p.title
                         version = p.version
                         authors = p.authors
                         owners = p.owners

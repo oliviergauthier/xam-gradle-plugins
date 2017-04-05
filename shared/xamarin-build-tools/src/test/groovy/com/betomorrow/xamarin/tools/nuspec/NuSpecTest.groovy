@@ -45,6 +45,14 @@ class NuSpecTest {
     }
 
     @Test
+    void testUpdateTitle() {
+        nuspec.title = "new title"
+        writer.write(nuspec)
+
+        assert field("title") == "new title"
+    }
+
+    @Test
      void testUpdateVersion() {
         nuspec.version = "new version"
         writer.write(nuspec)

@@ -20,6 +20,7 @@ class GenerateNuspecTask extends DefaultTask {
 
     String output
 
+    String title
     String packageId
     String version
     String authors
@@ -42,6 +43,7 @@ class GenerateNuspecTask extends DefaultTask {
 
         nuSpec.output = output
 
+        nuSpec.title = title
         nuSpec.packageId = packageId
         nuSpec.version = version
         nuSpec.authors = authors

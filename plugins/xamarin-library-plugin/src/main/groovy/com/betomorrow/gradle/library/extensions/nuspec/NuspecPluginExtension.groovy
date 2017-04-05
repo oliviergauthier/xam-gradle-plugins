@@ -12,6 +12,7 @@ class NuspecPluginExtension {
 
     NamedDomainObjectContainer<NuspecItemExtension> packages
 
+    String title
     String version
     String authors
     String owners

@@ -16,6 +16,7 @@ class NuspecItemExtension {
     List<Dependency> dependencies = []
 
     // Generate Nuspec
+    String title
     String packageId
     String version
     String authors
@@ -46,6 +47,10 @@ class NuspecItemExtension {
             baseName = "${baseName}-${getSuffix()}"
         }
         return "${baseName}.nupkg"
+    }
+
+    String getTitle() {
+        return title ?: parent.title
     }
 
     String getPackageId() {

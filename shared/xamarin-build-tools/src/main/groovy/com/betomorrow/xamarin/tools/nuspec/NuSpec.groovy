@@ -8,6 +8,7 @@ class NuSpec {
     String source
     String output
 
+    String title
     String packageId
     String version
     String authors
