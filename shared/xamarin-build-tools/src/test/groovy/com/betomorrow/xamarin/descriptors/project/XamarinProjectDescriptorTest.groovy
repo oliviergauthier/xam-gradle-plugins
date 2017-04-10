@@ -68,6 +68,27 @@ class XamarinProjectDescriptorTest {
     }
 
     @Test
+    void testGetDebugModeOnAndroidProject() {
+        assert "full" == androidProject.getDebugMode("Release")
+    }
+
+    @Test
+    void testHasDebugSymbolsOnAndroidProject() {
+        assert androidProject.hasDebugSymbols("Release")
+    }
+
+    @Test
+    void testGetDebugModeOnIosProject() {
+        assert "pdbonly" == iosProject.getDebugMode("Release", "iPhone")
+    }
+
+    @Test
+    void testHasDebugSymbolsOnIosProject() {
+        assert iosProject.hasDebugSymbols("Release", "iPhone")
+        assert !iosProject.hasDebugSymbols("Release", "iPhoneSimulator")
+    }
+
+    @Test
     void testGetOutputPathReturnsIpaPath() {
         assert SAMPLE_IOS.parent.resolve('bin/iPhone/Release/CrossApp.iOS.ipa') == iosProject.getApplicationOutputPath('Release', 'iPhone')
     }
@@ -82,5 +103,7 @@ class XamarinProjectDescriptorTest {
         def expectedReference =  new Reference('Xamarin.Forms.Core', '..\\packages\\Xamarin.Forms.2.0.0.6490\\lib\\MonoAndroid10\\Xamarin.Forms.Core.dll')
         assert(androidProject.getReference()).contains(expectedReference)
     }
+
+
 
 }

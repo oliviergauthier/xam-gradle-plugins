@@ -248,7 +248,7 @@ class GenerateNuspecTaskTest extends Specification {
                         target {
                             dest "lib/Xamarin.iOS10"
                             includes "CrossLib.Abstractions",
-                                    "CrossLib.IOS"
+                                     "CrossLib.IOS"
                         }
                     }
                 }

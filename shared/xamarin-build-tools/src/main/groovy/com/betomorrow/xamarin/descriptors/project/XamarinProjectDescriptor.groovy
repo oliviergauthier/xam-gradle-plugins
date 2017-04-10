@@ -52,11 +52,7 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
     // Commons
 
     String getOutputDir(String configuration, String platform = null) {
-        def pattern = platform == null ? ~/.*${configuration}.*/ : ~/.*'\s*${configuration}\s*\|\s*${platform}\s*'.*/
-        def nodes = content.PropertyGroup.findAll{
-            it.@Condition =~ pattern
-        }
-        return FileUtils.toUnixPath(nodes[0].OutputPath.toString())
+        return FileUtils.toUnixPath(getPropertyGroup(configuration, platform).OutputPath.toString())
     }
 
     Path getLibraryOutputPath(String configuration) {
@@ -87,5 +83,19 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
     Path getAssemblyInfoPath() {
         return path.parent.resolve("Properties").resolve("AssemblyInfo.cs")
     }
+
+    String getDebugMode(String configuration, String platform = null) {
+        return getPropertyGroup(configuration, platform).DebugType
+    }
+
+    boolean hasDebugSymbols(String configuration, String platform = null) {
+        def debugSymbols = getPropertyGroup(configuration, platform).DebugSymbols
+        try {
+            return Boolean.parseBoolean(debugSymbols.toString().trim())
+        } catch (Exception e) {
+            return false
+        }
+    }
+
 
 }
