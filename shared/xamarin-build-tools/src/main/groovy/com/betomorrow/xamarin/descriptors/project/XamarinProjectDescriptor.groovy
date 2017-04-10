@@ -59,6 +59,10 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
         return path.parent.resolve(getOutputDir(configuration, 'AnyCPU')).resolve("${assemblyName}.dll")
     }
 
+    Path getSymbolsOutputPath(String configuration) {
+        return path.parent.resolve(getOutputDir(configuration, 'AnyCPU')).resolve("${assemblyName}.mdb")
+    }
+
     Path getApplicationOutputPath(String configuration, String platform = null) {
         if (isAndroidApplication()) {
             def packageName = new DefaultAndroidManifestReader().read(androidManifestPath).packageName

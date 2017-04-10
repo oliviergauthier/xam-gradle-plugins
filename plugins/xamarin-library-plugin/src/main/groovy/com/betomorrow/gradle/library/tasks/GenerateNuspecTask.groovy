@@ -62,19 +62,28 @@ class GenerateNuspecTask extends DefaultTask {
 
         assemblies.each { target ->
             target.includes.each {
-                nuSpec.assemblySet.add(new Assembly(resolveAssembly(solution, it), target.dest))
+                resolveAssembly(solution, it).forEach { assembly ->
+                    nuSpec.assemblySet.addAll(new Assembly(assembly, target.dest))
+                }
             }
         }
 
         writer.write(nuSpec)
     }
 
-    String resolveAssembly(SolutionDescriptor solution, String name) {
+    List<String> resolveAssembly(SolutionDescriptor solution, String name) {
         XamarinProjectDescriptor pd = solution.getProject(name)
         if (pd == null) {
-            return name
+            return [name]
         }
-        return project.file(".").toPath().relativize(pd.getLibraryOutputPath("Release")).toString()
+
+        def assemblies = []
+        assemblies.add(project.file(".").toPath().relativize(pd.getLibraryOutputPath("Release")).toString())
+        if (pd.hasDebugSymbols("Release")) {
+            assemblies.add(project.file(".").toPath().relativize(pd.getSymbolsOutputPath("Release")).toString())
+        }
+
+        return assemblies
     }
 
 }
