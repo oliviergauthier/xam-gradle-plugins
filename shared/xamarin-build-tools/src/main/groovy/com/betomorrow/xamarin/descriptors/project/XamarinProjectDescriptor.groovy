@@ -60,7 +60,7 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
     }
 
     Path getSymbolsOutputPath(String configuration) {
-        return path.parent.resolve(getOutputDir(configuration, 'AnyCPU')).resolve("${assemblyName}.mdb")
+        return path.parent.resolve(getOutputDir(configuration, 'AnyCPU')).resolve("${assemblyName}.dll.mdb")
     }
 
     Path getApplicationOutputPath(String configuration, String platform = null) {

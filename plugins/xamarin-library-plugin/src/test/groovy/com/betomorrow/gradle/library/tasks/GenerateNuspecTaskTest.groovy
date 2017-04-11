@@ -270,7 +270,7 @@ class GenerateNuspecTaskTest extends Specification {
         assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.dll').toString(),
                 'lib/MonoAndroid10'))
 
-        assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.mdb').toString(),
+        assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.dll.mdb').toString(),
                 'lib/MonoAndroid10'))
 
         assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Droid/bin/Release/CrossLib.Droid.dll').toString(),
@@ -279,7 +279,7 @@ class GenerateNuspecTaskTest extends Specification {
         assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.dll').toString(),
                 'lib/Xamarin.iOS10'))
 
-        assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.mdb').toString(),
+        assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.dll.mdb').toString(),
                 'lib/Xamarin.iOS10'))
 
         assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.IOS/bin/Release/CrossLib.IOS.dll').toString(),
