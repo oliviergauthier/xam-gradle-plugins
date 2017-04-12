@@ -4,7 +4,7 @@ Xamarin gradle plugins
 # Build status
 
 [![Build Status](https://travis-ci.org/oliviergauthier/xam-gradle-plugins.svg?branch=master)](https://travis-ci.org/oliviergauthier/xam-gradle-plugins)
-[ ![Download](https://api.bintray.com/packages/oliviergauthier/gradle/xamarin-build-tools/images/download.svg?version=0.2.0) ](https://bintray.com/oliviergauthier/gradle/xamarin-build-tools/0.2.0/link)
+[ ![Download](https://api.bintray.com/packages/oliviergauthier/gradle/xamarin-build-tools/images/download.svg) ](https://bintray.com/oliviergauthier/gradle/xamarin-build-tools/_latestVersion)
 
 # Description
 
