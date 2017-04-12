@@ -46,7 +46,7 @@ class XamarinApplicationPlugin implements Plugin<Project> {
 
                 task("cleanAll", description: "clean all dist and library", group: Groups.BUILD, dependsOn: ['clean', 'cleanDist']) {}
 
-                task("nugetRestore", description: "restore nuget packages", group: Groups.BUILD, 'type' : NugetRestoreTask){}
+                task("nugetRestore", description: "restore nuget packages", group: Groups.BUILD, overwrite : true, 'type' : NugetRestoreTask){}
 
                 task("buildAndroid", description: "build android application", dependsOn: ["nugetRestore"], group: Groups.BUILD, type: BuildAndroidAppTask) {
                     appVersion = android.appVersion

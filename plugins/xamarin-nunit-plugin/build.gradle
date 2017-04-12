@@ -17,6 +17,14 @@ dependencies {
     compile project(':shared:xamarin-build-tools')
 }
 
+sourceSets {
+    main {
+        groovy {
+            srcDirs(project(':plugins:xamarin-commons').sourceSets.main.groovy)
+        }
+    }
+}
+
 repositories {
     mavenCentral()
     mavenLocal()

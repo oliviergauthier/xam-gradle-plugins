@@ -51,7 +51,7 @@ class XamarinLibraryPlugin implements Plugin<Project> {
 
                 task("cleanAll", description: "clean all dist and library", group: Groups.BUILD, dependsOn: ['clean', 'cleanDist']) {}
 
-                task("nugetRestore", description: "restore nuget packages", group: Groups.BUILD, 'type' : NugetRestoreTask){}
+                task("nugetRestore", description: "restore nuget packages", group: Groups.BUILD, overwrite : true,  'type' : NugetRestoreTask){}
 
                 task("build", description: "build library", dependsOn: ["nugetRestore"],  group: Groups.BUILD, 'type': BuildTask) {
                     version = SemVersion.parse(project.version).versionNumber

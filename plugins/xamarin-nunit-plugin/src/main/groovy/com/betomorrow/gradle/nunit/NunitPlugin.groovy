@@ -5,6 +5,7 @@ import com.betomorrow.gradle.commons.tasks.Groups
 import com.betomorrow.gradle.nunit.context.PluginContext
 import com.betomorrow.gradle.nunit.extensions.NunitPluginExtension
 import com.betomorrow.gradle.nunit.tasks.CompileTestTask
+import com.betomorrow.gradle.nunit.tasks.NugetRestoreTask
 import com.betomorrow.gradle.nunit.tasks.RunNUnitConsoleTask
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -26,7 +27,9 @@ class NunitPlugin implements Plugin<Project> {
 
                 NunitPluginExtension nunit = extensions.getByName("nunit")
 
-                def compileTestTask = task("compileTest", description : "Build tests assemblies", group : Groups.BUILD, type : CompileTestTask) {
+                task("nugetRestore", description: "restore nuget packages", group: Groups.BUILD, overwrite : true,  'type' : NugetRestoreTask){}
+
+                def compileTestTask = task("compileTest", description : "Build tests assemblies", dependsOn: ['nugetRestore'], group : Groups.BUILD, type : CompileTestTask) {
                     projects = nunit.projects
                 }
 
