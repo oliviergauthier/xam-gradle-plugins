@@ -3,6 +3,7 @@ package com.betomorrow.gradle.library.tasks
 import com.betomorrow.gradle.library.context.PluginContext
 import com.betomorrow.xamarin.tools.nuget.Nuget
 import org.gradle.api.DefaultTask
+import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
 
 class PushPackageTask extends DefaultTask {
@@ -16,7 +17,10 @@ class PushPackageTask extends DefaultTask {
     @TaskAction
     void pushPackage() {
         def repository = source ?: "${System.getProperty('user.home')}/.nuget"
-        nuget.push(packagePath, repository, apiKey)
+        def result = nuget.push(packagePath, repository, apiKey)
+        if (result > 0) {
+            throw new GradleException("Can't push package")
+        }
     }
 
 }

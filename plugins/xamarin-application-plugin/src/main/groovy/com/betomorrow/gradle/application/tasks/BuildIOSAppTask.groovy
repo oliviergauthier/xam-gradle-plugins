@@ -7,6 +7,7 @@ import com.betomorrow.xamarin.files.FileCopier
 import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
 import com.betomorrow.xamarin.tools.xbuild.XBuild
 import org.gradle.api.DefaultTask
+import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
 
 class BuildIOSAppTask extends DefaultTask {
@@ -52,7 +53,10 @@ class BuildIOSAppTask extends DefaultTask {
 
     private void invokeXBuild() {
         def defaultOutputDir = getProjectDescriptor().getOutputDir(configuration, platform)
-        xBuild.buildIosApp(configuration, platform, "bin/$platform/$configuration", solutionFile)
+        def result = xBuild.buildIosApp(configuration, platform, "bin/$platform/$configuration", solutionFile)
+        if (result > 0) {
+            throw new GradleException("Can't build ios application")
+        }
     }
 
     private void copyBuiltAssemblyToOutput() {

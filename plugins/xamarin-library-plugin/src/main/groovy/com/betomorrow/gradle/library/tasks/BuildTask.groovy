@@ -7,6 +7,7 @@ import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
 import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
 import com.betomorrow.xamarin.tools.xbuild.XBuild
 import org.gradle.api.DefaultTask
+import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
 
 import java.nio.file.Files
@@ -31,7 +32,10 @@ class BuildTask extends DefaultTask {
             }
         }
 
-        xBuild.buildCrossLibrary(configuration, solutionFile)
+        int result = xBuild.buildCrossLibrary(configuration, solutionFile)
+        if (result > 0) {
+            throw new GradleException("Can't build library")
+        }
     }
 
 }

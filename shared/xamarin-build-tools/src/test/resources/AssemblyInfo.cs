@@ -24,3 +24,6 @@ using System.Runtime.CompilerServices;
 
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
+
+[assembly: InternalsVisibleTo("Com.Acme.CustomLib.IOS")]
+[assembly: InternalsVisibleTo("Com.Acme.CustomLib.Droid")]

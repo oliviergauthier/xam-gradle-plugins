@@ -4,6 +4,7 @@ import com.betomorrow.gradle.nunit.context.PluginContext
 import com.betomorrow.xamarin.tools.nunit.NUnitConsole
 import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
 import org.gradle.api.DefaultTask
+import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
 
 import java.nio.file.Path
@@ -35,7 +36,10 @@ class RunNUnitConsoleTask extends DefaultTask {
             }
         }
 
-        nUnitRunner.run(targets, format)
+        def result = nUnitRunner.run(targets, format)
+        if (result > 0) {
+            throw new GradleException("Test failures")
+        }
     }
 
 }

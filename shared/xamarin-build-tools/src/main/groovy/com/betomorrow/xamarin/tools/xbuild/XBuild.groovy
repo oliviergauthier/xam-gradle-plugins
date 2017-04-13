@@ -14,15 +14,15 @@ class XBuild {
         commandRunner = runner
     }
 
-    void buildAndroidApp(String configuration, String projectFile) {
+    int buildAndroidApp(String configuration, String projectFile) {
         XBuildCmd cmd = new XBuildCmd()
         cmd.setConfiguration(configuration)
         cmd.setTarget(XBuildTargets.PackageForAndroid)
         cmd.setProjectPath(projectFile)
-        commandRunner.run(cmd)
+        return commandRunner.run(cmd)
     }
 
-    void buildIosApp(String configuration, String platform, String outputDir, String solutionPath) {
+    int buildIosApp(String configuration, String platform, String outputDir, String solutionPath) {
         XBuildCmd cmd = new XBuildCmd()
         cmd.setConfiguration(configuration)
         cmd.addProperty('Platform', platform)
@@ -31,22 +31,22 @@ class XBuild {
         }
         cmd.setTarget(XBuildTargets.Build)
         cmd.setProjectPath(solutionPath)
-        commandRunner.run(cmd)
+        return commandRunner.run(cmd)
     }
 
-    void buildCrossLibrary(String configuration, String solutionPath) {
+    int buildCrossLibrary(String configuration, String solutionPath) {
         XBuildCmd cmd = new XBuildCmd()
         cmd.setConfiguration(configuration)
         cmd.setTarget(XBuildTargets.Build)
         cmd.setProjectPath(solutionPath)
-        commandRunner.run(cmd)
+        return commandRunner.run(cmd)
     }
 
-    void buildSingleProject(String configuration, String csprojPath) {
+    int buildSingleProject(String configuration, String csprojPath) {
         XBuildCmd cmd = new XBuildCmd()
         cmd.setConfiguration(configuration)
         cmd.setTarget(XBuildTargets.Build)
         cmd.setProjectPath(csprojPath)
-        commandRunner.run(cmd)
+        return commandRunner.run(cmd)
     }
 }

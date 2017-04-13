@@ -20,11 +20,17 @@ class InstallPackageTask extends DefaultTask {
         switch (format) {
             case PublishLocalPluginExtension.NUGET_3:
                 def repository = source ?: "${System.getProperty('user.home')}${File.separator}.nuget${File.separator}packages"
-                nuget.install(packagePath, repository)
+                def result = nuget.install(packagePath, repository)
+                if (result > 0) {
+                    throw new GradleException("Can't install library")
+                }
                 break
             case PublishLocalPluginExtension.NUGET_2:
                 def repository = source ?: "${System.getProperty('user.home')}${File.separator}.nuget"
-                nuget.push(packagePath, repository, null)
+                def result = nuget.push(packagePath, repository, null)
+                if (result > 0) {
+                    throw new GradleException("Can't install library")
+                }
                 break
             default:
                 throw new GradleException("Invalid format for local repository")

@@ -15,14 +15,14 @@ class DefaultNunitConsole implements NUnitConsole {
     }
 
     @Override
-    void run(List<String> assemblies, String format, String version) {
+    int run(List<String> assemblies, String format, String version) {
         def nunitConsolePath = getNunitConsolePath(version)
-        runner.run(new NunitRunCmd(nunitConsolePath, assemblies, format))
+        return runner.run(new NunitRunCmd(nunitConsolePath, assemblies, format))
     }
 
     @Override
-    void run(List<String> assemblies, String format) {
-        run(assemblies, format, "3.6.0")
+    int run(List<String> assemblies, String format) {
+        return run(assemblies, format, "3.6.0")
     }
 
     String getNunitConsolePath(String version) {

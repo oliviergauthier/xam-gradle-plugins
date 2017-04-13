@@ -15,7 +15,6 @@ class DefaultAssemblyInfoUpdater implements AssemblyInfoUpdater {
 
     private class Updater implements AssemblyInfoUpdaterTask {
 
-        protected AssemblyInfoReader reader = new AssemblyInfoReader()
         protected AssemblyInfoWriter writer = new AssemblyInfoWriter()
 
         private Path path
@@ -33,7 +32,7 @@ class DefaultAssemblyInfoUpdater implements AssemblyInfoUpdater {
 
         @Override
         void update() {
-            AssemblyInfo info = reader.read(path)
+            AssemblyInfo info = new AssemblyInfo(path.toAbsolutePath().toString(), [:])
             info.version = version
             writer.write(info)
         }

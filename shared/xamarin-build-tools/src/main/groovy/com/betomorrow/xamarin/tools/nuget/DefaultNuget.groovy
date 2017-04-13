@@ -25,20 +25,20 @@ class DefaultNuget implements Nuget {
                 .toAbsolutePath().toString()
     }
 
-    void install(String packagePath, String source) {
-        execute(new NugetAddCmd(nugetPath, packagePath, source))
+    int install(String packagePath, String source) {
+        return execute(new NugetAddCmd(nugetPath, packagePath, source))
     }
 
-    void pack(String packagePath, String suffix, String outputDirectory) {
-        execute(new NugetPackCmd(nugetPath, packagePath, suffix, outputDirectory))
+    int pack(String packagePath, String suffix, String outputDirectory) {
+        return execute(new NugetPackCmd(nugetPath, packagePath, suffix, outputDirectory))
     }
 
-    void push(String packagePath, String source, String apiKey) {
-        execute(new NugetPushCmd(nugetPath, packagePath, source, apiKey))
+    int push(String packagePath, String source, String apiKey) {
+        return execute(new NugetPushCmd(nugetPath, packagePath, source, apiKey))
     }
 
-    void restore() {
-        execute(new NugetRestoreCmd(nugetPath))
+    int restore() {
+        return execute(new NugetRestoreCmd(nugetPath))
     }
 
     private void downloadNuget() {
@@ -46,12 +46,12 @@ class DefaultNuget implements Nuget {
         filesCopier.download(new URL(url), Paths.get(nugetPath))
     }
 
-    private void execute(CommandRunner.Cmd cmd) {
+    private int execute(CommandRunner.Cmd cmd) {
         if (!new File(nugetPath).exists()) {
             downloadNuget()
         }
 
-        runner.run(cmd)
+        return runner.run(cmd)
     }
 
 
