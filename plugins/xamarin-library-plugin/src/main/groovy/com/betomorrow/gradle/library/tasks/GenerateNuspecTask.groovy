@@ -1,6 +1,7 @@
 package com.betomorrow.gradle.library.tasks
 
 import com.betomorrow.gradle.library.extensions.nuspec.AssemblyTarget
+import com.betomorrow.xamarin.descriptors.project.SymbolsFormat
 import com.betomorrow.xamarin.tools.nuspec.NuSpec
 import com.betomorrow.xamarin.tools.nuspec.NuSpecWriter
 import com.betomorrow.xamarin.tools.nuspec.XmlNuSpecWriter
@@ -12,6 +13,9 @@ import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
 import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.TaskAction
+
+import java.nio.file.Files
+import java.nio.file.Path
 
 class GenerateNuspecTask extends DefaultTask {
 
@@ -33,6 +37,8 @@ class GenerateNuspecTask extends DefaultTask {
     String releaseNotes
     String copyright
     String tags
+
+    String configuration
 
     List<Dependency> dependencies
     List<AssemblyTarget> assemblies
@@ -78,12 +84,31 @@ class GenerateNuspecTask extends DefaultTask {
         }
 
         def assemblies = []
-        assemblies.add(project.file(".").toPath().relativize(pd.getLibraryOutputPath("Release")).toString())
-        if (pd.hasDebugSymbols("Release")) {
-            assemblies.add(project.file(".").toPath().relativize(pd.getSymbolsOutputPath("Release")).toString())
+        assemblies.add(project.file(".").toPath().relativize(pd.getLibraryOutputPath(configuration)).toString())
+
+        def debugSymbolsPath = getSymbolsPath(pd)
+        if (debugSymbolsPath != null) {
+            assemblies.add(project.projectDir.toPath().relativize(debugSymbolsPath).toString())
+        }
+        return assemblies
+    }
+
+    private Path getSymbolsPath(XamarinProjectDescriptor pd) {
+        if (!pd.hasDebugSymbols(configuration)) {
+            return null
         }
 
-        return assemblies
+        def path = pd.getSymbolsOutputPath(configuration)
+        if (Files.exists(path)) {
+            return path
+        }
+
+        path = pd.getSymbolsOutputPath(configuration, SymbolsFormat.PDB)
+        if (Files.exists(path)) {
+            return path
+        }
+
+        return null
     }
 
 }

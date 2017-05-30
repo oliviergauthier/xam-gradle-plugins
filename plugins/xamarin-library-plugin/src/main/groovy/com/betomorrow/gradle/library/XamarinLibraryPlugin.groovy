@@ -89,6 +89,7 @@ class XamarinLibraryPlugin implements Plugin<Project> {
                         output = targetNuspecPath
                         dependencies = p.dependencies
                         assemblies = p.assemblies
+                        configuration = library.configuration
                     }
                     generateNuspecTasks.add(generateNuspec)
 
