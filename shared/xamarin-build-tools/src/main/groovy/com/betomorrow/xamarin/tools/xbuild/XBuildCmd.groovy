@@ -8,10 +8,22 @@ class XBuildCmd implements CommandRunner.Cmd {
 
     private Map<String, String> properties = new HashMap<>()
 
-    String xBuildPath = '/Library/Frameworks/Mono.framework/Commands/xbuild'
+    String xBuildPath
     String target
     String configuration
     String projectPath
+
+    XBuildCmd() {
+        xBuildPath = '/Library/Frameworks/Mono.framework/Commands/xbuild'
+    }
+
+    XBuildCmd(boolean useMSBuild) {
+        if (useMSBuild) {
+            xBuildPath = '/Library/Frameworks/Mono.framework/Commands/msbuild'
+        } else {
+            xBuildPath = '/Library/Frameworks/Mono.framework/Commands/xbuild'
+        }
+    }
 
     void addProperty(String key, String value) {
         properties[key] = value

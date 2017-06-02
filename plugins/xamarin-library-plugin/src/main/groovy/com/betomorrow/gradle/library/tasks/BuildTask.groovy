@@ -15,12 +15,14 @@ import java.nio.file.Files
 class BuildTask extends DefaultTask {
 
     protected XBuild xBuild = PluginContext.current.xbuild
+
     protected SolutionLoader loader = new SolutionLoader()
     protected AssemblyInfoUpdater assemblyInfoUpdater = new DefaultAssemblyInfoUpdater()
 
     String solutionFile
     String configuration
     String version
+    boolean useMSBuild
 
     @TaskAction
      void build() {
@@ -32,6 +34,7 @@ class BuildTask extends DefaultTask {
             }
         }
 
+        xBuild.useMSBuild(useMSBuild)
         int result = xBuild.buildCrossLibrary(configuration, solutionFile)
         if (result > 0) {
             throw new GradleException("Can't build library")

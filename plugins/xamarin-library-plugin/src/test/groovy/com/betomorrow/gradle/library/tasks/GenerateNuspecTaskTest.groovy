@@ -49,7 +49,7 @@ class GenerateNuspecTaskTest extends Specification {
         }
 
         when:
-        project.evaluate();
+        project.evaluate()
         task = project.tasks.generateNuspecSampleLib
         task.writer = writer
         task.generateNuspec()

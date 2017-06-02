@@ -22,9 +22,26 @@ class XBuildTest {
     }
 
     @Test
+    void testBuildAndroidAppWithMSBuild() {
+        xBuild.useMSBuild(true)
+        xBuild.buildAndroidApp("Release", "sample.csproj")
+        assert executedCmd.build() == ['/Library/Frameworks/Mono.framework/Commands/msbuild', '/t:PackageForAndroid', '/p:Configuration=Release', 'sample.csproj']
+    }
+
+    @Test
     void testBuildIosApp() {
         xBuild.buildIosApp("Release", "iPhone", "bin/iPhone/Release", "sample.sln")
         assert executedCmd.build().containsAll(['/Library/Frameworks/Mono.framework/Commands/xbuild', '/t:Build', '/p:IpaPackageDir=bin/iPhone/Release',
+                                                '/p:Configuration=Release', '/p:Platform=iPhone', 'sample.sln'])
+
+    }
+
+
+    @Test
+    void testBuildIosAppWithMSBuild() {
+        xBuild.useMSBuild(true)
+        xBuild.buildIosApp("Release", "iPhone", "bin/iPhone/Release", "sample.sln")
+        assert executedCmd.build().containsAll(['/Library/Frameworks/Mono.framework/Commands/msbuild', '/t:Build', '/p:IpaPackageDir=bin/iPhone/Release',
                                                 '/p:Configuration=Release', '/p:Platform=iPhone', 'sample.sln'])
 
     }

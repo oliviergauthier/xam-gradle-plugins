@@ -17,7 +17,6 @@ class BuildIOSAppTaskTest extends Specification {
     InfoPlistWriter infoPlistWriter = Mock()
 
     Project project
-    BuildIOSAppTask task
 
     def setup() {
         project = ProjectBuilder.builder().withProjectDir(new File('src/test/resources/')).build()
@@ -25,16 +24,17 @@ class BuildIOSAppTaskTest extends Specification {
 
         project.solution = 'CrossApp/CrossApp.sln'
 
-        project.application {
-        }
+    }
 
+    BuildIOSAppTask getIosBuildTask() {
         project.evaluate()
 
-        task = project.tasks.buildIOS
+        def task = project.tasks.buildIOS
 
         task.infoPlistWriter = infoPlistWriter
         task.fileCopier = fileCopier
         task.xBuild = xBuild
+        return task
     }
 
 
@@ -44,7 +44,7 @@ class BuildIOSAppTaskTest extends Specification {
         String capturedInfoPlistOutput
 
         when:
-        task.build()
+        iosBuildTask.build()
 
         then:
         1 * infoPlistWriter.write(_, _) >> { m, out ->
@@ -61,7 +61,27 @@ class BuildIOSAppTaskTest extends Specification {
         given:
 
         when:
-        task.build()
+        iosBuildTask.build()
+
+        then:
+        1 * xBuild.buildIosApp(
+                'Release',
+                'iPhone',
+                'bin/iPhone/Release',
+                'CrossApp/CrossApp.sln')
+    }
+
+    def "should run msbuild"() {
+        given:
+        project.application {
+            useMSBuild = true
+        }
+
+        when:
+        iosBuildTask.build()
+
+        then:
+        1 * xBuild.useMSBuild(true)
 
         then:
         1 * xBuild.buildIosApp(
@@ -77,7 +97,7 @@ class BuildIOSAppTaskTest extends Specification {
         String capturedDst
 
         when:
-        task.build()
+        iosBuildTask.build()
 
         then:
         1 * fileCopier.copy(_,_) >> { src, dst ->
@@ -91,7 +111,7 @@ class BuildIOSAppTaskTest extends Specification {
 
     def "should do operations in the right order"() {
         when:
-        task.build()
+        iosBuildTask.build()
 
         then:
         1 * infoPlistWriter.write(_, _)

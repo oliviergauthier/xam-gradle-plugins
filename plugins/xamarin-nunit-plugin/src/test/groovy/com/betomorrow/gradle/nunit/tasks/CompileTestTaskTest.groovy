@@ -38,4 +38,23 @@ class CompileTestTaskTest extends Specification {
         1 * xbuild.buildSingleProject('Release', project.file('CrossLib.Test/CrossLib.Test.csproj').toString())
     }
 
+
+    def "run should use msbuild"() {
+        given:
+        project.nunit  {
+            projects = 'CrossLib.Test'
+            useMSBuild = true
+        }
+
+        when:
+        project.evaluate()
+        task = project.compileTest
+        task.xbuild = xbuild
+        task.run()
+
+        then:
+        1 * xbuild.useMSBuild(true)
+        1 * xbuild.buildSingleProject('Release', project.file('CrossLib.Test/CrossLib.Test.csproj').toString())
+    }
+
 }

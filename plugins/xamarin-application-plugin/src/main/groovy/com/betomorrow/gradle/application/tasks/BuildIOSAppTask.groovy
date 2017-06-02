@@ -27,6 +27,7 @@ class BuildIOSAppTask extends DefaultTask {
     String solutionFile
     String configuration
     String platform
+    boolean useMSBuild
 
     @TaskAction
     void build() {
@@ -52,6 +53,7 @@ class BuildIOSAppTask extends DefaultTask {
     }
 
     private void invokeXBuild() {
+        xBuild.useMSBuild(useMSBuild)
         def defaultOutputDir = getProjectDescriptor().getOutputDir(configuration, platform)
         def result = xBuild.buildIosApp(configuration, platform, "bin/$platform/$configuration", solutionFile)
         if (result > 0) {

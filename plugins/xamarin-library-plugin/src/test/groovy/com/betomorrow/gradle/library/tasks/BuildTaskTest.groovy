@@ -21,21 +21,22 @@ class BuildTaskTest extends Specification {
         project.apply plugin: 'xamarin-library-plugin'
 
         project.version = "1.0.0"
-        project.evaluate()
-
-        task = project.tasks.build
-        task.xBuild = xBuild
-        task.assemblyInfoUpdater = assemblyInfoUpdater
     }
 
     def "should run xbuild"() {
         given:
+        project.evaluate()
+        task = project.tasks.build
+        task.xBuild = xBuild
+        task.assemblyInfoUpdater = assemblyInfoUpdater
+
         def projects = []
 
         when:
         task.build()
 
         then:
+
         4 * assemblyInfoUpdater.from(_) >> { p ->
             projects.add(p)
             return updater
@@ -46,6 +47,38 @@ class BuildTaskTest extends Specification {
 
         4 * updater.update()
 
+        1 * xBuild.useMSBuild(false)
+        1 * xBuild.buildCrossLibrary('Release', "CrossLib.sln")
+    }
+
+    def "should run msbuild"() {
+        given:
+        project.library {
+            useMSBuild = true
+        }
+
+        project.evaluate()
+        task = project.tasks.build
+        task.xBuild = xBuild
+        task.assemblyInfoUpdater = assemblyInfoUpdater
+        def projects = []
+
+        when:
+        task.build()
+
+        then:
+
+        4 * assemblyInfoUpdater.from(_) >> { p ->
+            projects.add(p)
+            return updater
+        }
+        4 * updater.withVersion("1.0.0") >> { v ->
+            return updater
+        }
+
+        4 * updater.update()
+
+        1 * xBuild.useMSBuild(true)
         1 * xBuild.buildCrossLibrary('Release', "CrossLib.sln")
     }
 

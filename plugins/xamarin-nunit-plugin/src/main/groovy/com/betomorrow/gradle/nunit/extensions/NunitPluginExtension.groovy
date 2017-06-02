@@ -11,6 +11,7 @@ class NunitPluginExtension {
     def projects
     def assemblies
     String format
+    boolean useMSBuild = false
 
     Project gradleProject
 

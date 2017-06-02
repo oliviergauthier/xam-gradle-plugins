@@ -16,7 +16,6 @@ class BuildAndroidAppTaskTest extends Specification {
     FileCopier fileCopier = Mock()
     XBuild xbuild = Mock()
 
-    BuildAndroidAppTask task
     Project project
 
     def setup() {
@@ -25,17 +24,17 @@ class BuildAndroidAppTaskTest extends Specification {
 
         project.solution = 'CrossApp/CrossApp.sln'
 
-        project.application {
+    }
 
-        }
-
+    BuildAndroidAppTask getAndroidTask() {
         project.evaluate()
 
-        task = project.tasks.buildAndroid
+        def task = project.tasks.buildAndroid
 
         task.androidManifestWriter = manifestWriter
         task.fileCopier = fileCopier
         task.xBuild = xbuild
+        return task
     }
 
 
@@ -45,7 +44,7 @@ class BuildAndroidAppTaskTest extends Specification {
         String capturedManifestOutput
 
         when:
-        task.build()
+        androidTask.build()
 
         then:
         1 * manifestWriter.write(_, _) >> { m, out ->
@@ -63,11 +62,28 @@ class BuildAndroidAppTaskTest extends Specification {
         given:
 
         when:
-        task.build()
+        androidTask.build()
 
         then:
         1 * xbuild.buildAndroidApp("Release",  project.file("CrossApp/Droid/CrossApp.Droid.csproj").toString())
     }
+
+    def "should run msbuild"() {
+        given:
+        project.application {
+            useMSBuild = true
+        }
+
+        when:
+        androidTask.build()
+
+        then:
+        1 * xbuild.useMSBuild(true)
+
+        then:
+        1 * xbuild.buildAndroidApp("Release",  project.file("CrossApp/Droid/CrossApp.Droid.csproj").toString())
+    }
+
 
     def "should copy to output"() {
         given:
@@ -75,7 +91,7 @@ class BuildAndroidAppTaskTest extends Specification {
         String capturedDst
 
         when:
-        task.build()
+        androidTask.build()
 
         then:
         1 * fileCopier.copy(_,_) >> { src, dst ->
@@ -89,7 +105,7 @@ class BuildAndroidAppTaskTest extends Specification {
 
     def "should do operations in the right order"() {
         when:
-        task.build()
+        androidTask.build()
 
         then:
         1 * manifestWriter.write(_, _)

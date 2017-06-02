@@ -13,11 +13,13 @@ class CompileTestTask extends DefaultTask {
     protected SolutionLoader loader = new SolutionLoader()
 
     List<String> projects
+    boolean useMSBuild
 
     @TaskAction
     void run() {
         if (projects) {
             def sd = loader.load(project.file(project.solution))
+            xbuild.useMSBuild(useMSBuild)
             projects.each {
                 def result = xbuild.buildSingleProject(project.configuration, sd.getProject(it).getPath().toString())
                 if (result > 0) {
