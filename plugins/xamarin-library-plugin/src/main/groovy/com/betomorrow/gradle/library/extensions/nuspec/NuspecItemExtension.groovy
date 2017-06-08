@@ -50,7 +50,15 @@ class NuspecItemExtension {
     }
 
     String getTitle() {
-        return title ?: parent.title
+        if (title) {
+            return title
+        }
+
+        if (parent.title) {
+            return parent.title
+        }
+
+        return getPackageId()
     }
 
     String getPackageId() {
