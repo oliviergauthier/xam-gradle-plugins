@@ -12,5 +12,7 @@ interface AssemblyInfoUpdaterTask {
 
     AssemblyInfoUpdaterTask withVersion(String version)
 
+    AssemblyInfoUpdaterTask withFileVersion(String version)
+
     void update()
 }

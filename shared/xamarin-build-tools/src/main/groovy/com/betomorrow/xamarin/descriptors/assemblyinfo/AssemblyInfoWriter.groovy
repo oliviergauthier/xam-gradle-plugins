@@ -7,7 +7,7 @@ import java.util.regex.Pattern
 
 class AssemblyInfoWriter {
 
-    Pattern pattern = Pattern.compile("\\[assembly:\\s([A-z]*)\\(\"([^\"]*)\"\\)\\]")
+    Pattern pattern = Pattern.compile("\\[assembly:\\s*([A-z]*)\\s*\\(\\s*\"([^\"]*)\"\\s*\\)\\s*\\]")
 
     void write(AssemblyInfo info) {
         write(info, info.path)
@@ -25,7 +25,8 @@ class AssemblyInfoWriter {
 
         lines.each {
             newLines.add(it.replaceAll(pattern) { all, key, value ->
-                "[assembly: $key(\"${info.getValue(key, value)}\")]"
+                def sanitizedKey = key.trim()
+                "[assembly: $sanitizedKey(\"${info.getValue(sanitizedKey, value)}\")]"
             })
         }
 

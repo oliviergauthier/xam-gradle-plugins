@@ -11,6 +11,7 @@ class AssemblyInfo {
     public static final String AssemblyTrademark = "AssemblyTrademark"
     public static final String AssemblyCulture = "AssemblyCulture"
     public static final String AssemblyVersion = "AssemblyVersion"
+    public static final String AssemblyFileVersion = "AssemblyFileVersion"
 
     private String assemblyInfoPath
 
@@ -108,6 +109,14 @@ class AssemblyInfo {
 
     void setVersion(String version) {
         data[AssemblyVersion] = version
+    }
+
+    String getFileVersion() {
+        return data[AssemblyFileVersion]
+    }
+
+    void setFileVersion(String version) {
+        data[AssemblyFileVersion] = version
     }
 
 }

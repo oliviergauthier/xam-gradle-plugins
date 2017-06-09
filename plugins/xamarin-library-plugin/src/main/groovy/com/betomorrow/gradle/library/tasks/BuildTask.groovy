@@ -30,7 +30,7 @@ class BuildTask extends DefaultTask {
         SolutionDescriptor sd = loader.load(project.file(solutionFile))
         sd.projects.each {
             if (Files.exists(it.assemblyInfoPath)) {
-                assemblyInfoUpdater.from(it.assemblyInfoPath).withVersion(version).update()
+                assemblyInfoUpdater.from(it.assemblyInfoPath).withVersion(version).withFileVersion(version).update()
             }
         }
 

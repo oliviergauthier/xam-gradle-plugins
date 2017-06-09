@@ -1,18 +1,21 @@
-//buildscript {
-//    repositories {
-//        mavenLocal()
-//        mavenCentral()
-//    }
-//    dependencies {
-//        classpath 'com.betomorrow.gradle:xamarin-library-plugin:1.0-SNAPSHOT'
-//    }
-//}
-//
-//apply plugin: 'xamarin-library-plugin'
-
-plugins {
-    id 'com.betomorrow.xamarin.library' version '0.2.0'
+buildscript {
+    repositories {
+        mavenLocal()
+        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "com.betomorrow.gradle:xamarin-library-plugin:0.3.1"
+    }
 }
+
+apply plugin: "com.betomorrow.xamarin.library"
+
+//plugins {
+//    id 'com.betomorrow.xamarin.library' version '0.3.1'
+//}
 
 //
 //plugins {
@@ -24,7 +27,7 @@ ext {
     name = "Xam.ACME.CrossLib"
 }
 
-version = "1.0.0"
+version = "1.0.1"
 //
 //deploy {
 //    local {

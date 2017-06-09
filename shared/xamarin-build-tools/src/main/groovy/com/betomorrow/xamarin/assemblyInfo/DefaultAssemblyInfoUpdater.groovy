@@ -19,6 +19,7 @@ class DefaultAssemblyInfoUpdater implements AssemblyInfoUpdater {
 
         private Path path
         private String version
+        private String fileVersion
 
         Updater(Path path) {
             this.path = path
@@ -31,9 +32,22 @@ class DefaultAssemblyInfoUpdater implements AssemblyInfoUpdater {
         }
 
         @Override
+        AssemblyInfoUpdaterTask withFileVersion(String fileVersion) {
+            this.fileVersion = fileVersion
+            return this
+        }
+
+        @Override
         void update() {
             AssemblyInfo info = new AssemblyInfo(path.toAbsolutePath().toString(), [:])
-            info.version = version
+
+            if (version) {
+                info.version = version
+            }
+            if (fileVersion) {
+                info.fileVersion = fileVersion
+            }
+
             writer.write(info)
         }
     }

@@ -44,6 +44,9 @@ class BuildTaskTest extends Specification {
         4 * updater.withVersion("1.0.0") >> { v ->
             return updater
         }
+        4 * updater.withFileVersion("1.0.0") >> { v ->
+            return updater
+        }
 
         4 * updater.update()
 
@@ -73,6 +76,10 @@ class BuildTaskTest extends Specification {
             return updater
         }
         4 * updater.withVersion("1.0.0") >> { v ->
+            return updater
+        }
+
+        4 * updater.withFileVersion("1.0.0") >> { v ->
             return updater
         }
 

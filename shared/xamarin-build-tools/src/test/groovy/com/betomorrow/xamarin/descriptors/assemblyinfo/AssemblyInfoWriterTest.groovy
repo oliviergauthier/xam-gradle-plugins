@@ -25,10 +25,26 @@ class AssemblyInfoWriterTest extends Specification {
 
         when:
         info.version = "2.0.*"
+        info.title = "aTitle"
+        info.configuration = "aConfiguration"
+        info.description = "aDescription"
+        info.product = "aProduct"
+        info.company = "aCompany"
+        info.copyright = "aCopyright"
+        info.trademark = "aTradmark"
+
         writer.write(info, p)
 
         then:
-        reader.read(p).version == "2.0.*"
+        def result = reader.read(p)
+        result.version == "2.0.*"
+        result.title == "aTitle"
+        info.configuration == "aConfiguration"
+        info.description == "aDescription"
+        info.product == "aProduct"
+        info.company == "aCompany"
+        info.copyright == "aCopyright"
+        info.trademark == "aTradmark"
     }
 
 }
