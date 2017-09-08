@@ -276,7 +276,7 @@ class GenerateNuspecTaskTest extends Specification {
         assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Droid/bin/Release/CrossLib.Droid.dll').toString(),
                 'lib/MonoAndroid10'))
 
-        assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Droid/bin/Release/CrossLib.Droid.dll.pdb').toString(),
+        assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Droid/bin/Release/CrossLib.Droid.pdb').toString(),
                 'lib/MonoAndroid10'))
 
         assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.Abstractions/bin/Release/CrossLib.Abstractions.dll').toString(),
