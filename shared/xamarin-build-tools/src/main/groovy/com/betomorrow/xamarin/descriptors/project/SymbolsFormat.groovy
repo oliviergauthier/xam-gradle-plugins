@@ -3,7 +3,7 @@ package com.betomorrow.xamarin.descriptors.project
 enum SymbolsFormat {
 
     PDB("pdb"),
-    MDB("mdb")
+    MDB("dll.mdb")
 
     private String fileExtension
 
