@@ -1,16 +1,15 @@
 package com.betomorrow.gradle.library.extensions.nuspec
 
 import com.betomorrow.xamarin.tools.nuspec.dependencies.Dependency
-import org.gradle.api.Project
 
-class DependenciesContainer {
+class DependenciesExtension {
 
-    private Project project
+    private String name
 
     List<Dependency> dependencies = []
 
-    DependenciesContainer(Project project) {
-        this.project = project
+    DependenciesExtension(String name) {
+        this.name = name
     }
 
     Dependency dependency(String dependency) {
@@ -18,7 +17,5 @@ class DependenciesContainer {
         dependencies.add(dep)
         return dep
     }
-
-
 
 }

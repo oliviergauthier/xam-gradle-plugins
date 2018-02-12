@@ -34,6 +34,7 @@ class NuspecPluginExtension {
         packages.all {
             it.project = project
             it.parent = this
+            it.dependencies = project.container(DependenciesExtension)
         }
     }
 
