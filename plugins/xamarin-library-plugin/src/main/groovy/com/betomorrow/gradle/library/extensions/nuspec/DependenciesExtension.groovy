@@ -18,4 +18,12 @@ class DependenciesExtension {
         return dep
     }
 
+    List<Dependency> getDependencies() {
+        if (name == "default") {
+            return dependencies
+        } else {
+            return dependencies.collect { new Dependency(name, it.id, it.version)}
+        }
+    }
+
 }

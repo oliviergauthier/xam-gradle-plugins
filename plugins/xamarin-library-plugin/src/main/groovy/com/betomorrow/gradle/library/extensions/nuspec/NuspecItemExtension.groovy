@@ -119,8 +119,7 @@ class NuspecItemExtension {
     List<Dependency> getDependencies() {
         def result = []
         dependencies.forEach { group ->
-            group.dependencies.forEach { dep ->
-                result.add(new Dependency(group.name, dep.id, dep.version)) }
+            result.addAll(group.dependencies)
         }
         return result
     }
@@ -129,11 +128,6 @@ class NuspecItemExtension {
         def tmp = (AssembliesContainer)project.configure(new AssembliesContainer(project), closure)
         assemblies = tmp.assemblies
     }
-
-//    void dependencies(Closure closure) {
-//        def tmp = (DependenciesContainer)project.configure(new DependenciesContainer(project), closure)
-//        dependencies = tmp.dependencies
-//    }
 
     def dependencies(Closure closure) {
         dependencies.configure(closure)

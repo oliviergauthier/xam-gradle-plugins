@@ -126,8 +126,15 @@ class GenerateNuspecTaskTest extends Specification {
             packages {
                 SampleLib {
                     dependencies {
-                        dependency "Xamarin.Forms:[1.4.3,)"
-                        dependency "net40:Xam.ACME.Commons:[1.0.0,)"
+
+                        "default" {
+                            dependency "Xamarin.Forms:[1.4.3,)"
+                        }
+
+                        "net40" {
+                            dependency "Xam.ACME.Commons:[1.0.0,)"
+                        }
+
                     }
                 }
             }
