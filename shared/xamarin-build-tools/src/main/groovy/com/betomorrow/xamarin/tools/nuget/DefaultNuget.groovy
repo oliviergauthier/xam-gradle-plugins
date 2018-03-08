@@ -11,7 +11,7 @@ class DefaultNuget implements Nuget {
 
     private CommandRunner runner = new SystemCommandRunner()
     private FileCopier filesCopier = new DefaultFileCopier()
-    private String nugetVersion = "3.5.0"
+    private String nugetVersion = "4.5.1"
 
     DefaultNuget(CommandRunner runner) {
         this.runner = runner
