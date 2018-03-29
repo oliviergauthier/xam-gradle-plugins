@@ -57,7 +57,7 @@ nuspec {
 
                 target {
                     dest "lib/Xamarin.iOS10"
-                    includes "CrossNetStandardLib.Abstractions", "CrossNetStandardLib.IOS"
+                    includes "CrossNetStandardLib.Abstractions", "CrossNetStandardLib.iOS"
                 }
             }
         }
