@@ -1,5 +1,6 @@
 package com.betomorrow.xamarin.descriptors.project
 
+import com.betomorrow.utils.StringUtils
 import groovy.transform.Canonical
 
 import java.nio.file.Path
@@ -36,7 +37,11 @@ class ProjectDescriptor {
     }
 
     String getAssemblyName() {
-        return  content.PropertyGroup.AssemblyName
+        String assemblyName = content.PropertyGroup.AssemblyName
+        if (!StringUtils.isNullOrWhiteSpace(assemblyName)) {
+            return assemblyName
+        }
+        return name
     }
 
     static Reference[] getReference() {

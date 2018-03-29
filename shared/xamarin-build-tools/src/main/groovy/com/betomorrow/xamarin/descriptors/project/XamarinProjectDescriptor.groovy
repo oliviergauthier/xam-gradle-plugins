@@ -1,5 +1,6 @@
 package com.betomorrow.xamarin.descriptors.project
 
+import com.betomorrow.utils.StringUtils
 import com.betomorrow.xamarin.android.manifest.DefaultAndroidManifestReader
 import com.betomorrow.xamarin.files.FileUtils
 import groovy.transform.InheritConstructors
@@ -52,7 +53,23 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
     // Commons
 
     String getOutputDir(String configuration, String platform = null) {
-        return FileUtils.toUnixPath(getPropertyGroup(configuration, platform).OutputPath.toString())
+        def outputPath = getPropertyGroup(configuration, platform)?.OutputPath?.toString()
+
+        if (!StringUtils.isNullOrWhiteSpace(outputPath)) {
+            return FileUtils.toUnixPath(outputPath)
+        }
+
+        def targetFramework = getPropertyGroup(configuration, platform)?.TargetFramework?.toString()
+        if (!StringUtils.isNullOrWhiteSpace(targetFramework)) {
+            return FileUtils.toUnixPath("bin/${configuration}/${targetFramework}")
+        }
+
+        targetFramework = content.PropertyGroup.TargetFramework?.toString()
+        if (!StringUtils.isNullOrWhiteSpace(targetFramework)) {
+            return FileUtils.toUnixPath("bin/${configuration}/${targetFramework}")
+        }
+
+        return null
     }
 
     Path getLibraryOutputPath(String configuration) {

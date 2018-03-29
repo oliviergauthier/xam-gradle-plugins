@@ -22,12 +22,12 @@ class XamarinProjectDescriptorWithNetStandardLibTest {
 
     @Test
     void testGetOutputDirForDebugReturnsDebutPath() {
-        assert 'bin/Debug/netstandard2.0/' == csproj.getOutputDir("Debug")
+        assert "bin/Debug/netstandard2.0" == csproj.getOutputDir("Debug")
     }
 
     @Test
     void testGetOutputDirForReleaseReturnsDebutPath() {
-        assert 'bin/Release/netstandard2.0/' == csproj.getOutputDir("Release")
+        assert "bin/Release/netstandard2.0" == csproj.getOutputDir("Release")
     }
 
 

@@ -1,0 +1,35 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossNetStandardLib", "CrossNetStandardLib\CrossNetStandardLib.csproj", "{7095267C-99A2-43BA-ABA2-92098DC24C15}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossNetStandardLib.Abstractions", "CrossNetStandardLib.Abstractions\CrossNetStandardLib.Abstractions.csproj", "{9862BA7A-0617-4868-8EC0-3FD580EFAE7E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossNetStandardLib.Droid", "CrossNetStandardLib.Droid\CrossNetStandardLib.Droid.csproj", "{CD232877-AAB3-4758-AD14-A1A176885A91}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CrossNetStandardLib.iOS", "CrossNetStandardLib.iOS\CrossNetStandardLib.iOS.csproj", "{3F91ADB4-0AB6-4E05-BF4B-77A07E608094}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7095267C-99A2-43BA-ABA2-92098DC24C15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7095267C-99A2-43BA-ABA2-92098DC24C15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7095267C-99A2-43BA-ABA2-92098DC24C15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7095267C-99A2-43BA-ABA2-92098DC24C15}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9862BA7A-0617-4868-8EC0-3FD580EFAE7E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9862BA7A-0617-4868-8EC0-3FD580EFAE7E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9862BA7A-0617-4868-8EC0-3FD580EFAE7E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9862BA7A-0617-4868-8EC0-3FD580EFAE7E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CD232877-AAB3-4758-AD14-A1A176885A91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CD232877-AAB3-4758-AD14-A1A176885A91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CD232877-AAB3-4758-AD14-A1A176885A91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CD232877-AAB3-4758-AD14-A1A176885A91}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F91ADB4-0AB6-4E05-BF4B-77A07E608094}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F91ADB4-0AB6-4E05-BF4B-77A07E608094}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F91ADB4-0AB6-4E05-BF4B-77A07E608094}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F91ADB4-0AB6-4E05-BF4B-77A07E608094}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
