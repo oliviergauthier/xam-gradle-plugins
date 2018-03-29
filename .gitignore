@@ -5,6 +5,7 @@
 # Gradle
 .gradle
 build
+out
 
 sample/*/dist
 sample/**/packages

@@ -1,6 +1,7 @@
 package com.betomorrow.gradle.library.extensions.nuspec
 
 import com.betomorrow.xamarin.tools.nuspec.dependencies.Dependency
+import org.gradle.api.NamedDomainObjectContainer
 import org.gradle.api.Project
 
 import java.nio.file.Paths
@@ -13,7 +14,9 @@ class NuspecItemExtension {
     NuspecPluginExtension parent
 
     List<AssemblyTarget> assemblies = []
-    List<Dependency> dependencies = []
+//    List<Dependency> dependencies = []
+
+    NamedDomainObjectContainer<DependenciesExtension> dependencies
 
     // Generate Nuspec
     String title
@@ -113,14 +116,21 @@ class NuspecItemExtension {
         return tags ?: parent.tags
     }
 
+    List<Dependency> getDependencies() {
+        def result = []
+        dependencies.forEach { group ->
+            result.addAll(group.dependencies)
+        }
+        return result
+    }
+
     void assemblies(Closure closure) {
         def tmp = (AssembliesContainer)project.configure(new AssembliesContainer(project), closure)
         assemblies = tmp.assemblies
     }
 
-    void dependencies(Closure closure) {
-        def tmp = (DependenciesContainer)project.configure(new DependenciesContainer(project), closure)
-        dependencies = tmp.dependencies
+    def dependencies(Closure closure) {
+        dependencies.configure(closure)
     }
 
 
