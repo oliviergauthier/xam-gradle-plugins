@@ -6,6 +6,4 @@ import groovy.transform.InheritConstructors
 @InheritConstructors
 class XamarinLibraryExtension extends AbstractXamarinExtension {
 
-    boolean useMSBuild
-
 }

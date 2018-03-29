@@ -56,7 +56,6 @@ class XamarinApplicationPlugin implements Plugin<Project> {
                     manifest = android.manifest
                     output = android.output
                     configuration = application.configuration
-                    useMSBuild = application.useMSBuild
                 }
 
                 task("buildIOS", description: "build ios application", dependsOn: ["nugetRestore"], group: Groups.BUILD, type: BuildIOSAppTask) {
@@ -69,7 +68,6 @@ class XamarinApplicationPlugin implements Plugin<Project> {
                     configuration = application.configuration
                     solutionFile = application.solution
                     platform = ios.platform
-                    useMSBuild = application.useMSBuild
                 }
 
             }

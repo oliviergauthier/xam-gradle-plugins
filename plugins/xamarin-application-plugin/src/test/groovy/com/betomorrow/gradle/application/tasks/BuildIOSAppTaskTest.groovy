@@ -57,31 +57,13 @@ class BuildIOSAppTaskTest extends Specification {
         assert capturedInfoPlist.bundleVersion == "1.0"
     }
 
-    def "should run xbuild"() {
-        given:
-
-        when:
-        iosBuildTask.build()
-
-        then:
-        1 * xBuild.buildIosApp(
-                'Release',
-                'iPhone',
-                'bin/iPhone/Release',
-                'CrossApp/CrossApp.sln')
-    }
-
     def "should run msbuild"() {
         given:
         project.application {
-            useMSBuild = true
         }
 
         when:
         iosBuildTask.build()
-
-        then:
-        1 * xBuild.useMSBuild(true)
 
         then:
         1 * xBuild.buildIosApp(

@@ -22,28 +22,10 @@ class CompileTestTaskTest extends Specification {
         project.configuration = 'Release'
     }
 
-    def "run should resolve projects assemblies"() {
-        given:
-        project.nunit  {
-            projects = 'CrossLib.Test'
-        }
-
-        when:
-        project.evaluate()
-        task = project.compileTest
-        task.xbuild = xbuild
-        task.run()
-
-        then:
-        1 * xbuild.buildSingleProject('Release', project.file('CrossLib.Test/CrossLib.Test.csproj').toString())
-    }
-
-
     def "run should use msbuild"() {
         given:
         project.nunit  {
             projects = 'CrossLib.Test'
-            useMSBuild = true
         }
 
         when:
@@ -53,7 +35,6 @@ class CompileTestTaskTest extends Specification {
         task.run()
 
         then:
-        1 * xbuild.useMSBuild(true)
         1 * xbuild.buildSingleProject('Release', project.file('CrossLib.Test/CrossLib.Test.csproj').toString())
     }
 

@@ -22,7 +22,6 @@ class BuildTask extends DefaultTask {
     String solutionFile
     String configuration
     String version
-    boolean useMSBuild
 
     @TaskAction
      void build() {
@@ -34,7 +33,6 @@ class BuildTask extends DefaultTask {
             }
         }
 
-        xBuild.useMSBuild(useMSBuild)
         int result = xBuild.buildCrossLibrary(configuration, solutionFile)
         if (result > 0) {
             throw new GradleException("Can't build library")

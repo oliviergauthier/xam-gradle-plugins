@@ -23,41 +23,10 @@ class BuildTaskWithNetStandardProjectTest extends Specification {
         project.version = "1.0.0"
     }
 
-    def "should run xbuild"() {
-        given:
-        project.evaluate()
-        task = project.tasks.build
-        task.xBuild = xBuild
-        task.assemblyInfoUpdater = assemblyInfoUpdater
-
-        def projects = []
-
-        when:
-        task.build()
-
-        then:
-
-        4 * assemblyInfoUpdater.from(_) >> { p ->
-            projects.add(p)
-            return updater
-        }
-        4 * updater.withVersion("1.0.0") >> { v ->
-            return updater
-        }
-        4 * updater.withFileVersion("1.0.0") >> { v ->
-            return updater
-        }
-
-        4 * updater.update()
-
-        1 * xBuild.useMSBuild(false)
-        1 * xBuild.buildCrossLibrary('Release', "CrossNetStandardLib.sln")
-    }
 
     def "should run msbuild"() {
         given:
         project.library {
-            useMSBuild = true
         }
 
         project.evaluate()
@@ -85,7 +54,6 @@ class BuildTaskWithNetStandardProjectTest extends Specification {
 
         4 * updater.update()
 
-        1 * xBuild.useMSBuild(true)
         1 * xBuild.buildCrossLibrary('Release', "CrossNetStandardLib.sln")
     }
 

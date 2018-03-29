@@ -57,7 +57,6 @@ class XamarinLibraryPlugin implements Plugin<Project> {
                     version = SemVersion.parse(project.version).versionNumber
                     solutionFile = library.solution
                     configuration = library.configuration
-                    useMSBuild = library.useMSBuild
                 }
 
                 // Package

@@ -23,13 +23,12 @@ class BuildAndroidAppTask extends DefaultTask {
     String projectFile
     String manifest
     String configuration
-    boolean useMSBuild
 
     @TaskAction
     void build() {
         updateManifest()
 
-        invokeXBuild()
+        invokeMSBuild()
 
         copyBuiltAssemblyToOutput()
     }
@@ -55,8 +54,7 @@ class BuildAndroidAppTask extends DefaultTask {
         androidManifestWriter.write(androidManifest, getManifestPathFromDescriptor())
     }
 
-    private void invokeXBuild() {
-        xBuild.useMSBuild(useMSBuild)
+    private void invokeMSBuild() {
         def result = xBuild.buildAndroidApp(configuration, projectFile)
         if (result > 0) {
             throw new GradleException("Can't build Android application")

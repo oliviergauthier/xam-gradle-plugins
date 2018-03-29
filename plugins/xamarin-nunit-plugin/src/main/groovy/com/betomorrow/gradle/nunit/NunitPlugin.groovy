@@ -30,7 +30,6 @@ class NunitPlugin implements Plugin<Project> {
                 task("nugetRestore", description: "restore nuget packages", group: Groups.BUILD, overwrite : true,  'type' : NugetRestoreTask){}
 
                 def compileTestTask = task("compileTest", description : "Build tests assemblies", dependsOn: ['nugetRestore'], group : Groups.BUILD, type : CompileTestTask) {
-                    useMSBuild = nunit.useMSBuild
                     projects = nunit.projects
                 }
 

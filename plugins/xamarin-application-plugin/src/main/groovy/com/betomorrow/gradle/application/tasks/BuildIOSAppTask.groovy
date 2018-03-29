@@ -27,14 +27,13 @@ class BuildIOSAppTask extends DefaultTask {
     String solutionFile
     String configuration
     String platform
-    boolean useMSBuild
 
     @TaskAction
     void build() {
 
         updatePlistInfo()
 
-        invokeXBuild()
+        invokeMSBuild()
 
         copyBuiltAssemblyToOutput()
     }
@@ -52,8 +51,7 @@ class BuildIOSAppTask extends DefaultTask {
         infoPlistWriter.write(infPlist, getInfoPlistPathFromDescriptor())
     }
 
-    private void invokeXBuild() {
-        xBuild.useMSBuild(useMSBuild)
+    private void invokeMSBuild() {
         def defaultOutputDir = getProjectDescriptor().getOutputDir(configuration, platform)
         def result = xBuild.buildIosApp(configuration, platform, "bin/$platform/$configuration", solutionFile)
         if (result > 0) {

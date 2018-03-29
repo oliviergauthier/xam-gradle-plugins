@@ -10,6 +10,5 @@ class XamarinApplicationExtension extends AbstractXamarinExtension {
     String appVersion
     String storeVersion
     String packageName
-    boolean useMSBuild
 
 }

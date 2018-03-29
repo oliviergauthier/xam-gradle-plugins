@@ -58,27 +58,13 @@ class BuildAndroidAppTaskTest extends Specification {
     }
 
 
-    def "should run xbuild"() {
-        given:
-
-        when:
-        androidTask.build()
-
-        then:
-        1 * xbuild.buildAndroidApp("Release",  project.file("CrossApp/Droid/CrossApp.Droid.csproj").toString())
-    }
-
     def "should run msbuild"() {
         given:
         project.application {
-            useMSBuild = true
         }
 
         when:
         androidTask.build()
-
-        then:
-        1 * xbuild.useMSBuild(true)
 
         then:
         1 * xbuild.buildAndroidApp("Release",  project.file("CrossApp/Droid/CrossApp.Droid.csproj").toString())

@@ -8,21 +8,13 @@ class XBuildCmd implements CommandRunner.Cmd {
 
     private Map<String, String> properties = new HashMap<>()
 
-    String xBuildPath
+    String msBuildPath
     String target
     String configuration
     String projectPath
 
     XBuildCmd() {
-        xBuildPath = '/Library/Frameworks/Mono.framework/Commands/xbuild'
-    }
-
-    XBuildCmd(boolean useMSBuild) {
-        if (useMSBuild) {
-            xBuildPath = '/Library/Frameworks/Mono.framework/Commands/msbuild'
-        } else {
-            xBuildPath = '/Library/Frameworks/Mono.framework/Commands/xbuild'
-        }
+        msBuildPath = '/Library/Frameworks/Mono.framework/Commands/msbuild'
     }
 
     void addProperty(String key, String value) {
@@ -30,7 +22,7 @@ class XBuildCmd implements CommandRunner.Cmd {
     }
 
     List<String> build() {
-        def cmd = [xBuildPath]
+        def cmd = [msBuildPath]
 
         if (target) {
             cmd.add("/t:${target}")
