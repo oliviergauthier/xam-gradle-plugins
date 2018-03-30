@@ -14,7 +14,6 @@ class NuspecItemExtension {
     NuspecPluginExtension parent
 
     List<AssemblyTarget> assemblies = []
-//    List<Dependency> dependencies = []
 
     NamedDomainObjectContainer<DependenciesExtension> dependencies
 
@@ -119,9 +118,13 @@ class NuspecItemExtension {
     List<Dependency> getDependencies() {
         def result = []
         dependencies.forEach { group ->
-            result.addAll(group.dependencies)
+            result.addAll(group.getDependencies(this))
         }
         return result
+    }
+
+    List<Dependency> getDependencies(String groupName) {
+        return dependencies.getByName(groupName)?.getDependencies(this)
     }
 
     void assemblies(Closure closure) {
@@ -132,6 +135,8 @@ class NuspecItemExtension {
     def dependencies(Closure closure) {
         dependencies.configure(closure)
     }
+
+
 
 
 }

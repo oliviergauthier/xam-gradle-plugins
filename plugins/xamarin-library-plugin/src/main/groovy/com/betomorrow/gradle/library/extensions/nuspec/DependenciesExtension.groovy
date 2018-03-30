@@ -5,6 +5,7 @@ import com.betomorrow.xamarin.tools.nuspec.dependencies.Dependency
 class DependenciesExtension {
 
     private String name
+    private String baseOn
 
     List<Dependency> dependencies = []
 
@@ -18,12 +19,28 @@ class DependenciesExtension {
         return dep
     }
 
-    List<Dependency> getDependencies() {
+    String baseOn(String baseOn) {
+        this.baseOn = baseOn
+    }
+
+    List<Dependency> getDependencies(NuspecItemExtension nuspecItem) {
         if (name == "default") {
             return dependencies
-        } else {
-            return dependencies.collect { new Dependency(name, it.id, it.version)}
         }
+
+        HashSet<Dependency> result = []
+
+        if (baseOn) {
+            nuspecItem.getDependencies(baseOn).forEach {
+                result.add(new Dependency(name, it.id, it.version))
+            }
+        }
+
+        dependencies.forEach {
+            result.add(new Dependency(name, it.id, it.version))
+        }
+
+        return result.toList()
     }
 
 }

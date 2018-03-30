@@ -153,7 +153,7 @@ class GenerateNuspecTaskTest extends Specification {
         assert nuSpecData.dependencySet.contains(new Dependency("net40:Xam.ACME.Commons:[1.0.0,)"))
     }
 
-    def "should contains dependencies with new format"() {
+    def "should inherite dependencies"() {
         given:
         NuSpec nuSpecData
         project.nuspec {
@@ -166,6 +166,7 @@ class GenerateNuspecTaskTest extends Specification {
                         }
 
                         "net40" {
+                            baseOn "default"
                             dependency "Xam.ACME.Commons:[1.0.0,)"
                         }
 
@@ -184,8 +185,11 @@ class GenerateNuspecTaskTest extends Specification {
         1 * writer.write(_) >> { arguments -> nuSpecData = arguments[0] }
 
         assert nuSpecData.dependencySet.contains(new Dependency("Xamarin.Forms:[1.4.3,)"))
+        assert nuSpecData.dependencySet.contains(new Dependency("net40:Xamarin.Forms:[1.4.3,)"))
         assert nuSpecData.dependencySet.contains(new Dependency("net40:Xam.ACME.Commons:[1.0.0,)"))
     }
+
+
 
     def "should contains assemblies"() {
         given:
