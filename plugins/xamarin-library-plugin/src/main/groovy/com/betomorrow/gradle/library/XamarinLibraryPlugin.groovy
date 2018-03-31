@@ -106,6 +106,8 @@ class XamarinLibraryPlugin implements Plugin<Project> {
                         packagePath = p.output
                         source = publish.local.path
                         format = publish.local.format
+                        packageId = p.packageId
+                        packageVersion = p.version
                     }
                     installTasks.add(installTask)
 

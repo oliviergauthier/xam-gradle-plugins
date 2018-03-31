@@ -2,10 +2,15 @@ package com.betomorrow.gradle.library.tasks
 
 import com.betomorrow.gradle.library.context.PluginContext
 import com.betomorrow.gradle.library.extensions.publish.PublishLocalPluginExtension
+import com.betomorrow.xamarin.files.ZippedFile
 import com.betomorrow.xamarin.tools.nuget.Nuget
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
+
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 
 class InstallPackageTask extends DefaultTask {
 
@@ -14,6 +19,8 @@ class InstallPackageTask extends DefaultTask {
     String packagePath
     String source
     String format
+    String packageId
+    String packageVersion
 
     @TaskAction
     void installPackage() {
@@ -23,6 +30,13 @@ class InstallPackageTask extends DefaultTask {
                 def result = nuget.install(packagePath, repository)
                 if (result > 0) {
                     throw new GradleException("Can't install library")
+                }
+
+                String nupkgFilename = Paths.get(packagePath).fileName.toString()
+                Path nupkgPath = Paths.get(repository).resolve(packageId).resolve(packageVersion).resolve(nupkgFilename)
+
+                if (Files.exists(nupkgPath)) {
+                    new ZippedFile(nupkgPath.toFile()).unzip()
                 }
                 break
             case PublishLocalPluginExtension.NUGET_2:
