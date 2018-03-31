@@ -13,8 +13,8 @@ class XBuildCmd implements CommandRunner.Cmd {
     String configuration
     String projectPath
 
-    XBuildCmd() {
-        msBuildPath = '/Library/Frameworks/Mono.framework/Commands/msbuild'
+    XBuildCmd(String msBuildPath) {
+        this.msBuildPath = msBuildPath
     }
 
     void addProperty(String key, String value) {

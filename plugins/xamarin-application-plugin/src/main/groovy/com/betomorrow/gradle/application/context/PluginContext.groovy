@@ -25,22 +25,23 @@ class PluginContext {
     }
 
     static void configure(Project project) {
-        configure(project.hasProperty("dryRun") && project.dryRun)
-    }
+        boolean  dryRun = project.hasProperty("dryRun") && project.dryRun
+        String msBuildPath = project.hasProperty("msbuildPath") ? project.property("msbuildPath") : null
+        String nugetPath = project.hasProperty("nugetPath") ? project.property("nugetPath") : null
+        String nugetVersion = project.hasProperty("nugetVersion") ? project.property("nugetVersion") : null
 
-    static void configure(boolean dryRun) {
         if (dryRun) {
             instance = [getFileCopier : { new FakeFileCopier() },
                         getAndroidManifestWriter : { new FakeAndroidManifestWriter() },
                         getInfoPlistWriter : { new FakeInfoPlistWriter()},
-                        getXbuild : { new XBuild(new FakeCommandRunner())},
-                        getNuget : { new DefaultNuget(new FakeCommandRunner())}] as ApplicationContext
+                        getXbuild : { new XBuild(new FakeCommandRunner(), msBuildPath)},
+                        getNuget : { new DefaultNuget(new FakeCommandRunner(), nugetVersion, nugetPath)}] as ApplicationContext
         } else {
             instance = [getFileCopier : { new DefaultFileCopier() },
                         getAndroidManifestWriter : { new DefaultAndroidManifestWriter() },
                         getInfoPlistWriter : { new DefaultInfoPlistWriter()},
                         getXbuild : { new XBuild(new SystemCommandRunner())},
-                        getNuget : { new DefaultNuget(new SystemCommandRunner())}] as ApplicationContext
+                        getNuget : { new DefaultNuget(new SystemCommandRunner(), nugetVersion, nugetPath)}] as ApplicationContext
         }
     }
 

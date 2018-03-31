@@ -22,5 +22,4 @@ class AbstractXamarinExtension {
         return project.solution
     }
 
-
 }

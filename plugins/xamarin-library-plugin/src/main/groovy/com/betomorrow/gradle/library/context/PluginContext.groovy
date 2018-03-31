@@ -19,17 +19,18 @@ class PluginContext {
     }
 
     static void configure(Project project) {
-        configure(project.hasProperty("dryRun") && project.dryRun)
-    }
+        boolean  dryRun = project.hasProperty("dryRun") && project.dryRun
+        String msBuildPath = project.hasProperty("msbuildPath") ? project.property("msbuildPath") : null
+        String nugetPath = project.hasProperty("nugetPath") ? project.property("nugetPath") : null
+        String nugetVersion = project.hasProperty("nugetVersion") ? project.property("nugetVersion") : null
 
-    static void configure(boolean dryRun) {
         if (dryRun) {
             instance = [getXbuild : { new XBuild(new FakeCommandRunner())},
                         getNuget : { new DefaultNuget(new FakeCommandRunner())},
                         getFileCopier : { new FakeFileCopier()}] as ApplicationContext
         } else {
-            instance =  [getXbuild : { new XBuild(new SystemCommandRunner())},
-                         getNuget : { new DefaultNuget(new SystemCommandRunner())},
+            instance =  [getXbuild : { new XBuild(new SystemCommandRunner(), msBuildPath)},
+                         getNuget : { new DefaultNuget(new SystemCommandRunner(), nugetVersion, nugetPath)},
                          getFileCopier : { new DefaultFileCopier()}] as ApplicationContext
         }
     }
