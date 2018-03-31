@@ -25,7 +25,11 @@ class DefaultNuget implements Nuget {
 
     DefaultNuget(CommandRunner runner, String nugetVersion, String nugetPath) {
         this.runner = runner
-        this.nugetVersion = nugetVersion
+        if (nugetVersion) {
+            this.nugetVersion = nugetVersion
+        } else {
+            this.nugetVersion = DEFAULT_NUGET_VERSION
+        }
         this.configuredNugetPath = nugetPath
     }
 
