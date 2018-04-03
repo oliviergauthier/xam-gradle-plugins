@@ -5,6 +5,8 @@ import com.betomorrow.xamarin.tools.nunit.NUnitConsole
 import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
 import java.nio.file.Path
@@ -14,9 +16,13 @@ class RunNUnitConsoleTask extends DefaultTask {
     protected NUnitConsole nUnitRunner = PluginContext.current.nunitConsole
     protected SolutionLoader loader = new SolutionLoader()
 
+    @Input @Optional
     List<String> projects
+
+    @Input @Optional
     List<String> assemblies
 
+    @Input @Optional
     String format
 
     @TaskAction

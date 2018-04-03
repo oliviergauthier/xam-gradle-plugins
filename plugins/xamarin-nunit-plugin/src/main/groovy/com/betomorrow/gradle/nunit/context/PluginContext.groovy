@@ -1,9 +1,10 @@
 package com.betomorrow.gradle.nunit.context
 
+import com.betomorrow.xamarin.commands.CommandRunner
 import com.betomorrow.xamarin.commands.FakeCommandRunner
 import com.betomorrow.xamarin.commands.SystemCommandRunner
-import com.betomorrow.xamarin.tools.nuget.DefaultNuget
 import com.betomorrow.xamarin.tools.nuget.Nuget
+import com.betomorrow.xamarin.tools.nuget.NugetBuilder
 import com.betomorrow.xamarin.tools.nunit.DefaultNunitConsole
 import com.betomorrow.xamarin.tools.nunit.NUnitConsole
 import com.betomorrow.xamarin.tools.xbuild.XBuild
@@ -18,20 +19,55 @@ class PluginContext {
     }
 
     static void configure(Project project) {
-        configure(project.hasProperty("dryRun") && project.dryRun)
+        boolean  dryRun = project.hasProperty("dryRun") && project.dryRun
+        instance = dryRun ? fakeApplicationContext(project) : realApplicationContext(project)
     }
 
-    static void configure(boolean dryRun) {
-        if (dryRun) {
-            instance = [getNunitConsole : { new DefaultNunitConsole(new FakeCommandRunner())},
-                        getXbuild : { new XBuild(new FakeCommandRunner())},
-                        getNuget : { new DefaultNuget(new FakeCommandRunner())}] as ApplicationContext
-        } else {
-            instance =  [getNunitConsole : { new DefaultNunitConsole(new SystemCommandRunner())},
-                         getXbuild : { new XBuild(new SystemCommandRunner())},
-                         getNuget : { new DefaultNuget(new SystemCommandRunner())},] as ApplicationContext
+    private static ApplicationContext fakeApplicationContext(Project project) {
+        String msBuildPath = project.hasProperty("msbuildPath") ? project.property("msbuildPath") : null
+        String nugetPath = project.hasProperty("nugetPath") ? project.property("nugetPath") : null
+        String nugetVersion = project.hasProperty("nugetVersion") ? project.property("nugetVersion") : null
+
+        CommandRunner commandRunnerInstance = new FakeCommandRunner()
+
+        NugetBuilder nugetBuilder = new NugetBuilder().withCommandRunner(commandRunnerInstance)
+        if (nugetPath) {
+            nugetBuilder.withNugetPath(nugetPath)
+        } else if (nugetVersion) {
+            nugetBuilder.withVersion(nugetVersion)
         }
+        Nuget nugetInstance = nugetBuilder.build()
+        NUnitConsole nunitConsoleInstance = new DefaultNunitConsole(commandRunnerInstance)
+        XBuild msbuildInstance = new XBuild(commandRunnerInstance, msBuildPath)
+
+        return [getNunitConsole : { nunitConsoleInstance },
+                getXbuild : { msbuildInstance },
+                getNuget : { nugetInstance }] as ApplicationContext
     }
+
+    private static ApplicationContext realApplicationContext(Project project) {
+        String msBuildPath = project.hasProperty("msbuildPath") ? project.property("msbuildPath") : null
+        String nugetPath = project.hasProperty("nugetPath") ? project.property("nugetPath") : null
+        String nugetVersion = project.hasProperty("nugetVersion") ? project.property("nugetVersion") : null
+
+        CommandRunner commandRunnerInstance = new SystemCommandRunner()
+
+        NugetBuilder nugetBuilder = new NugetBuilder().withCommandRunner(commandRunnerInstance)
+        if (nugetPath) {
+            nugetBuilder.withNugetPath(nugetPath)
+        } else if (nugetVersion) {
+            nugetBuilder.withVersion(nugetVersion)
+        }
+        Nuget nugetInstance = nugetBuilder.build()
+        NUnitConsole nunitConsoleInstance = new DefaultNunitConsole(commandRunnerInstance)
+        XBuild msbuildInstance = new XBuild(commandRunnerInstance, msBuildPath)
+
+        return [getNunitConsole : { nunitConsoleInstance },
+                getXbuild : { msbuildInstance },
+                getNuget : { nugetInstance },] as ApplicationContext
+    }
+
+    private static
 
     interface ApplicationContext {
         NUnitConsole getNunitConsole()

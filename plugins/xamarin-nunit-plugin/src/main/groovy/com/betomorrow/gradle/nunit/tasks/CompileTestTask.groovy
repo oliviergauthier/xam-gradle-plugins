@@ -5,6 +5,8 @@ import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
 import com.betomorrow.xamarin.tools.xbuild.XBuild
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
 class CompileTestTask extends DefaultTask {
@@ -12,6 +14,7 @@ class CompileTestTask extends DefaultTask {
     protected XBuild xbuild = PluginContext.current.xbuild
     protected SolutionLoader loader = new SolutionLoader()
 
+    @Input @Optional
     List<String> projects
 
     @TaskAction

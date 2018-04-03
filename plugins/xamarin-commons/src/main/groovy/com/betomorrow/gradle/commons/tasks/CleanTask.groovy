@@ -4,6 +4,8 @@ import com.betomorrow.xamarin.descriptors.project.ProjectDescriptor
 import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
 import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
 import java.nio.file.FileVisitResult
@@ -18,7 +20,10 @@ class CleanTask extends DefaultTask {
 
     protected List<String> buildDirectories = ["obj", "bin"]
 
+    @Input @Optional
     String solutionFile
+
+    @Input @Optional
     String projectFile
 
     @TaskAction

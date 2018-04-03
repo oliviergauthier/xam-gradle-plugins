@@ -11,7 +11,11 @@ import com.betomorrow.xamarin.tools.nuspec.dependencies.DependencySet
 import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
 import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
 import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
+import groovy.sql.InOutParameter
 import org.gradle.api.DefaultTask
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
+import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 
 import java.nio.file.Files
@@ -22,25 +26,53 @@ class GenerateNuspecTask extends DefaultTask {
     protected NuSpecWriter writer = new XmlNuSpecWriter()
     protected SolutionLoader loader = new SolutionLoader()
 
+    @OutputFile
     String output
 
+    @Input @Optional
     String title
+
+    @Input @Optional
     String packageId
+
+    @Input @Optional
     String version
+
+    @Input @Optional
     String authors
+
+    @Input @Optional
     String owners
+
+    @Input @Optional
     String licenseUrl
+
+    @Input @Optional
     String projectUrl
+
+    @Input @Optional
     String iconUrl
+
+    @Input @Optional
     Boolean requireLicenseAcceptance
+
+    @Input @Optional
     String description
+
+    @Input @Optional
     String releaseNotes
+
+    @Input @Optional
     String copyright
+
+    @Input @Optional
     String tags
 
+    @Input @Optional
     String configuration
 
     List<Dependency> dependencies
+
     List<AssemblyTarget> assemblies
 
     @TaskAction

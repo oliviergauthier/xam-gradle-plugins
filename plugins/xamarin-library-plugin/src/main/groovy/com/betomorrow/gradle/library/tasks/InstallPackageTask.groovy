@@ -6,6 +6,8 @@ import com.betomorrow.xamarin.files.ZippedFile
 import com.betomorrow.xamarin.tools.nuget.Nuget
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
 import java.nio.file.Files
@@ -16,10 +18,19 @@ class InstallPackageTask extends DefaultTask {
 
     protected Nuget nuget = PluginContext.current.nuget
 
+    @Input @Optional
     String packagePath
+
+    @Input @Optional
     String source
+
+    @Input @Optional
     String format
+
+    @Input @Optional
     String packageId
+
+    @Input @Optional
     String packageVersion
 
     @TaskAction

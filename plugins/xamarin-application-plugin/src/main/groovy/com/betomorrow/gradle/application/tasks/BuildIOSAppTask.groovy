@@ -8,6 +8,8 @@ import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
 import com.betomorrow.xamarin.tools.xbuild.XBuild
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
 class BuildIOSAppTask extends DefaultTask {
@@ -16,16 +18,31 @@ class BuildIOSAppTask extends DefaultTask {
     protected FileCopier fileCopier = PluginContext.current.getFileCopier()
     protected InfoPlistWriter infoPlistWriter = PluginContext.current.getInfoPlistWriter()
 
+    @Input @Optional
     String bundleVersion
+
+    @Input @Optional
     String bundleShortVersion
+
+    @Input @Optional
     String bundleIdentifier
 
+    @Input @Optional
     String infoPlist
 
+    @Input @Optional
     String output
+
+    @Input @Optional
     String projectFile
+
+    @Input @Optional
     String solutionFile
+
+    @Input @Optional
     String configuration
+
+    @Input @Optional
     String platform
 
     @TaskAction

@@ -8,6 +8,8 @@ import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
 import com.betomorrow.xamarin.tools.xbuild.XBuild
 import org.gradle.api.DefaultTask
 import org.gradle.api.GradleException
+import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.Optional
 import org.gradle.api.tasks.TaskAction
 
 class BuildAndroidAppTask extends DefaultTask {
@@ -16,12 +18,25 @@ class BuildAndroidAppTask extends DefaultTask {
     protected AndroidManifestWriter androidManifestWriter = PluginContext.current.getAndroidManifestWriter()
     protected FileCopier fileCopier = PluginContext.current.getFileCopier()
 
+    @Input @Optional
     String appVersion
+
+    @Input @Optional
     String versionCode
+
+    @Input @Optional
     String packageName
+
+    @Input @Optional
     String output
+
+    @Input @Optional
     String projectFile
+
+    @Input @Optional
     String manifest
+
+    @Input @Optional
     String configuration
 
     @TaskAction
