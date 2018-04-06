@@ -2,16 +2,15 @@ package com.betomorrow.gradle.library.tasks
 
 import com.betomorrow.gradle.library.extensions.nuspec.AssemblyTarget
 import com.betomorrow.xamarin.descriptors.project.SymbolsFormat
+import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
+import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
+import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
 import com.betomorrow.xamarin.tools.nuspec.NuSpec
 import com.betomorrow.xamarin.tools.nuspec.NuSpecWriter
 import com.betomorrow.xamarin.tools.nuspec.XmlNuSpecWriter
 import com.betomorrow.xamarin.tools.nuspec.assemblies.Assembly
 import com.betomorrow.xamarin.tools.nuspec.dependencies.Dependency
 import com.betomorrow.xamarin.tools.nuspec.dependencies.DependencySet
-import com.betomorrow.xamarin.descriptors.project.XamarinProjectDescriptor
-import com.betomorrow.xamarin.descriptors.solution.SolutionDescriptor
-import com.betomorrow.xamarin.descriptors.solution.SolutionLoader
-import groovy.sql.InOutParameter
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.Optional
@@ -27,7 +26,7 @@ class GenerateNuspecTask extends DefaultTask {
     protected SolutionLoader loader = new SolutionLoader()
 
     @OutputFile
-    String output
+    File output
 
     @Input @Optional
     String title
@@ -75,8 +74,22 @@ class GenerateNuspecTask extends DefaultTask {
 
     List<AssemblyTarget> assemblies
 
+    @Input
+    String checkDependencies() {
+        if (dependencies == null) {
+            return null
+        }
+
+        return dependencies.collect { it -> "${it.group}:${it.id}:${it.version}" }.join(",")
+    }
+
+    @Input
+    String checkAssemblies() {
+        return assemblies.collect { it -> "${it.dest}:${it.includes}" }.join(",")
+    }
+
     @TaskAction
-     void generateNuspec() {
+    void generateNuspec() {
         NuSpec nuSpec = new NuSpec()
 
         nuSpec.output = output
