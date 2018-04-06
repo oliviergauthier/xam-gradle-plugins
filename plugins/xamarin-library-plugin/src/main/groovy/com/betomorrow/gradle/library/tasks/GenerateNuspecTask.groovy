@@ -76,10 +76,6 @@ class GenerateNuspecTask extends DefaultTask {
 
     @Input
     String checkDependencies() {
-        if (dependencies == null) {
-            return null
-        }
-
         return dependencies.collect { it -> "${it.group}:${it.id}:${it.version}" }.join(",")
     }
 
