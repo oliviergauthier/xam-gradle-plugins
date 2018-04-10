@@ -70,7 +70,7 @@ class XamarinLibraryPlugin implements Plugin<Project> {
 
                 nuspec.packages.all { p ->
 
-                    def targetNuspecPath = project.file("${p.packageId}.nuspec").path
+                    def targetNuspec = project.file("${p.packageId}.nuspec")
 
                     def generateNuspec = task("generateNuspec${p.name}", 'type': GenerateNuspecTask) {
                         packageId = p.packageId
@@ -86,7 +86,7 @@ class XamarinLibraryPlugin implements Plugin<Project> {
                         releaseNotes = p.releaseNotes
                         copyright = p.copyright
                         tags = p.tags
-                        output = targetNuspecPath
+                        output = targetNuspec
                         dependencies = p.dependencies
                         assemblies = p.assemblies
                         configuration = library.configuration
@@ -94,7 +94,7 @@ class XamarinLibraryPlugin implements Plugin<Project> {
                     generateNuspecTasks.add(generateNuspec)
 
                     def packageTask = task("package${p.name}", dependsOn: ['build', "generateNuspec${p.name}"], 'type': PackageLibraryTask) {
-                        nuspecPath = targetNuspecPath
+                        nuspecPath = targetNuspec.path
                         suffix = p.suffix
                         outputDirectory = NuspecPluginExtension.OUTPUT_DIRECTORY
                     }

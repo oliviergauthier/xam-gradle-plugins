@@ -14,7 +14,7 @@ class NuSpecTest {
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder()
 
-    def SAMPLE_NUSPEC = FileUtils.getResourcePath('Sample.nuspec').toString()
+    def SAMPLE_NUSPEC = FileUtils.getResourcePath('Sample.nuspec').toFile()
     def output
 
     NuSpec nuspec
@@ -26,7 +26,7 @@ class NuSpecTest {
 
         writer = new XmlNuSpecWriter()
         nuspec = new NuSpec(SAMPLE_NUSPEC)
-        nuspec.output = output.getAbsolutePath()
+        nuspec.output = output
     }
 
     @Test

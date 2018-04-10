@@ -5,8 +5,8 @@ import com.betomorrow.xamarin.tools.nuspec.dependencies.DependencySet
 
 class NuSpec {
 
-    String source
-    String output
+    File source
+    File output
 
     String title
     String packageId
@@ -28,7 +28,7 @@ class NuSpec {
     NuSpec() {
     }
 
-    NuSpec(String source) {
+    NuSpec(File source) {
         this.source = source
     }
 
