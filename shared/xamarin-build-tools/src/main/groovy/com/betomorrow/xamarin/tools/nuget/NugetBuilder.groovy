@@ -10,7 +10,7 @@ import java.nio.file.Paths
 
 class NugetBuilder {
 
-    static final String DEFAULT_NUGET_VERSION = "4.5.1"
+    static final String DEFAULT_NUGET_VERSION = "4.6.2"
 
     private FileCopier filesCopier = new DefaultFileCopier()
 
