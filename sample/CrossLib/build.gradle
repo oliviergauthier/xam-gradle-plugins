@@ -7,7 +7,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "com.betomorrow.gradle:xamarin-library-plugin:0.3.1"
+        classpath "com.betomorrow.gradle:xamarin-library-plugin:1.2.0-SNAPSHOT"
     }
 }
 
@@ -53,10 +53,14 @@ nuspec {
             description = "Sample for nuspec package plugin"
 
             dependencies {
-                dependency "Xamarin.Forms:[1.4.3,)"
-                dependency "Xam.ACME.Commons:[1.0.0,)"
-                dependency "net40:Xamarin.Forms:[1.4.3,)"
-                dependency "net40:Xam.ACME.Commons:[1.0.0,)"
+                "default" {
+                    dependency "Xamarin.Forms:[1.4.3,)"
+                    dependency "Xam.ACME.Commons:[1.0.0,)"
+                }
+
+                "net40" {
+                    baseOn "default"
+                }
             }
 
             assemblies {
