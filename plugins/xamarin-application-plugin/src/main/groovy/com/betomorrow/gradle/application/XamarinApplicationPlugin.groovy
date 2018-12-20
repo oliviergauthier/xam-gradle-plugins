@@ -6,6 +6,7 @@ import com.betomorrow.gradle.application.extensions.XamarinAndroidApplicationExt
 import com.betomorrow.gradle.application.extensions.XamarinApplicationExtension
 import com.betomorrow.gradle.application.extensions.XamarinIosApplicationExtension
 import com.betomorrow.gradle.application.tasks.BuildAndroidAppTask
+import com.betomorrow.gradle.application.tasks.SignAndroidPackageTask
 import com.betomorrow.gradle.application.tasks.BuildIOSAppTask
 import com.betomorrow.gradle.application.tasks.NugetRestoreTask
 import com.betomorrow.gradle.commons.tasks.CleanDistTask
@@ -54,6 +55,12 @@ class XamarinApplicationPlugin implements Plugin<Project> {
                     packageName = android.packageName
                     projectFile = android.projectFile
                     manifest = android.manifest
+                    output = android.output
+                    configuration = application.configuration
+                }
+
+                task("signAndroid", description: "sign android package", dependsOn: ["buildAndroid"], group: Groups.BUILD, type: SignAndroidPackageTask) {
+                    projectFile = android.projectFile
                     output = android.output
                     configuration = application.configuration
                 }

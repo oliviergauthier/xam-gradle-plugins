@@ -33,6 +33,14 @@ class XBuild {
         return commandRunner.run(cmd)
     }
 
+    int signAndroidPackage(String configuration, String projectFile) {
+        XBuildCmd cmd = new XBuildCmd(msBuildPath)
+        cmd.setConfiguration(configuration)
+        cmd.setTarget(XBuildTargets.SignAndroidPackage)
+        cmd.setProjectPath(projectFile)
+        return commandRunner.run(cmd)
+    }
+
     int buildIosApp(String configuration, String platform, String outputDir, String solutionPath) {
         XBuildCmd cmd = new XBuildCmd(msBuildPath)
         cmd.setConfiguration(configuration)
