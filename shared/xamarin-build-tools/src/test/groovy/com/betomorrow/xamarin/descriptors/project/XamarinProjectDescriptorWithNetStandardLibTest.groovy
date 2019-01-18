@@ -21,13 +21,23 @@ class XamarinProjectDescriptorWithNetStandardLibTest {
     }
 
     @Test
-    void testGetOutputDirForDebugReturnsDebutPath() {
+    void testGetOutputDirForDebugReturnsDebugPath() {
         assert "bin/Debug/netstandard2.0" == csproj.getOutputDir("Debug")
     }
 
     @Test
-    void testGetOutputDirForReleaseReturnsDebutPath() {
+    void testGetOutputDirForReleaseReturnsReleasePath() {
         assert "bin/Release/netstandard2.0" == csproj.getOutputDir("Release")
+    }
+
+    @Test
+    void testGetOutputDirForPortableNet45ReturnsPortableNet45Path() {
+        assert "bin/Release/portable-net45" == csproj.getOutputDir("Release", "AnyCPU", "portable-net45")
+    }
+
+    @Test
+    void testGetOutputDirForNetStandardReturnsPortableNetStandardPath() {
+        assert "bin/Release/netstandard2.0" == csproj.getOutputDir("Release", "AnyCPU", "netstandard2.0")
     }
 
 

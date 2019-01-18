@@ -293,7 +293,7 @@ class GenerateNuspecTaskTest extends Specification {
                         target {
                             dest "lib/Xamarin.iOS10"
                             includes "CrossLib.Abstractions",
-                                     "CrossLib.IOS"
+                                    "CrossLib.IOS"
                         }
                     }
                 }
@@ -333,6 +333,47 @@ class GenerateNuspecTaskTest extends Specification {
         assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib.IOS/bin/Release/CrossLib.IOS.dll').toString(),
                 'lib/Xamarin.iOS10'))
 
+
+
+    }
+
+    def "should resolve assemblies by project names and target"() {
+        given:
+        NuSpec nuSpecData
+        project.nuspec {
+            packages {
+                SampleLib {
+                    assemblies {
+                        target {
+                            dest "lib/portable-net45+wp8+wpa81"
+                            target "portable-net45+wp8+wpa81"
+                            includes "CrossLib"
+                        }
+
+                        target {
+                            dest "lib/netstandard2.0"
+                            target "netstandard2.0"
+                            includes "CrossLib"
+                        }
+                    }
+                }
+            }
+        }
+
+        when:
+        project.evaluate()
+        task = project.tasks.generateNuspecSampleLib
+        task.writer = writer
+        task.generateNuspec()
+
+        then:
+        1 * writer.write(_) >> { arguments -> nuSpecData = arguments[0] }
+
+        assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib/bin/Release/portable-net45+wp8+wpa81/CrossLib.dll').toString(),
+                'lib/portable-net45+wp8+wpa81'))
+
+        assert nuSpecData.assemblySet.contains(new Assembly(Paths.get('CrossLib/bin/Release/netstandard2.0/CrossLib.dll').toString(),
+                'lib/netstandard2.0'))
 
 
     }
