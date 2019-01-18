@@ -52,11 +52,18 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
 
     // Commons
 
-    String getOutputDir(String configuration, String platform = null) {
+    String getOutputDir(String configuration, String platform = null, String target = null) {
         def outputPath = getPropertyGroup(configuration, platform)?.OutputPath?.toString()
 
         if (!StringUtils.isNullOrWhiteSpace(outputPath)) {
+            if(!StringUtils.isNullOrWhiteSpace(target)){
+                outputPath = outputPath.concat("/${target}");
+            }
             return FileUtils.toUnixPath(outputPath)
+        }
+
+        if(!StringUtils.isNullOrWhiteSpace(target)){
+            return FileUtils.toUnixPath("bin/${configuration}/${target}")
         }
 
         def targetFramework = getPropertyGroup(configuration, platform)?.TargetFramework?.toString()
@@ -72,12 +79,12 @@ class XamarinProjectDescriptor extends ProjectDescriptor {
         return null
     }
 
-    Path getLibraryOutputPath(String configuration) {
-        return path.parent.resolve(getOutputDir(configuration, 'AnyCPU')).resolve("${assemblyName}.dll")
+    Path getLibraryOutputPath(String configuration, String target = null) {
+        return path.parent.resolve(getOutputDir(configuration, 'AnyCPU', target)).resolve("${assemblyName}.dll")
     }
 
-    Path getSymbolsOutputPath(String configuration, SymbolsFormat symbolsFormat = SymbolsFormat.MDB) {
-        return path.parent.resolve(getOutputDir(configuration, 'AnyCPU'))
+    Path getSymbolsOutputPath(String configuration, String target, SymbolsFormat symbolsFormat = SymbolsFormat.MDB) {
+        return path.parent.resolve(getOutputDir(configuration, 'AnyCPU', target))
                 .resolve("${assemblyName}.${symbolsFormat.fileExtension}")
     }
 

@@ -6,13 +6,15 @@ import groovy.transform.Canonical
 class AssemblyTarget {
 
     private String _dest
+    private String _target
     private List<String> _includes
 
     AssemblyTarget() {
     }
 
-    AssemblyTarget(dest, includes) {
+    AssemblyTarget(dest, target, includes) {
         this._dest = dest
+        this._target = target
         this._includes = includes
     }
 
@@ -22,6 +24,14 @@ class AssemblyTarget {
 
     def getDest() {
         return _dest
+    }
+
+    def target(String target) {
+        this._target = target
+    }
+
+    def getTarget() {
+        return _target
     }
 
     def includes(String... includes) {
