@@ -4,9 +4,18 @@ class SystemCommandRunner implements CommandRunner {
 
     def workingDirectory =  new File(System.properties['user.dir'].toString())
 
+    private boolean verbose
+
+    @Override
+    void setVerbose(boolean verbose) {
+        this.verbose = verbose
+    }
+
     @Override
     int run(CommandRunner.Cmd cmd) {
-        println "Execute command : ${cmd.build().join(" ")}"
+        if (verbose) {
+            println "Execute command : ${cmd.build().join(" ")}"
+        }
 
         StringBuilder out = new StringBuilder()
         StringBuilder err = new StringBuilder()

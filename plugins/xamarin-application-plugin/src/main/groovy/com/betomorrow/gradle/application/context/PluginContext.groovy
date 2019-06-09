@@ -27,16 +27,18 @@ class PluginContext {
 
     static void configure(Project project) {
         boolean  dryRun = project.hasProperty("dryRun") && project.dryRun
-        instance = dryRun ? fakeApplicationContext(project) : realApplicationContext(project)
+        boolean verbose = project.hasProperty("verbose") && project.verbose
+        instance = dryRun ? fakeApplicationContext(project, verbose) : realApplicationContext(project, verbose)
     }
 
-    private static ApplicationContext fakeApplicationContext(Project project) {
+    private static ApplicationContext fakeApplicationContext(Project project, boolean verbose) {
 
         String msBuildPath = project.hasProperty("msbuildPath") ? project.property("msbuildPath") : null
         String nugetPath = project.hasProperty("nugetPath") ? project.property("nugetPath") : null
         String nugetVersion = project.hasProperty("nugetVersion") ? project.property("nugetVersion") : null
 
         CommandRunner commandRunnerInstance = new FakeCommandRunner()
+        commandRunnerInstance.verbose = verbose
 
         NugetBuilder nugetBuilder = new NugetBuilder().withCommandRunner(commandRunnerInstance)
         if (nugetPath) {
@@ -59,12 +61,13 @@ class PluginContext {
 
     }
 
-    private static ApplicationContext realApplicationContext(Project project) {
+    private static ApplicationContext realApplicationContext(Project project, boolean verbose) {
         String msBuildPath = project.hasProperty("msbuildPath") ? project.property("msbuildPath") : null
         String nugetPath = project.hasProperty("nugetPath") ? project.property("nugetPath") : null
         String nugetVersion = project.hasProperty("nugetVersion") ? project.property("nugetVersion") : null
 
         CommandRunner commandRunnerInstance = new SystemCommandRunner()
+        commandRunnerInstance.verbose = verbose
 
         NugetBuilder nugetBuilder = new NugetBuilder().withCommandRunner(commandRunnerInstance)
         if (nugetPath) {
