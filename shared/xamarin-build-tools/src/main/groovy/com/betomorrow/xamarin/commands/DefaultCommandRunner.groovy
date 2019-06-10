@@ -11,6 +11,12 @@ class DefaultCommandRunner implements CommandRunner {
     boolean dryRun
 
     @Override
+    void setVerbose(boolean verbose) {
+        systemCommandRunner.setVerbose(verbose)
+        dryRunCommandRunner.setVerbose(verbose)
+    }
+
+    @Override
     int run(CommandRunner.Cmd cmd) {
         if (dryRun) {
             return dryRunCommandRunner.run(cmd)
